@@ -2436,13 +2436,13 @@ footer::before {
             <p class="ta-member-desc">キャリア相談、お気軽にどうぞ。一緒に最適な道を見つけましょう。</p>
           </div>
           <div class="ta-member">
-            <img src="photos/Koyori.jpg" alt="Team Member" class="ta-member-img">
+            <img src="photos/Reception%20(2).png" alt="Team Member" class="ta-member-img">
             <h3 class="ta-member-name">Koyori</h3>
             <p class="ta-member-role">Coordinator</p>
             <p class="ta-member-desc">渡航手続きや現地生活もフォローします。</p>
           </div>
           <div class="ta-member">
-            <img src="photos/Maya.png" alt="Team Member" class="ta-member-img">
+            <img src="photos/GBS.jpeg" alt="Team Member" class="ta-member-img">
             <h3 class="ta-member-name">Maya</h3>
             <p class="ta-member-role">TA Specialist</p>
             <p class="ta-member-desc">ご希望のプロジェクトを一緒に探します。</p>
@@ -2753,14 +2753,12 @@ footer::before {
       items.sort((a, b) => {
         switch(sortType){
           case 'new':
+          default:
             return (b.dataset.date || '').localeCompare(a.dataset.date || '');
           case 'az':
             return (a.dataset.title || '').localeCompare(b.dataset.title || '', 'ja');
           case 'za':
             return (b.dataset.title || '').localeCompare(a.dataset.title || '', 'ja');
-          case 'recommend':
-          default:
-            return (a.dataset.rank || '999') - (b.dataset.rank || '999');
         }
       });
       
