@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社員の声 | TP Japan - リアルな体験談</title>
+    <meta name="description" content="テレパフォーマンスで実際に働く日本人スタッフの体験談。マレーシア・タイでの仕事と生活のリアルな声。">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --tp-black: #000000;
+            --tp-dark: #1a1a1a;
+            --tp-charcoal: #2d2d2d;
+            --tp-gray-dark: #4a4a4a;
+            --tp-gray: #666666;
+            --tp-gray-light: #999999;
+            --tp-silver: #cccccc;
+            --tp-light: #e5e5e5;
+            --tp-off-white: #f5f5f5;
+            --tp-white: #ffffff;
+            
+            --font-primary: 'Noto Sans JP', sans-serif;
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
+            --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--tp-dark);
+            line-height: 1.8;
+            background: var(--tp-white);
+        }
+
+        /* Header */
+        header {
+            background: var(--tp-white);
+            border-bottom: 1px solid var(--tp-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: var(--tp-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--tp-white);
+            font-size: 1.2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--tp-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--tp-black);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--tp-black);
+            color: var(--tp-white);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '"';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            font-size: 15rem;
+            color: rgba(255,255,255,0.05);
+            font-weight: 900;
+        }
+
+        .hero-section::after {
+            content: '"';
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%) rotate(180deg);
+            font-size: 15rem;
+            color: rgba(255,255,255,0.05);
+            font-weight: 900;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--tp-silver);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Filters */
+        .filter-section {
+            background: var(--tp-off-white);
+            padding: 3rem 2rem;
+            border-bottom: 1px solid var(--tp-light);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 2rem;
+            background: var(--tp-white);
+            border: 2px solid var(--tp-light);
+            color: var(--tp-gray-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--tp-gray);
+        }
+
+        .filter-btn.active {
+            background: var(--tp-black);
+            color: var(--tp-white);
+            border-color: var(--tp-black);
+        }
+
+        /* Testimonials Grid */
+        .testimonials-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--tp-white);
+            border: 1px solid var(--tp-light);
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-5px);
+            border-color: var(--tp-black);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 3rem;
+            color: var(--tp-light);
+            font-weight: 900;
+        }
+
+        .testimonial-content {
+            margin-bottom: 2rem;
+            font-style: italic;
+            color: var(--tp-gray-dark);
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--tp-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tp-white);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-name-jp {
+            font-size: 0.9rem;
+            color: var(--tp-gray);
+        }
+
+        .author-position {
+            font-size: 0.9rem;
+            color: var(--tp-gray);
+        }
+
+        .author-location {
+            font-size: 0.85rem;
+            color: var(--tp-gray-light);
+        }
+
+        /* Featured Story */
+        .featured-story {
+            background: var(--tp-off-white);
+            padding: 5rem 2rem;
+        }
+
+        .featured-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .featured-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .featured-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1rem;
+        }
+
+        .interview-card {
+            background: var(--tp-white);
+            border: 2px solid var(--tp-black);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .interview-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--tp-light);
+        }
+
+        .interview-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--tp-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tp-white);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .interview-meta h3 {
+            font-size: 1.8rem;
+            color: var(--tp-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .interview-meta p {
+            color: var(--tp-gray);
+        }
+
+        .interview-content {
+            margin-bottom: 2rem;
+        }
+
+        .interview-q {
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .interview-a {
+            color: var(--tp-gray-dark);
+            line-height: 1.8;
+            padding-left: 1rem;
+            border-left: 3px solid var(--tp-light);
+        }
+
+        /* Statistics */
+        .stats-section {
+            background: var(--tp-black);
+            color: var(--tp-white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            padding: 1rem;
+            border-right: 1px solid var(--tp-charcoal);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--tp-silver);
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .video-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: var(--tp-white);
+            border: 1px solid var(--tp-light);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 200px;
+            background: var(--tp-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tp-white);
+            font-size: 3rem;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-desc {
+            color: var(--tp-gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, var(--tp-dark) 0%, var(--tp-black) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            color: var(--tp-white);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 3rem;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid var(--tp-white);
+        }
+
+        .btn-primary {
+            background: var(--tp-white);
+            color: var(--tp-black);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--tp-white);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item:nth-child(2) {
+                border-right: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid var(--tp-charcoal);
+            }
+
+            .interview-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">TP</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 1.3rem;">Teleperformance</div>
+                    <div style="font-size: 0.75rem; color: #666;">Malaysia · Thailand — 日本語採用</div>
+                </div>
+            </div>
+            <nav>
+                <a href="index.html">ホーム</a>
+                <a href="about-tp.html">About TP</a>
+                <a href="open-jobs.html">求人情報</a>
+                <a href="salary-and-benefits.html">福利厚生</a>
+                <a href="relocation-visa.html">移住・ビザ</a>
+                <a href="interview-process.html">面接プロセス</a>
+                <a href="why-malaysia-thailand.html">勤務地</a>
+                <a href="testimonials.html" class="active">社員の声</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">社員の声 / Testimonials</h1>
+        <p class="hero-subtitle">
+            実際に働くメンバーのリアルな体験談<br>
+            あなたの新しい一歩の参考に
+        </p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <button class="filter-btn active">すべて</button>
+            <button class="filter-btn">クアラルンプール</button>
+            <button class="filter-btn">ペナン</button>
+            <button class="filter-btn">バンコク</button>
+            <button class="filter-btn">転職組</button>
+            <button class="filter-btn">新卒</button>
+        </div>
+    </section>
+
+    <!-- Testimonials Grid -->
+    <section class="testimonials-section">
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    「物価が安いから、カフェ巡りや外食が気軽に楽しめるようになりました。
+                    日本では考えられなかった贅沢な暮らしです。毎週末プール、サウナ、ジム。
+                    こんな暮らし、日本では考えられませんでした！」
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">YT</div>
+                    <div class="author-info">
+                        <div class="author-name">Yuki Tanaka</div>
+                        <div class="author-name-jp">田中 ユキ</div>
+                        <div class="author-position">Customer Service</div>
+                        <div class="author-location">📍 KL在住・30代男性</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    「通勤ストレスがなくなり、平日の夜もヨガや友達との時間をゆったり過ごせます。
+                    心に余裕ができました。英語が苦手でも、日本語メインの仕事からスタートできたので
+                    安心でした。今では英語も上達しました。」
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AS</div>
+                    <div class="author-info">
+                        <div class="author-name">Aiko Sato</div>
+                        <div class="author-name-jp">佐藤 アイコ</div>
+                        <div class="author-position">Travel Support</div>
+                        <div class="author-location">📍 ペナン在住・20代女性</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    「休日は友達とビーチやナイトマーケットへ。仕事も遊びもバランスよく楽しめています！
+                    週末はLCCで近隣国へ旅行も。シンガポール、ベトナム、バリ島など、
+                    気軽に行けるのが最高です。」
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">KM</div>
+                    <div class="author-info">
+                        <div class="author-name">Kenji Matsuda</div>
+                        <div class="author-name-jp">松田 ケンジ</div>
+                        <div class="author-position">IT Support</div>
+                        <div class="author-location">📍 ペナン在住・20代男性</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    「'違っていい'という価値観が、心を自由にしてくれました。
+                    日本にいるときより、周りの目を気にしなくなりましたね。
+                    多様性が当たり前の環境で、自分らしく働けています。」
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MH</div>
+                    <div class="author-info">
+                        <div class="author-name">Maho Hayashi</div>
+                        <div class="author-name-jp">林 マホ</div>
+                        <div class="author-position">採用チーム</div>
+                        <div class="author-location">📍 KL在住・採用担当</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    「新卒で入社して3年、今はチームリーダーをしています。
+                    年齢に関係なく実力が評価される環境。日本の会社なら10年かかる
+                    キャリアアップが、ここでは3年で実現しました。」
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RN</div>
+                    <div class="author-info">
+                        <div class="author-name">Ryo Nakamura</div>
+                        <div class="author-name-jp">中村 リョウ</div>
+                        <div class="author-position">Team Leader</div>
+                        <div class="author-location">📍 バンコク在住・20代男性</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 6 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    「子供を連れて移住しました。日本人学校もあり、医療も充実。
+                    家族での生活も安心です。コンドのプールで子供が毎日遊んでいます。
+                    家族の時間が増えて、本当に良かったです。」
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">YI</div>
+                    <div class="author-info">
+                        <div class="author-name">Yumi Ito</div>
+                        <div class="author-name-jp">伊藤 ユミ</div>
+                        <div class="author-position">Sales Manager</div>
+                        <div class="author-location">📍 バンコク在住・30代女性</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Story -->
+    <section class="featured-story">
+        <div class="featured-container">
+            <div class="featured-header">
+                <h2>Featured Interview</h2>
+                <p style="color: #666;">元営業職から海外キャリアへの転身</p>
+            </div>
+            
+            <div class="interview-card">
+                <div class="interview-header">
+                    <div class="interview-avatar">TY</div>
+                    <div class="interview-meta">
+                        <h3>Takeshi Yamada / 山田 タケシ</h3>
+                        <p>Senior Customer Service Representative</p>
+                        <p>元営業職・30代・KL在住2年</p>
+                    </div>
+                </div>
+                
+                <div class="interview-content">
+                    <p class="interview-q">Q: なぜマレーシアで働こうと思ったのですか？</p>
+                    <p class="interview-a">
+                        日本での営業職に疲れていて、新しい環境でチャレンジしたかったんです。
+                        英語は苦手でしたが、日本語メインの仕事からスタートできると聞いて決意しました。
+                        海外経験もなかったので最初は不安でしたが、日本人スタッフのサポートが手厚くて安心でした。
+                    </p>
+                    
+                    <p class="interview-q">Q: 実際に働いてみてどうですか？</p>
+                    <p class="interview-a">
+                        想像以上に働きやすいです。残業はほとんどなく、有給も取りやすい。
+                        多国籍なチームメンバーと働くのは刺激的で、毎日が学びです。
+                        英語も自然に上達して、今では英語での会議も問題なくこなせるようになりました。
+                    </p>
+                    
+                    <p class="interview-q">Q: 生活面での変化は？</p>
+                    <p class="interview-a">
+                        生活の質が格段に上がりました。プール・ジム付きのコンドに住んで、
+                        週末は近隣国へ旅行。食事も安くて美味しい。貯金も日本にいた時より増えています。
+                        何より、仕事とプライベートのバランスが取れるようになったのが一番の収穫です。
+                    </p>
+                    
+                    <p class="interview-q">Q: これから応募する方へメッセージを</p>
+                    <p class="interview-a">
+                        一歩踏み出す勇気があれば、必ず道は開けます。TPは本当にサポートが充実していて、
+                        海外初心者でも安心して働ける環境です。悩んでいるなら、まずはカジュアル面談で
+                        話を聞いてみてください。私も最初はそこから始めました。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">社員満足度調査結果</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">92%</span>
+                    <span class="stat-label">仕事満足度</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">88%</span>
+                    <span class="stat-label">生活満足度</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">同僚推奨率</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3.2年</span>
+                    <span class="stat-label">平均勤続年数</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-header">
+            <h2>社員インタビュー動画</h2>
+            <p style="color: #666;">リアルな声を動画でチェック</p>
+        </div>
+        
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-placeholder">▶️</div>
+                <div class="video-info">
+                    <h3 class="video-title">新卒入社1年目の体験談</h3>
+                    <p class="video-desc">大学卒業後すぐにマレーシアへ。初めての海外生活と仕事について。</p>
+                </div>
+            </div>
+            
+            <div class="video-card">
+                <div class="video-placeholder">▶️</div>
+                <div class="video-info">
+                    <h3 class="video-title">転職組のキャリアチェンジ</h3>
+                    <p class="video-desc">日本での営業職から、海外でのカスタマーサービスへ転身。</p>
+                </div>
+            </div>
+            
+            <div class="video-card">
+                <div class="video-placeholder">▶️</div>
+                <div class="video-info">
+                    <h3 class="video-title">マネージャーへの昇進ストーリー</h3>
+                    <p class="video-desc">入社3年でマネージャーに昇進。キャリアパスについて。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">あなたのストーリーも、ここから始まる</h2>
+        <p>先輩たちも最初は不安でした。でも今は充実した毎日を送っています。</p>
+        <div class="cta-buttons">
+            <a href="https://careerseng-tp.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job" 
+               class="btn btn-primary" target="_blank">
+                今すぐ応募する
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter logic would go here
+                // For now, just visual feedback
+            });
+        });
+    </script>
+</body>
+</html>

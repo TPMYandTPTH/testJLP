@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面接プロセス | TP Japan - すべてオンラインで完結</title>
+    <meta name="description" content="テレパフォーマンスの面接プロセスは全てオンラインで完結。日本語でのサポートで安心して選考を受けていただけます。">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Corporate Colors - Black & White */
+            --tp-black: #000000;
+            --tp-dark: #1a1a1a;
+            --tp-charcoal: #2d2d2d;
+            --tp-gray-dark: #4a4a4a;
+            --tp-gray: #666666;
+            --tp-gray-light: #999999;
+            --tp-silver: #cccccc;
+            --tp-light: #e5e5e5;
+            --tp-off-white: #f5f5f5;
+            --tp-white: #ffffff;
+            
+            /* Typography */
+            --font-primary: 'Noto Sans JP', sans-serif;
+            --font-secondary: 'Zen Maru Gothic', sans-serif;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
+            --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--tp-dark);
+            line-height: 1.8;
+            background: var(--tp-white);
+        }
+
+        /* Header (same as homepage) */
+        header {
+            background: var(--tp-white);
+            border-bottom: 1px solid var(--tp-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: var(--tp-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--tp-white);
+            font-size: 1.2rem;
+            letter-spacing: -1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--tp-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--tp-black);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--tp-off-white) 0%, var(--tp-white) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 40px,
+                rgba(0,0,0,0.02) 40px,
+                rgba(0,0,0,0.02) 80px
+            );
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--tp-black);
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--tp-gray-dark);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Process Timeline */
+        .timeline-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--tp-black);
+        }
+
+        .section-title p {
+            color: var(--tp-gray);
+            font-size: 1.1rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 3rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(
+                to bottom,
+                var(--tp-black) 0%,
+                var(--tp-gray) 50%,
+                var(--tp-light) 100%
+            );
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 4rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--tp-white);
+            padding: 2.5rem;
+            border: 1px solid var(--tp-light);
+            box-shadow: var(--shadow-lg);
+            margin: 0 3rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--tp-black);
+        }
+
+        .timeline-number {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--tp-black);
+            color: var(--tp-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.3rem;
+            z-index: 2;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--tp-gray-dark);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-duration {
+            display: inline-block;
+            background: var(--tp-off-white);
+            color: var(--tp-gray);
+            padding: 0.3rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Interview Tips */
+        .tips-section {
+            padding: 5rem 2rem;
+            background: var(--tp-black);
+            color: var(--tp-white);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tip-card {
+            padding: 2rem;
+            border: 1px solid var(--tp-charcoal);
+            background: rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--tp-gray);
+            transform: translateY(-5px);
+        }
+
+        .tip-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .tip-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .tip-text {
+            color: var(--tp-silver);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Required Documents */
+        .documents-section {
+            padding: 5rem 2rem;
+            background: var(--tp-off-white);
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .document-card {
+            background: var(--tp-white);
+            padding: 2rem;
+            border-left: 4px solid var(--tp-black);
+            transition: all 0.3s ease;
+        }
+
+        .document-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateX(5px);
+        }
+
+        .document-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1rem;
+        }
+
+        .document-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .document-list li {
+            padding: 0.5rem 0;
+            color: var(--tp-gray-dark);
+            position: relative;
+            padding-left: 2rem;
+            border-bottom: 1px solid var(--tp-light);
+        }
+
+        .document-list li:last-child {
+            border-bottom: none;
+        }
+
+        .document-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--tp-black);
+            font-weight: bold;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--tp-white);
+            border: 1px solid var(--tp-light);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            color: var(--tp-black);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--tp-gray-dark);
+            line-height: 1.8;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--tp-dark) 0%, var(--tp-black) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            color: var(--tp-white);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 3rem;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid var(--tp-white);
+        }
+
+        .btn-primary {
+            background: var(--tp-white);
+            color: var(--tp-black);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--tp-white);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--tp-white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--tp-white);
+            color: var(--tp-black);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+            }
+
+            .timeline-number {
+                left: 30px;
+            }
+
+            .timeline-content {
+                margin-left: 70px;
+                margin-right: 0;
+            }
+
+            .tips-grid,
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">TP</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 1.3rem;">Teleperformance</div>
+                    <div style="font-size: 0.75rem; color: #666;">Malaysia · Thailand — 日本語採用</div>
+                </div>
+            </div>
+            <nav>
+                <a href="index.html">ホーム</a>
+                <a href="about-tp.html">About TP</a>
+                <a href="open-jobs.html">求人情報</a>
+                <a href="salary-and-benefits.html">福利厚生</a>
+                <a href="relocation-visa.html">移住・ビザ</a>
+                <a href="interview-process.html" class="active">面接プロセス</a>
+                <a href="why-malaysia-thailand.html">勤務地</a>
+                <a href="faq.html">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">面接プロセス</h1>
+        <p class="hero-subtitle">
+            すべてオンラインで完結。日本語でのサポートで安心。<br>
+            内定まで約2〜3週間のスピード選考
+        </p>
+    </section>
+
+    <!-- Process Timeline -->
+    <section class="timeline-section">
+        <div class="section-title">
+            <h2>選考ステップ</h2>
+            <p>シンプルでスピーディーな5つのステップ</p>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-number">01</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">オンライン応募</h3>
+                    <p class="timeline-description">
+                        応募フォームから基本情報と履歴書（CV）をアップロード。
+                        英語の履歴書がない方は、日本語の履歴書でもOK。
+                        24時間いつでも応募可能です。
+                    </p>
+                    <span class="timeline-duration">所要時間: 約10分</span>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">02</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">書類選考</h3>
+                    <p class="timeline-description">
+                        ご提出いただいた書類を採用チームが確認。
+                        合否に関わらず、必ず3営業日以内にご連絡します。
+                        追加書類が必要な場合は個別にご案内。
+                    </p>
+                    <span class="timeline-duration">結果通知: 3営業日以内</span>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">03</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">オンライン面接（1次）</h3>
+                    <p class="timeline-description">
+                        採用担当者との面接をMicrosoft Teamsで実施。
+                        お仕事内容の説明、志望動機、簡単な英語力チェック。
+                        日本語メインで進行するので安心です。
+                    </p>
+                    <span class="timeline-duration">面接時間: 約30-45分</span>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">04</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">オンライン面接（最終）</h3>
+                    <p class="timeline-description">
+                        マネージャーとの最終面接。
+                        具体的な業務内容、チーム体制、キャリアパスについて。
+                        入社後のイメージを明確にしていただきます。
+                    </p>
+                    <span class="timeline-duration">面接時間: 約30-45分</span>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">05</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">内定通知</h3>
+                    <p class="timeline-description">
+                        最終面接から1週間以内に結果をご連絡。
+                        オファーレター（内定通知書）をメールで送付。
+                        ビザ申請や渡航準備のサポートを開始します。
+                    </p>
+                    <span class="timeline-duration">入社まで: 約1-2ヶ月</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interview Tips -->
+    <section class="tips-section">
+        <div class="section-title">
+            <h2 style="color: white;">面接成功のポイント</h2>
+            <p style="color: #ccc;">TPが求める人材像とアピールポイント</p>
+        </div>
+        
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-icon">💬</div>
+                <h3 class="tip-title">コミュニケーション力</h3>
+                <p class="tip-text">
+                    お客様対応が主な業務となるため、
+                    明るく丁寧なコミュニケーション力を重視。
+                    面接でも笑顔で話すことを心がけましょう。
+                </p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">🌏</div>
+                <h3 class="tip-title">海外への意欲</h3>
+                <p class="tip-text">
+                    なぜマレーシア・タイで働きたいのか、
+                    海外生活への期待や目標を明確に。
+                    新しい環境への適応力もアピールポイント。
+                </p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">📈</div>
+                <h3 class="tip-title">成長意欲</h3>
+                <p class="tip-text">
+                    語学力向上やキャリアアップへの意欲、
+                    将来の目標やビジョンを持っている方を歓迎。
+                    具体的な目標を伝えると好印象。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Required Documents -->
+    <section class="documents-section">
+        <div class="section-title">
+            <h2>必要書類</h2>
+            <p>応募から入社までに必要な書類一覧</p>
+        </div>
+        
+        <div class="documents-grid">
+            <div class="document-card">
+                <h3 class="document-title">応募時</h3>
+                <ul class="document-list">
+                    <li>履歴書（日本語または英語）</li>
+                    <li>職務経歴書（あれば）</li>
+                    <li>パスポートコピー（顔写真ページ）</li>
+                    <li>最終学歴の卒業証明書（後日提出可）</li>
+                </ul>
+            </div>
+            <div class="document-card">
+                <h3 class="document-title">内定後（ビザ申請用）</h3>
+                <ul class="document-list">
+                    <li>パスポート全ページのスキャン</li>
+                    <li>証明写真（背景白）</li>
+                    <li>最終学歴の英文卒業証明書</li>
+                    <li>前職の在職証明書（英文推奨）</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-title">
+            <h2>よくある質問</h2>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                英語力はどの程度必要ですか？
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                日本語メインのポジションの場合、日常会話レベル（TOEIC 500点程度）で応募可能です。
+                入社後も英語研修プログラム（GoFluent）があるので、働きながらスキルアップできます。
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                面接の服装はどうすればいいですか？
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                オンライン面接ですが、ビジネスカジュアル〜スーツでお願いします。
+                第一印象は重要なので、清潔感のある服装を心がけてください。
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                不合格の場合、再応募は可能ですか？
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                はい、6ヶ月後から再応募可能です。その間にスキルアップしていただき、
+                再チャレンジをお待ちしています。フィードバックもお伝えできます。
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                入社時期は調整できますか？
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                はい、ビザ取得時期や現職の退職時期に合わせて調整可能です。
+                通常、内定から1〜3ヶ月後の入社となりますが、個別にご相談ください。
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">準備はできましたか？</h2>
+        <p>まずはカジュアル面談で、気軽にご相談ください</p>
+        <div class="cta-buttons">
+            <a href="https://careerseng-tp.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job" 
+               class="btn btn-primary" target="_blank">
+                今すぐ応募する
+            </a>
+            <a href="https://forms.office.com/e/2UvpbweQww" 
+               class="btn btn-secondary" target="_blank">
+                カジュアル面談を予約
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>求人情報 | TP Japan - 日本語スピーカー向けポジション</title>
+    <meta name="description" content="テレパフォーマンス マレーシア・タイの日本語対応カスタマーサービス、営業、ITサポートなど多様なポジションを募集中。">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --tp-black: #000000;
+            --tp-dark: #1a1a1a;
+            --tp-charcoal: #2d2d2d;
+            --tp-gray-dark: #4a4a4a;
+            --tp-gray: #666666;
+            --tp-gray-light: #999999;
+            --tp-silver: #cccccc;
+            --tp-light: #e5e5e5;
+            --tp-off-white: #f5f5f5;
+            --tp-white: #ffffff;
+            
+            --font-primary: 'Noto Sans JP', sans-serif;
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
+            --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--tp-dark);
+            line-height: 1.8;
+            background: var(--tp-white);
+        }
+
+        /* Header */
+        header {
+            background: var(--tp-white);
+            border-bottom: 1px solid var(--tp-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: var(--tp-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--tp-white);
+            font-size: 1.2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--tp-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--tp-black);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--tp-black) 0%, var(--tp-charcoal) 100%);
+            color: var(--tp-white);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 100px,
+                rgba(255,255,255,0.02) 100px,
+                rgba(255,255,255,0.02) 200px
+            );
+            transform: rotate(30deg);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--tp-silver);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Job Filter Tabs */
+        .filter-section {
+            padding: 3rem 2rem 2rem;
+            background: var(--tp-off-white);
+            border-bottom: 1px solid var(--tp-light);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 2rem;
+            background: var(--tp-white);
+            border: 2px solid var(--tp-light);
+            color: var(--tp-gray-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--tp-gray);
+        }
+
+        .filter-btn.active {
+            background: var(--tp-black);
+            color: var(--tp-white);
+            border-color: var(--tp-black);
+        }
+
+        /* Jobs Grid */
+        .jobs-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .job-card {
+            background: var(--tp-white);
+            border: 1px solid var(--tp-light);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .job-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-5px);
+            border-color: var(--tp-black);
+        }
+
+        .job-badge {
+            display: inline-block;
+            background: var(--tp-black);
+            color: var(--tp-white);
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .job-badge.new {
+            background: #e60012;
+        }
+
+        .job-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1rem;
+        }
+
+        .job-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--tp-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .job-description {
+            color: var(--tp-gray-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .job-requirements {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .job-requirements li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--tp-light);
+            color: var(--tp-gray-dark);
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .job-requirements li:last-child {
+            border-bottom: none;
+        }
+
+        .job-requirements li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--tp-gray);
+        }
+
+        .job-cta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 2px solid var(--tp-black);
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: var(--tp-black);
+            color: var(--tp-white);
+        }
+
+        .btn-primary:hover {
+            background: var(--tp-white);
+            color: var(--tp-black);
+        }
+
+        .btn-secondary {
+            background: var(--tp-white);
+            color: var(--tp-black);
+        }
+
+        .btn-secondary:hover {
+            background: var(--tp-black);
+            color: var(--tp-white);
+        }
+
+        /* Coming Soon Cards */
+        .coming-soon-section {
+            padding: 5rem 2rem;
+            background: var(--tp-off-white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .coming-soon-card {
+            background: var(--tp-white);
+            border: 2px dashed var(--tp-silver);
+            padding: 2rem;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .coming-soon-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .coming-soon-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--tp-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .coming-soon-text {
+            color: var(--tp-gray-light);
+            font-size: 0.9rem;
+        }
+
+        /* Application Process */
+        .process-section {
+            padding: 5rem 2rem;
+            background: var(--tp-black);
+            color: var(--tp-white);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            top: 50px;
+            font-size: 2rem;
+            color: var(--tp-gray);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--tp-white);
+            color: var(--tp-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 auto 1rem;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            color: var(--tp-silver);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step::after {
+                display: none;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">TP</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 1.3rem;">Teleperformance</div>
+                    <div style="font-size: 0.75rem; color: #666;">Malaysia · Thailand — 日本語採用</div>
+                </div>
+            </div>
+            <nav>
+                <a href="index.html">ホーム</a>
+                <a href="about-tp.html">About TP</a>
+                <a href="open-jobs.html" class="active">求人情報</a>
+                <a href="salary-and-benefits.html">福利厚生</a>
+                <a href="relocation-visa.html">移住・ビザ</a>
+                <a href="interview-process.html">面接プロセス</a>
+                <a href="why-malaysia-thailand.html">勤務地</a>
+                <a href="faq.html">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">現在募集中のポジション</h1>
+        <p class="hero-subtitle">
+            日本語スピーカー向けポジション（通年募集）<br>
+            Eコマース、旅行、ホテル、金融、SNS、ITなど多様な業界
+        </p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <button class="filter-btn active">すべて</button>
+            <button class="filter-btn">クアラルンプール</button>
+            <button class="filter-btn">ペナン</button>
+            <button class="filter-btn">バンコク</button>
+            <button class="filter-btn">カスタマーサポート</button>
+            <button class="filter-btn">営業・セールス</button>
+            <button class="filter-btn">ITサポート</button>
+        </div>
+    </section>
+
+    <!-- Jobs Grid -->
+    <section class="jobs-section">
+        <div class="jobs-grid">
+            <!-- Job Card 1 -->
+            <div class="job-card">
+                <span class="job-badge new">NEW</span>
+                <h3 class="job-title">カスタマーサービス担当者</h3>
+                <div class="job-location">
+                    📍 クアラルンプール / ペナン / バンコク
+                </div>
+                <p class="job-description">
+                    大手Eコマースプラットフォームの日本人顧客対応。
+                    電話・チャット・メールでのお問い合わせ対応、問題解決サポート。
+                </p>
+                <ul class="job-requirements">
+                    <li>日本語：ビジネスレベル（JLPT N2以上）</li>
+                    <li>英語：日常会話レベル</li>
+                    <li>基本的なPCスキル</li>
+                    <li>カスタマーサービス経験歓迎</li>
+                </ul>
+                <div class="job-cta">
+                    <a href="#" class="btn btn-primary">応募する</a>
+                    <a href="#" class="btn btn-secondary">詳細を見る</a>
+                </div>
+            </div>
+
+            <!-- Job Card 2 -->
+            <div class="job-card">
+                <span class="job-badge">人気</span>
+                <h3 class="job-title">旅行業界サポートスタッフ</h3>
+                <div class="job-location">
+                    📍 クアラルンプール
+                </div>
+                <p class="job-description">
+                    グローバル旅行予約サイトの日本市場担当。
+                    予約変更、キャンセル対応、旅行に関する問い合わせサポート。
+                </p>
+                <ul class="job-requirements">
+                    <li>日本語：ネイティブレベル</li>
+                    <li>旅行業界の経験優遇</li>
+                    <li>シフト勤務可能な方</li>
+                    <li>チームワークを大切にできる方</li>
+                </ul>
+                <div class="job-cta">
+                    <a href="#" class="btn btn-primary">応募する</a>
+                    <a href="#" class="btn btn-secondary">詳細を見る</a>
+                </div>
+            </div>
+
+            <!-- Job Card 3 -->
+            <div class="job-card">
+                <span class="job-badge">経験者優遇</span>
+                <h3 class="job-title">ITテクニカルサポート</h3>
+                <div class="job-location">
+                    📍 ペナン
+                </div>
+                <p class="job-description">
+                    大手IT企業の日本人ユーザー向け技術サポート。
+                    ソフトウェア・ハードウェアのトラブルシューティング。
+                </p>
+                <ul class="job-requirements">
+                    <li>IT関連の知識・経験</li>
+                    <li>問題解決能力</li>
+                    <li>日本語・英語でのコミュニケーション力</li>
+                    <li>IT資格保有者優遇</li>
+                </ul>
+                <div class="job-cta">
+                    <a href="#" class="btn btn-primary">応募する</a>
+                    <a href="#" class="btn btn-secondary">詳細を見る</a>
+                </div>
+            </div>
+
+            <!-- Job Card 4 -->
+            <div class="job-card">
+                <span class="job-badge new">NEW</span>
+                <h3 class="job-title">金融サービスアドバイザー</h3>
+                <div class="job-location">
+                    📍 バンコク
+                </div>
+                <p class="job-description">
+                    国際金融機関の日本人顧客サポート。
+                    口座開設、送金、投資商品に関する問い合わせ対応。
+                </p>
+                <ul class="job-requirements">
+                    <li>金融業界の経験歓迎</li>
+                    <li>コンプライアンス意識</li>
+                    <li>数字に強い方</li>
+                    <li>細部への注意力</li>
+                </ul>
+                <div class="job-cta">
+                    <a href="#" class="btn btn-primary">応募する</a>
+                    <a href="#" class="btn btn-secondary">詳細を見る</a>
+                </div>
+            </div>
+
+            <!-- Job Card 5 -->
+            <div class="job-card">
+                <span class="job-badge">リモート可</span>
+                <h3 class="job-title">SNSコンテンツモデレーター</h3>
+                <div class="job-location">
+                    📍 クアラルンプール
+                </div>
+                <p class="job-description">
+                    大手SNSプラットフォームの日本語コンテンツ管理。
+                    投稿内容の審査、ガイドライン違反の判定。
+                </p>
+                <ul class="job-requirements">
+                    <li>SNSの利用経験</li>
+                    <li>公正な判断力</li>
+                    <li>ストレス耐性</li>
+                    <li>守秘義務の遵守</li>
+                </ul>
+                <div class="job-cta">
+                    <a href="#" class="btn btn-primary">応募する</a>
+                    <a href="#" class="btn btn-secondary">詳細を見る</a>
+                </div>
+            </div>
+
+            <!-- Job Card 6 -->
+            <div class="job-card">
+                <span class="job-badge">高収入</span>
+                <h3 class="job-title">セールスアカウントマネージャー</h3>
+                <div class="job-location">
+                    📍 クアラルンプール / バンコク
+                </div>
+                <p class="job-description">
+                    B2B営業経験者歓迎。日本企業向けのアカウント管理、
+                    新規開拓、既存顧客のアップセル・クロスセル。
+                </p>
+                <ul class="job-requirements">
+                    <li>営業経験3年以上</li>
+                    <li>目標達成への強い意欲</li>
+                    <li>プレゼンテーションスキル</li>
+                    <li>CRM使用経験優遇</li>
+                </ul>
+                <div class="job-cta">
+                    <a href="#" class="btn btn-primary">応募する</a>
+                    <a href="#" class="btn btn-secondary">詳細を見る</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <section class="coming-soon-section">
+        <div class="section-title">
+            <h2>Coming Soon</h2>
+            <p style="color: #666;">新規開設予定の拠点</p>
+        </div>
+        
+        <div class="coming-soon-grid">
+            <div class="coming-soon-card">
+                <div class="coming-soon-icon">🏙️</div>
+                <h3 class="coming-soon-title">シンガポール</h3>
+                <p class="coming-soon-text">2025年後半開設予定</p>
+            </div>
+            <div class="coming-soon-card">
+                <div class="coming-soon-icon">🌏</div>
+                <h3 class="coming-soon-title">ベトナム（ホーチミン）</h3>
+                <p class="coming-soon-text">2026年開設予定</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Process -->
+    <section class="process-section">
+        <div class="section-title">
+            <h2 style="color: white;">応募から入社まで</h2>
+        </div>
+        
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3 class="step-title">オンライン応募</h3>
+                <p class="step-desc">応募フォームから簡単応募</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3 class="step-title">オンライン面接</h3>
+                <p class="step-desc">日本語での面接（2回）</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3 class="step-title">内定・ビザ申請</h3>
+                <p class="step-desc">会社がビザ申請をサポート</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3 class="step-title">渡航・入社</h3>
+                <p class="step-desc">新生活スタート！</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

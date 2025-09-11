@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>働く環境・オフィス | TP Japan - バーチャルツアー</title>
+    <meta name="description" content="テレパフォーマンスのオフィス環境をバーチャルツアーでご紹介。モダンで快適な職場環境。">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --tp-black: #000000;
+            --tp-dark: #1a1a1a;
+            --tp-charcoal: #2d2d2d;
+            --tp-gray-dark: #4a4a4a;
+            --tp-gray: #666666;
+            --tp-gray-light: #999999;
+            --tp-silver: #cccccc;
+            --tp-light: #e5e5e5;
+            --tp-off-white: #f5f5f5;
+            --tp-white: #ffffff;
+            
+            --font-primary: 'Noto Sans JP', sans-serif;
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
+            --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--tp-dark);
+            line-height: 1.8;
+            background: var(--tp-white);
+        }
+
+        /* Header */
+        header {
+            background: var(--tp-white);
+            border-bottom: 1px solid var(--tp-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: var(--tp-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--tp-white);
+            font-size: 1.2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--tp-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--tp-black);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--tp-black) 0%, var(--tp-charcoal) 100%);
+            color: var(--tp-white);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 100px,
+                rgba(255,255,255,0.02) 100px,
+                rgba(255,255,255,0.02) 101px
+            );
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--tp-silver);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Virtual Tour Section */
+        .virtual-tour-section {
+            padding: 5rem 2rem;
+            background: var(--tp-off-white);
+        }
+
+        .tour-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1rem;
+        }
+
+        .tour-frame {
+            background: var(--tp-white);
+            border: 2px solid var(--tp-black);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .tour-placeholder {
+            width: 100%;
+            height: 600px;
+            background: var(--tp-black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--tp-white);
+            position: relative;
+        }
+
+        .tour-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .tour-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .tour-btn {
+            padding: 1rem 3rem;
+            background: var(--tp-white);
+            color: var(--tp-black);
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid var(--tp-white);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .tour-btn:hover {
+            background: transparent;
+            color: var(--tp-white);
+        }
+
+        .tour-links {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .tour-links a {
+            color: var(--tp-gray);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .tour-links a:hover {
+            color: var(--tp-black);
+        }
+
+        /* Office Locations */
+        .locations-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .location-card {
+            background: var(--tp-white);
+            border: 1px solid var(--tp-light);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .location-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-5px);
+            border-color: var(--tp-black);
+        }
+
+        .location-image {
+            width: 100%;
+            height: 250px;
+            background: var(--tp-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tp-white);
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .location-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--tp-white);
+            color: var(--tp-black);
+            padding: 0.3rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .location-info {
+            padding: 2rem;
+        }
+
+        .location-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-address {
+            color: var(--tp-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .location-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--tp-light);
+            color: var(--tp-gray-dark);
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .location-features li:last-child {
+            border-bottom: none;
+        }
+
+        .location-features li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--tp-gray);
+        }
+
+        /* Facilities */
+        .facilities-section {
+            padding: 5rem 2rem;
+            background: var(--tp-black);
+            color: var(--tp-white);
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .facility-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            border: 1px solid var(--tp-charcoal);
+            background: rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .facility-item:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--tp-gray);
+            transform: translateY(-5px);
+        }
+
+        .facility-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .facility-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .facility-desc {
+            color: var(--tp-silver);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .gallery-tab {
+            padding: 0.7rem 2rem;
+            background: var(--tp-white);
+            border: 2px solid var(--tp-light);
+            color: var(--tp-gray-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-tab:hover {
+            border-color: var(--tp-gray);
+        }
+
+        .gallery-tab.active {
+            background: var(--tp-black);
+            color: var(--tp-white);
+            border-color: var(--tp-black);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--tp-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tp-white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(0.95);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: var(--tp-white);
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Work Environment */
+        .environment-section {
+            padding: 5rem 2rem;
+            background: var(--tp-off-white);
+        }
+
+        .environment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .environment-card {
+            background: var(--tp-white);
+            padding: 3rem;
+            border-left: 4px solid var(--tp-black);
+        }
+
+        .environment-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--tp-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .environment-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .environment-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--tp-light);
+            color: var(--tp-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .environment-list li:last-child {
+            border-bottom: none;
+        }
+
+        .list-icon {
+            color: var(--tp-black);
+            font-size: 1.2rem;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, var(--tp-dark) 0%, var(--tp-black) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            color: var(--tp-white);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 3rem;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid var(--tp-white);
+        }
+
+        .btn-primary {
+            background: var(--tp-white);
+            color: var(--tp-black);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--tp-white);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .locations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .facilities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .locations-grid,
+            .facilities-grid,
+            .environment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tour-placeholder {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">TP</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 1.3rem;">Teleperformance</div>
+                    <div style="font-size: 0.75rem; color: #666;">Malaysia · Thailand — 日本語採用</div>
+                </div>
+            </div>
+            <nav>
+                <a href="index.html">ホーム</a>
+                <a href="about-tp.html">About TP</a>
+                <a href="open-jobs.html">求人情報</a>
+                <a href="salary-and-benefits.html">福利厚生</a>
+                <a href="relocation-visa.html">移住・ビザ</a>
+                <a href="interview-process.html">面接プロセス</a>
+                <a href="why-malaysia-thailand.html">勤務地</a>
+                <a href="office-environment.html" class="active">働く環境</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">働く環境 / Office Environment</h1>
+        <p class="hero-subtitle">
+            モダンで快適なオフィス環境<br>
+            最新設備と充実したアメニティ
+        </p>
+    </section>
+
+    <!-- Virtual Tour Section -->
+    <section class="virtual-tour-section">
+        <div class="tour-container">
+            <div class="section-title">
+                <h2>バーチャルオフィスツアー</h2>
+                <p style="color: #666;">海外拠点の職場環境を、オンラインで体感</p>
+            </div>
+            
+            <div class="tour-frame">
+                <div class="tour-placeholder">
+                    <div class="tour-icon">🏢</div>
+                    <div class="tour-text">TP Malaysia & Thailand Virtual Office Tour</div>
+                    <a href="https://vtour.cloud/mh2n0j/ae5772z1/Bella's" 
+                       target="_blank" 
+                       class="tour-btn">
+                        バーチャルツアーを開始
+                    </a>
+                </div>
+                <div class="tour-links">
+                    <a href="#">Bella's Malaysian Adventure</a>
+                    <span style="color: #ccc;">|</span>
+                    <a href="#">Exploring the Future: TP with VR Technology</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Office Locations -->
+    <section class="locations-section">
+        <div class="section-title">
+            <h2>オフィスロケーション</h2>
+            <p style="color: #666;">アクセス良好な3つの拠点</p>
+        </div>
+        
+        <div class="locations-grid">
+            <!-- KL Office -->
+            <div class="location-card">
+                <div class="location-image">
+                    🏙️
+                    <span class="location-badge">MAIN OFFICE</span>
+                </div>
+                <div class="location-info">
+                    <h3 class="location-name">クアラルンプール</h3>
+                    <p class="location-address">
+                        Cyberjaya, Selangor<br>
+                        KLCCから車で30分
+                    </p>
+                    <ul class="location-features">
+                        <li>最新ITインフラ完備</li>
+                        <li>24時間セキュリティ</li>
+                        <li>社員食堂・カフェテリア</li>
+                        <li>無料シャトルバスサービス</li>
+                        <li>駐車場完備</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Penang Office -->
+            <div class="location-card">
+                <div class="location-image">
+                    🏖️
+                    <span class="location-badge">BEACH SIDE</span>
+                </div>
+                <div class="location-info">
+                    <h3 class="location-name">ペナン</h3>
+                    <p class="location-address">
+                        Bayan Lepas, Penang<br>
+                        空港から15分
+                    </p>
+                    <ul class="location-features">
+                        <li>海の見えるオフィス</li>
+                        <li>緑豊かな環境</li>
+                        <li>フィットネスセンター併設</li>
+                        <li>屋外リフレッシュエリア</li>
+                        <li>近隣にショッピングモール</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bangkok Office -->
+            <div class="location-card">
+                <div class="location-image">
+                    🌆
+                    <span class="location-badge">CITY CENTER</span>
+                </div>
+                <div class="location-info">
+                    <h3 class="location-name">バンコク</h3>
+                    <p class="location-address">
+                        Sukhumvit Area<br>
+                        BTS駅直結
+                    </p>
+                    <ul class="location-features">
+                        <li>駅直結の好立地</li>
+                        <li>高層階からの眺望</li>
+                        <li>日本人街へのアクセス良好</li>
+                        <li>モダンなインテリア</li>
+                        <li>周辺に日本食レストラン多数</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities -->
+    <section class="facilities-section">
+        <div class="section-title">
+            <h2 style="color: white;">オフィス設備・アメニティ</h2>
+            <p style="color: #ccc;">快適に働くための充実した設備</p>
+        </div>
+        
+        <div class="facilities-grid">
+            <div class="facility-item">
+                <div class="facility-icon">☕</div>
+                <h3 class="facility-title">カフェテリア</h3>
+                <p class="facility-desc">多国籍料理を提供する社員食堂。コーヒーバー完備。</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">💪</div>
+                <h3 class="facility-title">フィットネス</h3>
+                <p class="facility-desc">ジム設備。仕事前後のワークアウトに。</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🛋️</div>
+                <h3 class="facility-title">リラックスエリア</h3>
+                <p class="facility-desc">休憩時間にリフレッシュできるラウンジスペース。</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🎮</div>
+                <h3 class="facility-title">レクリエーション</h3>
+                <p class="facility-desc">ゲームルーム、卓球台など娯楽設備。</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🏥</div>
+                <h3 class="facility-title">医務室</h3>
+                <p class="facility-desc">常駐ナースによる健康管理サポート。</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🙏</div>
+                <h3 class="facility-title">祈祷室</h3>
+                <p class="facility-desc">多様な文化・宗教に配慮した施設。</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">📚</div>
+                <h3 class="facility-title">トレーニングルーム</h3>
+                <p class="facility-desc">研修・スキルアップのための専用施設。</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🅿️</div>
+                <h3 class="facility-title">駐車場</h3>
+                <p class="facility-desc">従業員用の無料駐車スペース完備。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="section-title">
+            <h2>オフィスギャラリー</h2>
+            <p style="color: #666;">実際の職場の様子をご覧ください</p>
+        </div>
+        
+        <div class="gallery-tabs">
+            <button class="gallery-tab active">すべて</button>
+            <button class="gallery-tab">ワークスペース</button>
+            <button class="gallery-tab">共用エリア</button>
+            <button class="gallery-tab">イベント</button>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                🖥️
+                <div class="gallery-caption">モダンなワークステーション</div>
+            </div>
+            <div class="gallery-item">
+                ☕
+                <div class="gallery-caption">カフェテリア</div>
+            </div>
+            <div class="gallery-item">
+                🏢
+                <div class="gallery-caption">エントランス</div>
+            </div>
+            <div class="gallery-item">
+                👥
+                <div class="gallery-caption">ミーティングルーム</div>
+            </div>
+            <div class="gallery-item">
+                🎉
+                <div class="gallery-caption">社内イベント</div>
+            </div>
+            <div class="gallery-item">
+                🛋️
+                <div class="gallery-caption">リラックスエリア</div>
+            </div>
+            <div class="gallery-item">
+                🏆
+                <div class="gallery-caption">表彰式</div>
+            </div>
+            <div class="gallery-item">
+                🌿
+                <div class="gallery-caption">屋外スペース</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Environment -->
+    <section class="environment-section">
+        <div class="section-title">
+            <h2>働きやすい環境づくり</h2>
+            <p style="color: #666;">従業員満足度を高める取り組み</p>
+        </div>
+        
+        <div class="environment-grid">
+            <div class="environment-card">
+                <h3 class="environment-title">ダイバーシティ＆インクルージョン</h3>
+                <ul class="environment-list">
+                    <li>
+                        <span class="list-icon">🌍</span>
+                        <span>50カ国以上の国籍の従業員が活躍</span>
+                    </li>
+                    <li>
+                        <span class="list-icon">🤝</span>
+                        <span>多様性を尊重する企業文化</span>
+                    </li>
+                    <li>
+                        <span class="list-icon">🏳️‍🌈</span>
+                        <span>LGBTQフレンドリーな職場</span>
+                    </li>
+                    <li>
+                        <span class="list-icon">♿</span>
+                        <span>バリアフリー対応</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="environment-card">
+                <h3 class="environment-title">ワークライフバランス</h3>
+                <ul class="environment-list">
+                    <li>
+                        <span class="list-icon">🏠</span>
+                        <span>フレックスタイム制度</span>
+                    </li>
+                    <li>
+                        <span class="list-icon">💻</span>
+                        <span>リモートワーク対応（職種による）</span>
+                    </li>
+                    <li>
+                        <span class="list-icon">🏖️</span>
+                        <span>充実した休暇制度</span>
+                    </li>
+                    <li>
+                        <span class="list-icon">👶</span>
+                        <span>育児支援制度</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">最高の環境で、最高のパフォーマンスを</h2>
+        <p>TPのオフィスを実際に見学してみませんか？</p>
+        <div class="cta-buttons">
+            <a href="https://forms.office.com/e/2UvpbweQww" 
+               class="btn btn-primary" target="_blank">
+                オフィス見学を申し込む
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Gallery tab functionality
+        document.querySelectorAll('.gallery-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Filter logic would go here
+            });
+        });
+    </script>
+</body>
+</html>
