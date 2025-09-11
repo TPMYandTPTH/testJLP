@@ -2753,35 +2753,18 @@ footer::before {
       items.sort((a, b) => {
         switch(sortType){
           case 'new':
-          default:
             return (b.dataset.date || '').localeCompare(a.dataset.date || '');
           case 'az':
             return (a.dataset.title || '').localeCompare(b.dataset.title || '', 'ja');
           case 'za':
             return (b.dataset.title || '').localeCompare(a.dataset.title || '', 'ja');
+          default:
+            return 0;
         }
       });
       
       items.forEach(item => target.appendChild(item));
     });
-  });
-})();
-
-// Back to Top
-(function(){
-  const btn = document.getElementById('backToTop');
-  if(!btn) return;
-  
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 500){
-      btn.classList.add('show');
-    } else {
-      btn.classList.remove('show');
-    }
-  });
-  
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
 
