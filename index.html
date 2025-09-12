@@ -469,32 +469,6 @@ nav a:focus {
   font-size: 0.9rem;
 }
 
-/* Sort Bar */
-.sortbar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0.625rem 0 1.25rem;
-  justify-content: center;
-}
-
-.sortbar select {
-  padding: 0.4rem 0.625rem;
-  border: 1px solid var(--tp-light);
-  border-radius: 6px;
-  background: var(--tp-white);
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.sortbar select:hover,
-.sortbar select:focus {
-  border-color: var(--tp-black);
-  outline: none;
-  box-shadow: var(--shadow-sm);
-}
-
 /* About Section */
 .about-section {
   padding: 56px 20px;
@@ -1893,15 +1867,6 @@ footer::before {
       <h2 class="section-title">優先メニュー</h2>
       <p class="section-subtitle">知りたい情報へすぐにアクセス</p>
       
-      <div class="sortbar">
-        <select aria-label="カードの並べ替え" data-sort-target="#priorityGrid">
-          <option value="recommend">おすすめ順</option>
-          <option value="new">新着順</option>
-          <option value="az">50音順</option>
-          <option value="za">50音逆順</option>
-        </select>
-      </div>
-      
       <div class="cards" id="priorityGrid">
         <a href="#about" class="card sortable-item" data-title="会社紹介">
           <img src="photos/GBS.jpeg" alt="TPとは" loading="lazy">
@@ -2053,14 +2018,6 @@ footer::before {
       <h2 class="section-title">勤務先都市のご紹介</h2>
       <p class="section-subtitle">マレーシア＆タイの魅力的な3都市</p>
       
-      <div class="sortbar">
-        <select aria-label="カードの並べ替え" data-sort-target="#citiesGrid">
-          <option value="recommend">おすすめ順</option>
-          <option value="new">新着順</option>
-          <option value="az">50音順</option>
-          <option value="za">50音逆順</option>
-        </select>
-      </div>
       
       <div class="city-cards" id="citiesGrid">
         <article class="city-card sortable-item" data-title="クアラルンプール">
@@ -2207,14 +2164,6 @@ footer::before {
       <h2 class="section-title">働く環境</h2>
       <p class="section-subtitle">快適でアクセス良好なワークプレイス</p>
       
-      <div class="sortbar">
-        <select aria-label="カードの並べ替え" data-sort-target="#officeGrid">
-          <option value="recommend">おすすめ順</option>
-          <option value="new">新着順</option>
-          <option value="az">50音順</option>
-          <option value="za">50音逆順</option>
-        </select>
-      </div>
       
       <div class="office-grid" id="officeGrid">
         <div class="office-card sortable-item" data-title="G Tower">
