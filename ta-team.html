@@ -127,6 +127,67 @@
       border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
     }
     .floating-apply:hover{background:#fff;color:var(--accent-purple)}
+    /* ====== TA TEAM (redo) ====== */
+.ta-team { padding: 56px 20px; background: var(--tp-white); }
+.ta-team .container { max-width: 1200px; margin: 0 auto; }
+
+.ta-intro { text-align: center; max-width: 860px; margin: 0 auto 18px; color: var(--tp-gray-dark); }
+.ta-intro strong { color: var(--tp-black); }
+
+/* Group picture (collage) */
+.ta-group-photo { margin: 18px auto 28px; text-align: center; }
+.ta-group-row { display: flex; justify-content: center; align-items: center; }
+.group-avatar {
+  width: 84px; height: 84px; border-radius: 999px; object-fit: cover; 
+  border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.group-avatar + .group-avatar { margin-left: -18px; }
+.ta-group-caption { margin-top: .6rem; font-size: .9rem; color: var(--tp-gray); }
+
+/* Leader card */
+.ta-leader-card {
+  background: var(--tp-off); border: 1px solid var(--tp-light); border-radius: 12px;
+  padding: 18px; display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start;
+}
+.ta-leader-card .avatar-lg {
+  width: 120px; height: 120px; border-radius: 12px; object-fit: cover; 
+  border: 3px solid #fff; box-shadow: var(--shadow-sm);
+}
+.ta-leader-meta { font-size: .95rem; color: var(--tp-gray-dark); margin: 4px 0 8px; }
+.ta-leader-cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.btn-sm { padding: .55rem .8rem; border-radius: 999px; border: 2px solid var(--tp-black); font-weight: 800; font-size: .85rem; }
+.btn-ghost { background: #fff; }
+.btn-sm:hover { background: var(--tp-black); color: #fff; }
+
+/* Members grid */
+.ta-members { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px; }
+@media (max-width: 980px){ .ta-members { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px){ .ta-members { grid-template-columns: 1fr; } }
+
+.ta-member-card {
+  background:#fff; border:1px solid var(--tp-light); border-radius:12px; padding:14px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.ta-member-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--tp-black); }
+.ta-member-head { display:flex; gap:12px; align-items:flex-start; }
+.ta-member-img { width:92px; height:92px; border-radius:12px; object-fit:cover; box-shadow: var(--shadow-sm); }
+.ta-member-role { color: var(--tp-gray); font-size: .9rem; margin: 2px 0 6px; }
+.ta-tags { display:flex; flex-wrap:wrap; gap:6px; margin: 4px 0 8px; }
+.ta-tag { font-size:.78rem; border:1px solid var(--tp-light); background:var(--tp-off); padding:.15rem .5rem; border-radius:999px; }
+.ta-member-links { margin-top: 8px; display:flex; flex-wrap:wrap; gap:8px; }
+
+/* Mini gallery */
+.ta-gallery { margin-top: 22px; }
+.ta-gallery-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.ta-gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; border: 1px solid var(--tp-light); }
+@media (max-width: 720px){ .ta-gallery-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ICIMS tips box */
+.ta-tips { margin-top: 22px; background: #fff; border: 1px solid var(--tp-light); border-radius: 12px; padding: 16px; }
+.ta-tips h3 { font-size: 1rem; margin-bottom: 8px; }
+.ta-tips ul { padding-left: 1rem; }
+.ta-tips li { margin: .35rem 0; color: var(--tp-gray-dark); }
+
   </style>
 </head>
 <body>
@@ -226,74 +287,171 @@
     </div>
   </section>
 
-  <!-- Team -->
-  <section id="team" class="section">
-    <h2>メンバー紹介 / Meet the Team</h2>
+<!-- ===================== TA TEAM (redo) ===================== -->
+<section class="ta-team" id="ta-team">
+  <div class="container">
+    <h2 class="section-title">採用チームのご紹介 / Meet the TA Team</h2>
+    <p class="section-subtitle">応募〜面接〜ビザ〜入社まで、日本語で伴走します</p>
 
-    <!-- Joseph (from Slides 21/29/37/45) -->
-    <article class="card" style="margin-top:.7rem">
-      <div class="person">
-        <img class="avatar" src="photos/ta-joseph.jpg" alt="Joseph（ジョセフ） タレントアクイジション シニアマネージャー">
-        <div>
-          <h3>Joseph（ジョセフ）</h3>
-          <div class="meta">シニアマネージャー｜タレントアクイジション（TA）</div>
-          <div class="tags" aria-label="プロフィールタグ">
-            <span class="tag">APAC採用14年</span>
-            <span class="tag">日本語スピーカー採用</span>
-            <span class="tag">IT/半導体/物流/インフラ</span>
-          </div>
-          <p class="muted" style="margin-top:.5rem">
-            TP Malaysiaで日本語スピーカーを中心に多国籍人材の採用を担当。日本・マレーシア・シンガポール・タイ・韓国・豪州・NZなど、
-            複数国横断の採用プロジェクト経験を通して「一人ひとりに寄り添う採用」を大切にしています。<br>
-            プライベートはスキューバとゴルフ。マレーシアはリーズナブルに楽しめて生活のクオリティも高いのが魅力です。
-          </p>
-          <div class="callout" style="margin-top:.6rem">
-            <strong>候補者の皆さまへ：</strong> 海外転職は大きな一歩ですが、可能性を広げる素晴らしい機会です。選考や現地生活についても分かりやすく案内し、安心して挑戦できるよう全力でサポートします。
-          </div>
+    <div class="ta-intro">
+      <p><strong>📣 採用チームのご紹介</strong><br>
+      海外で働くことに不安を感じる方も、言葉や文化の違いに戸惑う必要はありません。TPでは、日本語を話すタレントアクイジションチームが、応募から入社までサポートします。</p>
+    </div>
+
+    <!-- Group Picture (collage made from individual photos) -->
+    <figure class="ta-group-photo" aria-label="TA Team Group Picture">
+      <div class="ta-group-row">
+        <img class="group-avatar" src="photos/Joseph%20Hiroyuki%20Ueda.jpg" alt="Joseph">
+        <img class="group-avatar" src="photos/Maya.png" alt="Maya">
+        <img class="group-avatar" src="photos/Akito%20san.jpg" alt="Akito">
+        <img class="group-avatar" src="photos/Maho.png" alt="Maho">
+        <img class="group-avatar" src="photos/Koyori.jpg" alt="Koyori">
+      </div>
+      <figcaption class="ta-group-caption">TP Malaysia TA Team（KL / Penang / Bangkok）</figcaption>
+    </figure>
+
+    <!-- Leader: Joseph -->
+    <article class="ta-leader-card">
+      <img class="avatar-lg" src="photos/Joseph%20Hiroyuki%20Ueda.jpg" alt="Joseph（ジョセフ）">
+      <div>
+        <h3>Joseph（ジョセフ）</h3>
+        <div class="ta-leader-meta">シニアマネージャー｜タレントアクイジション</div>
+        <p>
+          こんにちは。TP Malaysiaで日本語スピーカーをはじめとした多国籍人材の採用を担当している、シニアマネージャーのジョセフです。これまで約14年にわたり、APAC地域を中心に人材採用の業務に携わってきました。IT、ロジスティクス、半導体、ITインフラなどの業界において、エンジニアやサポート職からマネジメント、Cレベルまで幅広く担当。日本、マレーシア、シンガポール、タイ、韓国、オーストラリア、ニュージーランドなど複数国をまたぐ採用プロジェクトの経験を活かし、常に「一人ひとりに寄り添う採用」を大切にしています。<br>
+          🌴 プライベートでは、スキューバダイビングとゴルフが趣味です。マレーシアではこれらをリーズナブルに楽しめ、生活のクオリティも高いと感じています！<br>
+          <strong>✉️ 候補者の皆さまへ：</strong> 海外転職は大きなチャレンジであると同時に、新しい可能性を広げる素晴らしい機会です。選考プロセスや現地の生活についても、できる限り分かりやすくご案内し、安心してご応募いただけるよう心がけています。
+        </p>
+        <div class="ta-leader-cta">
+          <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
+          <a class="btn-sm btn-ghost" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINEで質問</a>
+          <a class="btn-sm btn-ghost" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
         </div>
       </div>
     </article>
 
-    <!-- (Optional) Add more member cards as photos become available -->
-    <div class="grid-3" style="margin-top:1rem">
-      <div class="card">
-        <div class="person">
-          <img class="avatar" src="photos/ta-member-1.jpg" alt="TAメンバー（日本語対応）">
+    <!-- Members -->
+    <div class="ta-members">
+      <!-- Maya -->
+      <article class="ta-member-card" id="maya">
+        <div class="ta-member-head">
+          <img class="ta-member-img" src="photos/Maya.png" alt="Maya">
           <div>
-            <h3>TAメンバー（日本語対応）</h3>
-            <div class="meta">Talent Acquisition</div>
-            <div class="tags"><span class="tag">日本語対応</span><span class="tag">面接アレンジ</span></div>
-            <p class="muted">応募受付、面接調整、現地生活Q&Aなど、日本語で丁寧にフォローします。</p>
+            <h3>Maya（マヤ）</h3>
+            <div class="ta-member-role">マネージャー｜タレントアクイジション</div>
+            <div class="ta-tags">
+              <span class="ta-tag">面接5,000名+</span>
+              <span class="ta-tag">APAC採用10年</span>
+              <span class="ta-tag">日本語/韓国語/英語</span>
+            </div>
           </div>
         </div>
-      </div>
+        <p>
+          안녕하세요〜！TP Malaysiaで日本語スピーカーの採用を担当しているマヤです。日本と韓国のハーフで、APACを中心にグローバル人材採用に10年従事。IT、財務、SNS、旅行、Eコマース、予約、ラグジュアリー、ゲーム、検索、インターン〜ディレクター・TL・QA・トレーナー・HRなど幅広く担当。<br>
+          👩‍🍳 プライベートはグルメ旅行と料理。マレーシアは食材が安く手に入り、新しいレシピに挑戦しやすいのが最高です。
+        </p>
+        <div class="ta-member-links">
+          <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
+          <a class="btn-sm btn-ghost" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+        </div>
+      </article>
 
-      <div class="card">
-        <div class="person">
-          <img class="avatar" src="photos/ta-member-2.jpg" alt="TAメンバー（ビザ/入社フォロー）">
+      <!-- Akito -->
+      <article class="ta-member-card" id="akito">
+        <div class="ta-member-head">
+          <img class="ta-member-img" src="photos/Akito%20san.jpg" alt="Akito">
           <div>
-            <h3>TAメンバー（ビザ/入社）</h3>
-            <div class="meta">Relocation &amp; Onboarding Support</div>
-            <div class="tags"><span class="tag">ビザ書類</span><span class="tag">到着後ホテル</span></div>
-            <p class="muted">就労ビザ申請や到着後の実務（空港送迎・ホテル）を関係部署と連携しご案内。</p>
+            <h3>Akito（アキト）</h3>
+            <div class="ta-member-role">Talent Acquisition｜採用担当</div>
+            <div class="ta-tags">
+              <span class="ta-tag">ホスピタリティ出身</span>
+              <span class="ta-tag">原価/在庫/データ分析</span>
+              <span class="ta-tag">フットサル/サッカー</span>
+            </div>
           </div>
         </div>
-      </div>
+        <p>
+          これまで接客・運営・管理で培った「相手の期待を超える対応」がモットー。「アキトがいたからTPに決めた」と言ってもらえる採用を目指しています。<br>
+          🌏 休日はローカル/日本人とフットサル。運動＋人脈＋英語力が伸びるのを実感。日本食や日本製品も手に入れやすく、生活水準を高くキープできるのがマレーシアの魅力です。
+        </p>
+        <div class="ta-member-links">
+          <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
+          <a class="btn-sm btn-ghost" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+        </div>
+      </article>
 
-      <div class="card">
-        <div class="person">
-          <img class="avatar" src="photos/ta-member-3.jpg" alt="TAメンバー（キャリア相談）">
+      <!-- Maho -->
+      <article class="ta-member-card" id="maho">
+        <div class="ta-member-head">
+          <img class="ta-member-img" src="photos/Maho.png" alt="Maho">
           <div>
-            <h3>TAメンバー（キャリア相談）</h3>
-            <div class="meta">Career &amp; Internal Mobility</div>
-            <div class="tags"><span class="tag">キャリアパス</span><span class="tag">社内異動</span></div>
-            <p class="muted">入社後の学習支援やキャリアアップ情報を接続し、長く活躍できる道を一緒に設計します。</p>
+            <h3>Maho（マホ）</h3>
+            <div class="ta-member-role">Talent Attraction｜Sourcing</div>
+            <div class="ta-tags">
+              <span class="ta-tag">新卒で海外就職</span>
+              <span class="ta-tag">Pilates/ランニング</span>
+              <span class="ta-tag">バイク100km挑戦中</span>
+            </div>
           </div>
         </div>
+        <p>
+          東南アジア未経験・知り合いゼロ・新卒でいきなりマレーシア移住！留学からの帰国を機に、日本だけに絞らず海外でのキャリアに挑戦。多国籍の仲間とおいしいご飯に囲まれて日々成長中。筋トレの沼へ片足つっこみました。マレーシアは新しいことを始めるのに最適！
+        </p>
+        <div class="ta-member-links">
+          <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
+          <a class="btn-sm btn-ghost" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+        </div>
+      </article>
+
+      <!-- Koyori -->
+      <article class="ta-member-card" id="koyori">
+        <div class="ta-member-head">
+          <img class="ta-member-img" src="photos/Koyori.jpg" alt="Koyori">
+          <div>
+            <h3>Koyori（こより）</h3>
+            <div class="ta-member-role">Talent Acquisition｜採用担当</div>
+            <div class="ta-tags">
+              <span class="ta-tag">ペナン拠点</span>
+              <span class="ta-tag">初海外就職を伴走</span>
+              <span class="ta-tag">ディープグルメ</span>
+            </div>
+          </div>
+        </div>
+        <p>
+          マレーシアの大学→日本で社会人修行→大好きなMYへUターン。日本語対応ポジション中心に担当。ビザ・生活・部屋探しまで、等身大で寄り添います。最近はシベリアまで足を運び、ハスキーとオーロラを見てきました！「美味しいお店リスト」即出せます。
+        </p>
+        <div class="ta-member-links">
+          <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
+          <a class="btn-sm btn-ghost" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- Mini gallery (more pictures) -->
+    <div class="ta-gallery">
+      <h3 class="section-title" style="font-size:1.15rem; margin-bottom:.4rem;">Team &amp; Workplace Shots</h3>
+      <p class="section-subtitle" style="margin-bottom:.8rem;">イベントや職場の雰囲気が伝わる写真</p>
+      <div class="ta-gallery-grid">
+        <img src="photos/Maho%20in%20front%20ofKLCC.jpg" alt="Maho at KLCC">
+        <img src="photos/Joseph%20on%20vacation.jpg" alt="Joseph on vacation">
+        <img src="photos/Singha%20Complex2.jpg" alt="Bangkok Singha Complex exterior">
+        <img src="photos/Reception.png" alt="KLオフィス レセプション">
       </div>
     </div>
 
-  </section>
+    <!-- ICIMS: Application Tips -->
+    <div class="ta-tips">
+      <h3>📝 応募（ICIMS）小ワンポイント</h3>
+      <ul>
+        <li>履歴書は <strong>PDF（英語 or 日本語）</strong> を推奨、ファイル名に絵文字/全角記号を入れない</li>
+        <li>必須項目（*）をすべて入力、エラー時は <strong>別ブラウザ</strong> や <strong>シークレット</strong> で再試行</li>
+        <li>職歴は簡潔に（会社/期間/職務/成果）、連絡先メールは受信可能か要確認</li>
+        <li>不明点は <a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINE</a> または <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">カジュアル面談</a> でどうぞ</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
 
   <!-- Process / Support flow -->
   <section id="support" class="section">
