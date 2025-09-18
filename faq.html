@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>よくある質問 FAQ | TP Japan</title>
-  <meta name="description" content="応募・面接、移住・ビザ、仕事内容、生活、福利厚生、勤務地、成長機会などTPの日本語ポジションに関するよくある質問と回答。"/>
+  <meta name="description" content="テレパフォーマンスへの応募、ビザ、生活、仕事、福利厚生、各都市情報など、よくある質問と回答。">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,587 +12,612 @@
 
   <style>
     :root{
-      --tp-black:#000;
-      --tp-dark:#1a1a1a;
-      --tp-charcoal:#2d2d2d;
-      --tp-gray-dark:#4a4a4a;
-      --tp-gray:#666;
-      --tp-gray-light:#999;
-      --tp-silver:#ccc;
-      --tp-light:#e5e5e5;
-      --tp-off-white:#f5f5f5;
-      --tp-white:#fff;
-
+      --tp-black:#000;--tp-dark:#1a1a1a;--tp-charcoal:#2d2d2d;--tp-gray-dark:#4a4a4a;--tp-gray:#666;--tp-gray-light:#999;
+      --tp-silver:#ccc;--tp-light:#e5e5e5;--tp-off-white:#f5f5f5;--tp-white:#fff;
       --font-primary:'Noto Sans JP',sans-serif;
-
-      --shadow-sm:0 2px 4px rgba(0,0,0,.08);
-      --shadow-md:0 4px 8px rgba(0,0,0,.12);
-      --shadow-lg:0 8px 16px rgba(0,0,0,.16);
-
-      /* hero background shared pattern (reuse on all pages) */
-      --hero-bg: radial-gradient(1200px 600px at 10% -20%, rgba(0,0,0,.05) 0%, transparent 60%),
-                 radial-gradient(900px 500px at 110% 20%, rgba(0,0,0,.05) 0%, transparent 65%),
-                 linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+      --shadow-sm:0 2px 4px rgba(0,0,0,.08);--shadow-md:0 4px 8px rgba(0,0,0,.12);--shadow-lg:0 8px 16px rgba(0,0,0,.16);
+      --brand-accent:#000;
     }
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:var(--font-primary);color:var(--tp-dark);line-height:1.8;background:var(--tp-white)}
+    /* Header (compact like home) */
+    header{background:var(--tp-white);border-bottom:1px solid var(--tp-light);position:sticky;top:0;z-index:1000}
+    .header-container{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+    .logo-section{display:flex;align-items:center;gap:.8rem}
+    .logo{width:42px;height:42px;background:var(--tp-black);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:1rem;border-radius:6px}
+    .brand{line-height:1}
+    .brand .name{font-weight:800;font-size:1.1rem}
+    .brand .sub{font-size:.72rem;color:var(--tp-gray)}
+    nav{display:flex;gap:1.5rem;align-items:center}
+    nav a{color:var(--tp-dark);text-decoration:none;font-weight:600;font-size:.95rem;position:relative;transition:.25s}
+    nav a:hover{opacity:.7}
+    nav a.active::after{content:'';position:absolute;bottom:-6px;left:0;width:100%;height:2px;background:var(--brand-accent)}
+    .apply-link{padding:.55rem 1rem;border:2px solid var(--tp-black);border-radius:999px}
+    .apply-link:hover{background:var(--tp-black);color:#fff}
 
-    /* Header (keep consistent site-wide) */
-    header{
-      background:var(--tp-white);
-      border-bottom:1px solid var(--tp-light);
-      position:sticky;top:0;z-index:1000;
+    /* Hero (keep your favorite style) */
+    .hero-section{background:linear-gradient(135deg,var(--tp-off-white) 0%,var(--tp-white) 100%);padding:4rem 2rem;text-align:center;position:relative;overflow:hidden}
+    .hero-section::before,.hero-section::after{
+      content:'?';position:absolute;top:50%;transform:translateY(-50%);font-size:10rem;color:rgba(0,0,0,0.03);font-weight:900;pointer-events:none
     }
-    .header-container{
-      max-width:1400px;margin:0 auto;padding:1rem 2rem;
-      display:flex;align-items:center;gap:2rem;
-    }
-    .brand{display:flex;align-items:center;gap:1rem;white-space:nowrap}
-    .logo{
-      width:44px;height:44px;border-radius:8px;background:var(--tp-black);
-      display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--tp-white);font-size:1.05rem;
-    }
-    .brand-title{font-weight:800;font-size:1.1rem}
-    .brand-sub{font-size:.72rem;color:var(--tp-gray)}
-    nav{display:flex;align-items:center;gap:1.2rem;flex:1}
-    nav a{
-      color:var(--tp-dark);text-decoration:none;font-weight:600;font-size:.95rem;position:relative;padding:.35rem .25rem;
-    }
-    nav a.current{border-bottom:2px solid var(--tp-black)}
-    .apply-link{
-      margin-left:auto;
-      background:var(--tp-black);color:var(--tp-white);padding:.6rem 1rem;border-radius:999px;
-      text-decoration:none;font-weight:800;border:2px solid var(--tp-black);transition:.25s;
-    }
-    .apply-link:hover{background:var(--tp-white);color:var(--tp-black)}
-    /* compact header on small screens */
-    @media (max-width:860px){
-      .brand-sub{display:none}
-      nav a:not(.current):nth-of-type(n+3){display:none} /* keep Home + 1 link + current */
-    }
-
-    /* Hero */
-    .hero{
-      background:var(--hero-bg);
-      position:relative;overflow:hidden;text-align:center;padding:4.5rem 1.5rem 3.25rem;
-    }
-    /* soft grid overlay */
-    .hero::before{
-      content:"";position:absolute;inset:0;
-      background:
-        repeating-linear-gradient(90deg, rgba(0,0,0,.025) 0px, rgba(0,0,0,.025) 1px, transparent 1px, transparent 24px),
-        repeating-linear-gradient(0deg,  rgba(0,0,0,.02)  0px, rgba(0,0,0,.02)  1px, transparent 1px, transparent 24px);
-      pointer-events:none;
-    }
-    .hero h1{font-size:2.4rem;font-weight:900;color:var(--tp-black);letter-spacing:.02em;margin-bottom:.5rem;position:relative}
-    .hero p{color:var(--tp-gray-dark);position:relative}
+    .hero-section::before{left:10%;transform:translateY(-50%) rotate(-15deg)}
+    .hero-section::after{right:10%;transform:translateY(-50%) rotate(15deg)}
+    .hero-title{font-size:2.6rem;font-weight:900;margin-bottom:.75rem;color:#000}
+    .hero-subtitle{font-size:1.1rem;color:var(--tp-gray-dark)}
 
     /* Tabs */
-    .tabs{
-      background:var(--tp-black);border-bottom:2px solid var(--tp-charcoal);padding:1.25rem 1rem;
-    }
-    .tabs-container{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
-    .tab-btn{
-      padding:.7rem 1rem;background:transparent;color:var(--tp-white);border:1px solid var(--tp-gray);
-      cursor:pointer;font-weight:700;font-size:.92rem;border-radius:999px;transition:.2s;
-    }
-    .tab-btn:hover{background:rgba(255,255,255,.09)}
-    .tab-btn.active{background:var(--tp-white);color:var(--tp-black);border-color:var(--tp-white)}
+    .tabs-section{background:#000;padding:1.5rem 2rem;border-bottom:2px solid var(--tp-charcoal)}
+    .tabs-container{max-width:1200px;margin:0 auto;display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+    .tab-btn{padding:.7rem 1.2rem;background:transparent;color:#fff;border:1px solid var(--tp-gray);cursor:pointer;transition:.25s;font-weight:700;font-size:.9rem;border-radius:8px}
+    .tab-btn:hover{background:rgba(255,255,255,.08)}
+    .tab-btn.active{background:#fff;color:#000;border-color:#fff}
 
     /* Search */
-    .search{background:var(--tp-off-white);padding:2rem 1.5rem}
-    .search-wrap{max-width:720px;margin:0 auto;display:flex;gap:.8rem}
-    .search input{
-      flex:1;padding:1rem;border:2px solid var(--tp-light);font:inherit;border-radius:10px;transition:.2s;
-    }
-    .search input:focus{outline:none;border-color:var(--tp-black)}
-    .search button{
-      padding:1rem 1.2rem;background:var(--tp-black);color:var(--tp-white);border:2px solid var(--tp-black);
-      font-weight:800;border-radius:10px;cursor:pointer;transition:.2s;
-    }
-    .search button:hover{background:var(--tp-white);color:var(--tp-black)}
+    .search-section{background:var(--tp-off-white);padding:2.5rem 2rem}
+    .search-container{max-width:700px;margin:0 auto}
+    .search-box{display:flex;gap:1rem}
+    .search-input{flex:1;padding:1rem;border:2px solid var(--tp-light);font-size:1rem;font-family:inherit;border-radius:10px}
+    .search-input:focus{outline:none;border-color:#000}
+    .search-btn{padding:1rem 1.4rem;background:#000;color:#fff;border:2px solid #000;cursor:pointer;font-weight:800;border-radius:10px}
+    .search-btn:hover{background:#fff;color:#000}
 
     /* FAQ */
-    .faq{max-width:1100px;margin:3rem auto;padding:0 1.5rem}
+    .faq-container{max-width:1040px;margin:3rem auto 4rem;padding:0 2rem}
     .faq-category{margin-bottom:3rem}
-    .category-title{
-      font-size:1.6rem;font-weight:900;color:var(--tp-black);margin-bottom:1.2rem;padding-bottom:.75rem;border-bottom:2px solid var(--tp-light)
-    }
-    .faq-item{border:1px solid var(--tp-light);background:var(--tp-white);margin-bottom:.8rem;border-radius:10px;overflow:hidden;transition:.2s}
-    .faq-item:hover{box-shadow:var(--shadow-sm)}
-    .faq-q{
-      padding:1.2rem 1.2rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:700
-    }
-    .faq-q:hover{background:var(--tp-off-white)}
-    .faq-toggle{font-size:1.5rem;line-height:1;font-weight:300;transition:.25s}
-    .faq-a{
-      padding:0 1.2rem;max-height:0;overflow:hidden;transition:max-height .3s ease, padding .2s ease;color:var(--tp-gray-dark)
-    }
-    .faq-item.active .faq-a{padding:0 1.2rem 1.2rem;max-height:900px}
-    .faq-item.active{border-color:var(--tp-black);box-shadow:var(--shadow-md)}
+    .category-title{font-size:1.6rem;font-weight:800;color:#000;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--tp-light)}
+    .faq-item{background:#fff;border:1px solid var(--tp-light);margin-bottom:1rem;transition:.25s;border-radius:10px;overflow:hidden}
+    .faq-item:hover{box-shadow:var(--shadow-md)}
+    .faq-question{padding:1.2rem 1.4rem;font-weight:700;color:#000;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+    .faq-question:focus{outline:2px dashed #000;outline-offset:2px}
+    .faq-toggle{font-size:1.5rem;transition:transform .25s;font-weight:300}
+    .faq-answer{padding:0 1.4rem;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;color:var(--tp-gray-dark)}
+    .faq-item.active .faq-answer{padding:0 1.4rem 1.2rem;max-height:750px}
+    .faq-item.active{border-color:#000;box-shadow:var(--shadow-lg)}
     .faq-item.active .faq-toggle{transform:rotate(45deg)}
 
-    /* Help / TA CTA (images per Slide 3) */
-    .help-cta{
-      background:var(--tp-off-white);padding:3rem 1.5rem;margin-top:3rem
-    }
-    .help-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
-    .help-card{
-      background:var(--tp-white);border:1px solid var(--tp-light);border-radius:12px;overflow:hidden;display:flex;gap:1rem;align-items:center;
-      box-shadow:var(--shadow-sm)
-    }
-    .help-card img{width:120px;height:120px;object-fit:cover}
-    .help-card .hc-body{padding:1rem}
-    .btn-primary{
-      display:inline-block;background:var(--tp-black);color:var(--tp-white);padding:.8rem 1.2rem;border-radius:10px;
-      text-decoration:none;font-weight:800;border:2px solid var(--tp-black);transition:.2s
-    }
-    .btn-primary:hover{background:var(--tp-white);color:var(--tp-black)}
+    /* Callouts / small tables in answers */
+    .mini-table{width:100%;border-collapse:collapse;margin: .75rem 0;border:1px solid var(--tp-light)}
+    .mini-table th,.mini-table td{border:1px solid var(--tp-light);padding:.6rem .7rem;font-size:.95rem}
+    .mini-table th{background:var(--tp-off-white);text-align:left}
 
-    /* Footer (keep consistent) */
-    footer{
-      background:var(--tp-black);color:var(--tp-white);margin-top:3rem
-    }
-    .footer-inner{max-width:1400px;margin:0 auto;padding:2.2rem 2rem;display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;justify-content:space-between}
-    .foot-left{display:flex;align-items:center;gap:.8rem}
-    .foot-logo{width:36px;height:36px;border-radius:8px;background:var(--tp-white);color:var(--tp-black);display:flex;align-items:center;justify-content:center;font-weight:900}
-    .foot-links{display:flex;gap:1rem;flex-wrap:wrap}
-    .foot-links a{color:#ddd;text-decoration:none}
-    .foot-links a:hover{text-decoration:underline}
-    .foot-apply{background:var(--tp-white);color:var(--tp-black);padding:.6rem 1rem;border-radius:999px;text-decoration:none;font-weight:800;border:2px solid var(--tp-white)}
-    .foot-apply:hover{background:transparent;color:var(--tp-white)}
+    /* ChatGPT helper (kept) */
+    .chatgpt-section{background:#000;color:#fff;padding:3.5rem 2rem;text-align:center}
+    .chatgpt-container{max-width:800px;margin:0 auto}
+    .chatgpt-icon{font-size:3.2rem;margin-bottom:1.2rem;opacity:.9}
+    .chatgpt-title{font-size:1.8rem;font-weight:800;margin-bottom:.4rem}
+    .chatgpt-desc{color:var(--tp-silver);margin-bottom:1.4rem}
+    .chatgpt-prompt{background:rgba(255,255,255,.06);border:1px solid var(--tp-charcoal);padding:1.3rem;margin-bottom:1.4rem;text-align:left;font-family:monospace;font-size:.9rem;color:var(--tp-silver);border-radius:10px}
+    .btn{padding:1rem 2.2rem;text-decoration:none;font-weight:800;transition:.25s;display:inline-block;border:2px solid #fff;cursor:pointer;background:transparent;color:#fff;border-radius:999px}
+    .btn:hover{background:#fff;color:#000}
 
-    /* Floating Apply Now (Slide 3) */
+    /* Footer (match home style, simple) */
+    footer{border-top:1px solid var(--tp-light);background:#fff}
+    .footer-inner{max-width:1400px;margin:0 auto;padding:2rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+    .footer-left{display:flex;align-items:center;gap:.8rem}
+    .footer-links{display:flex;gap:1rem;flex-wrap:wrap}
+    .footer-links a{color:var(--tp-gray-dark);text-decoration:none;font-weight:600}
+    .footer-links a:hover{color:#000}
+    .copy{color:var(--tp-gray);font-size:.9rem}
+
+    /* Floating Apply Now (per slides) */
     .floating-apply{
-      position:fixed;right:16px;bottom:16px;z-index:1001;
-      background:var(--tp-black);color:var(--tp-white);padding:.9rem 1.1rem;border-radius:999px;font-weight:900;text-decoration:none;border:2px solid var(--tp-black);
-      box-shadow:0 10px 20px rgba(0,0,0,.15);transition:.2s;
+      position:fixed;right:18px;bottom:18px;z-index:9999;background:#000;color:#fff;
+      border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid #000
     }
-    .floating-apply:hover{background:var(--tp-white);color:var(--tp-black)}
+    .floating-apply:hover{background:#fff;color:#000}
 
-    @media (max-width:820px){
-      .help-grid{grid-template-columns:1fr}
+    /* Responsive */
+    @media (max-width:900px){
+      nav{gap:1rem}
+      .hero-title{font-size:2.1rem}
+    }
+    @media (max-width:768px){
+      nav{display:none} /* keep header uncluttered on mobile */
+      .tabs-container{flex-direction:column}
+      .tab-btn{width:100%}
+      .faq-question{font-size:.98rem}
     }
   </style>
 </head>
 <body>
-
   <!-- Header -->
   <header>
     <div class="header-container">
-      <a href="index.html" class="brand" aria-label="Teleperformance Home">
+      <div class="logo-section">
         <div class="logo">TP</div>
-        <div>
-          <div class="brand-title">Teleperformance</div>
-          <div class="brand-sub">Malaysia · Thailand — 日本語採用</div>
+        <div class="brand">
+          <div class="name">Teleperformance</div>
+          <div class="sub">Malaysia · Thailand — 日本語採用</div>
         </div>
-      </a>
-
-      <!-- Keep: Home → 2 links → current page → Apply Now -->
-      <nav aria-label="Main">
+      </div>
+      <!-- Compact menu: Home → 3 links (we picked) → Current → Apply -->
+      <nav aria-label="Primary">
         <a href="index.html">ホーム</a>
         <a href="about-tp.html">About TP</a>
-        <a href="jobs-and-benefits.html">求人＆福利厚生</a>
-        <a href="faq.html" class="current" aria-current="page">FAQ</a>
-        <a class="apply-link" target="_blank"
-           href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">ご応募はこちら</a>
+        <a href="jobs-and-benefits.html">Jobs &amp; Benefits</a>
+        <a href="why-malaysia-thailand.html">勤務地</a>
+        <a href="faq.html" class="active" aria-current="page">FAQ</a>
+        <a class="apply-link" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener">ご応募はこちら</a>
       </nav>
     </div>
   </header>
 
   <!-- Hero -->
-  <section class="hero">
-    <h1>よくある質問 FAQ</h1>
-    <p>応募・面接・移住・生活・福利厚生・勤務地・成長機会まで、まとめて解決します。</p>
+  <section class="hero-section">
+    <h1 class="hero-title">よくある質問 FAQ</h1>
+    <p class="hero-subtitle">応募・面接・移住・生活・福利厚生・各都市情報まで、まとめて解決</p>
   </section>
 
   <!-- Tabs -->
-  <section class="tabs">
+  <section class="tabs-section">
     <div class="tabs-container">
       <button class="tab-btn active" data-category="all">すべて</button>
       <button class="tab-btn" data-category="application">応募・面接</button>
       <button class="tab-btn" data-category="visa">ビザ・移住</button>
       <button class="tab-btn" data-category="work">仕事内容・働き方</button>
-      <button class="tab-btn" data-category="life">生活・住まい・物価</button>
       <button class="tab-btn" data-category="benefits">給与・福利厚生</button>
-      <button class="tab-btn" data-category="locations">勤務地（KL/ペナン/バンコク）</button>
-      <button class="tab-btn" data-category="growth">成長・学習</button>
-      <button class="tab-btn" data-category="culture">カルチャー・その他</button>
+      <button class="tab-btn" data-category="life">生活・住まい</button>
+      <button class="tab-btn" data-category="locations">各都市（KL/ペナン/バンコク）</button>
+      <button class="tab-btn" data-category="company">会社・カルチャー</button>
+      <button class="tab-btn" data-category="resources">リソース（面談/LINE/バーチャルツアー）</button>
     </div>
   </section>
 
   <!-- Search -->
-  <section class="search" aria-label="FAQ検索">
-    <div class="search-wrap">
-      <input type="text" class="search-input" placeholder="キーワードで検索（例：ビザ、家賃、在宅、GoFluent、KL）…" aria-label="FAQ検索入力">
-      <button class="search-btn" type="button">検索</button>
+  <section class="search-section">
+    <div class="search-container">
+      <div class="search-box">
+        <input type="text" class="search-input" placeholder="キーワードで検索（例：ビザ、家賃、KL、英語）…" aria-label="FAQを検索">
+        <button class="search-btn">検索</button>
+      </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <main class="faq" id="faq" aria-live="polite">
+  <div class="faq-container">
 
     <!-- 応募・面接 -->
-    <section class="faq-category" data-category="application">
+    <div class="faq-category" data-category="application">
       <h2 class="category-title">応募・面接について</h2>
 
       <div class="faq-item">
-        <div class="faq-q">未経験でも応募できますか？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          はい、未経験歓迎です。入社後に充実した研修があり、必要なスキルは入社後に習得できます。意欲とコミュニケーション姿勢を重視します。
+        <div class="faq-question" tabindex="0">
+          未経験でも応募できますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          はい、未経験の方も歓迎です。入社後に研修があり、必要なスキルはそこで身につけられます。大切なのは、コミュニケーションが好きで新しい環境に挑戦する意欲です。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">英語力はどの程度必要ですか？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          日本語メインのポジションは日常会話レベルから応募可能です（目安：TOEIC 500）。社内では英語に触れる機会があり、入社後は
-          <strong>GoFluent</strong>など学習支援で無理なくスキルアップできます。英語バイリンガル向けの求人も多数あります。
+        <div class="faq-question" tabindex="0">
+          英語力はどの程度必要ですか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          日本語中心のポジションは日常会話レベルでも応募可能です。社内連絡で英語を使う場面もありますが、<strong>GoFluent等の語学プログラム</strong>で入社後に学習できます。英語バイリンガル向けのポジションもあります。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">面接は何回・どのように行われますか？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          原則オンラインで<strong>2回</strong>（採用担当→マネージャー）。各30〜45分、<strong>Microsoft Teams</strong>で日本語メインの進行です。
+        <div class="faq-question" tabindex="0">
+          面接の回数・方法を教えてください。 <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          通常は<strong>オンラインで2回</strong>（採用担当→マネージャー）です。各30〜45分、<strong>Microsoft Teams</strong>を使用。進行は日本語が中心です。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">選考期間はどれくらい？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          書類選考（約3営業日）→面接2回→最終結果（約1週間）で、順調なら<strong>2〜3週間</strong>が目安です。
+        <div class="faq-question" tabindex="0">
+          内定までの目安期間は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          書類選考（約3営業日）→面接2回→最終面接結果（約1週間）で、<strong>全体2〜3週間</strong>が目安です。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">カジュアル面談と面接の違いは？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          <strong>カジュアル面談</strong>は選考ではなく情報提供の場（約30分・日本語・オンライン）。応募意思が固まっていなくても参加OKです。<br>
-          予約はこちら：<a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener">フォーム</a>
+        <div class="faq-question" tabindex="0">
+          カジュアル面談は面接ですか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          いいえ、選考ではありません。<strong>約30分</strong>で仕事・生活・移住の疑問を日本語で相談できます。未経験でもOK。<br>
+          面談フォーム：<a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener">こちら</a>
         </div>
       </div>
-
-      <div class="faq-item">
-        <div class="faq-q">準備物（履歴書/機材/通信環境）は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          日本語履歴書（できれば英語版も）、安定した通信（カメラ/マイク使用）。職歴の具体例、希望入社時期、就労ビザ関連の基本情報もご用意ください。
-        </div>
-      </div>
-    </section>
+    </div>
 
     <!-- ビザ・移住 -->
-    <section class="faq-category" data-category="visa">
+    <div class="faq-category" data-category="visa">
       <h2 class="category-title">ビザ・移住について</h2>
 
       <div class="faq-item">
-        <div class="faq-q">就労ビザ取得は難しい？期間は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          専門チームが<strong>日本語でフルサポート</strong>します。内定後、通常<strong>1〜2か月</strong>で発行。申請費用は会社負担です。
+        <div class="faq-question" tabindex="0">
+          就労ビザの取得は難しい？どれくらいかかる？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          専門チームが日本語でサポートします。必要書類の案内から申請まで一貫対応。<strong>内定から1〜2ヶ月</strong>で発行が目安。申請費用は会社負担です。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">渡航・到着後のサポートは？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          片道航空券の支給、空港送迎、到着後<strong>6泊7日</strong>のホテル手配（マレーシア）。滞在中に住居探しをサポートします。
+        <div class="faq-question" tabindex="0">
+          渡航・到着後のサポートはありますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <strong>片道航空券の支給</strong>、空港送迎、さらに<strong>到着後6泊7日のホテル</strong>を提供（その間に住居探し）。初めての海外でも安心して移住を開始できます。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">家族の帯同は可能？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          就労ビザ（EP）取得後、配偶者・子どもの<strong>Dependent Pass</strong>申請が可能です。日本人学校や医療機関も整っています。
+        <div class="faq-question" tabindex="0">
+          家族の帯同は可能ですか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          就労ビザ（EP）取得後に<strong>Dependent Pass（配偶者・子ども）</strong>を申請できます。日本人学校や日本語医療もあり、帯同移住の方も多いです。
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- 仕事内容・働き方 -->
-    <section class="faq-category" data-category="work">
+    <div class="faq-category" data-category="work">
       <h2 class="category-title">仕事内容・働き方について</h2>
 
       <div class="faq-item">
-        <div class="faq-q">主な業務内容は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          日本のお客様への電話/チャット/メール対応が中心。業界はEコマース、旅行、ホテル、金融、SNS、ITなど。注文/予約/技術サポート等を行います。
+        <div class="faq-question" tabindex="0">
+          どんな業務を担当しますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          日本のお客様対応（電話・メール・チャット）。<strong>Eコマース、旅行、ホテル、金融、SNS、IT</strong>など多岐。注文・予約・アカウント・技術サポートなど、課題解決を支援します。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">勤務時間・シフトは？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          週5日、1日8〜9時間。日本時間に合わせたシフトが多く、早朝/夜間・祝日勤務には手当がつきます（プロジェクトにより異なる）。
+        <div class="faq-question" tabindex="0">
+          勤務時間やシフトは？リモートは？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          週5日・1日8〜9時間が基本。日本時間に合わせた早朝/夜間もあり、<strong>シフト手当</strong>対象。職種により<strong>ハイブリッド勤務</strong>可（詳細は面接で案内）。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">在宅やハイブリッドは可能？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          職種/プロジェクトにより<strong>ハイブリッド勤務</strong>（例：週2〜3日在宅）が可能なケースがあります。面接時にご確認ください。
+        <div class="faq-question" tabindex="0">
+          キャリアパスはありますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          実力重視の評価で、<strong>トレーナー / QA / チームリーダー / マネージャー</strong>などへ昇進可能。別プロジェクトへの異動機会もあります。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">職場の雰囲気や設備は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          多国籍でフラットなカルチャー。オフィス環境は近代的で、共用スペースや設備も充実。<a href="office-environment.html">職場環境</a>や
-          <a href="why-malaysia-thailand.html">各都市の紹介</a>をご覧ください。
+        <div class="faq-question" tabindex="0">
+          研修や語学サポートは？（GoFluent等） <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          入社時研修＋継続的なトレーニングを提供。英語力向上には<strong>Language Bootcamp / GoFluent</strong>などの学習支援が利用できます。
         </div>
       </div>
-    </section>
-
-    <!-- 生活・住まい・物価 -->
-    <section class="faq-category" data-category="life">
-      <h2 class="category-title">生活・住まい・物価について</h2>
-
-      <div class="faq-item">
-        <div class="faq-q">住居探しはどう進めますか？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          到着後のホテル滞在中に内見を進めます。日本人スタッフが不動産エージェント紹介やエリア選びをサポート。<strong>プール/ジム付</strong>コンドが
-          月<strong>約5〜8万円</strong>で一般的です（KL目安）。
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">生活費の目安は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          例：家賃1LDK<strong>約5〜6万円</strong>（24hセキュリティ・プール・ジム付）、外食<strong>約300円〜</strong>、Grab移動は日本より低コスト。
-          日本よりも<strong>“余裕”のある暮らし</strong>がしやすい環境です。
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">日本食・医療・治安は大丈夫？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          日本食材/レストランが充実（KL：ドンキ、AEON、伊勢丹等／バンコク：フジスーパー等）。日本語対応の病院/クリニックもあり、医療水準は高いです。
-          治安は比較的安定、基本的な防犯意識で安心して生活できます。
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">週末や余暇の過ごし方は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          海や島リゾート（ランカウイ、プーケット等）、ハイキング、ジム/ヨガ、カフェ巡り、ナイトマーケットなどアクティビティが豊富。
-          LCCを活用した<strong>週末海外旅行</strong>も身近です。
-        </div>
-      </div>
-    </section>
+    </div>
 
     <!-- 給与・福利厚生 -->
-    <section class="faq-category" data-category="benefits">
+    <div class="faq-category" data-category="benefits">
       <h2 class="category-title">給与・福利厚生について</h2>
 
       <div class="faq-item">
-        <div class="faq-q">有給や休暇制度は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          初年度<strong>14日</strong>、勤続で最大<strong>21日</strong>まで増加。病気休暇（年間14日）、各国の祝日（一部日本の祝日含む）も休暇です。
+        <div class="faq-question" tabindex="0">
+          有給・休暇制度は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          初年度<strong>年14日</strong>（勤続で最⼤<strong>21日</strong>）。<strong>病気休暇14日</strong>、現地祝日＋一部日本祝日も休み。プロジェクトにより異なる場合はオファー時に明示します。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">昇給・昇進の仕組みは？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          年<strong>2回の評価</strong>に基づき昇給。実力次第でトレーナー、QA、チームリーダー、マネージャーなど多彩なキャリアパスがあります。
+        <div class="faq-question" tabindex="0">
+          昇給・昇進の機会は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          年<strong>2回</strong>の評価で昇給のチャンス。パフォーマンスに応じて役職登用もあります（年齢や在籍年数ではなく実力を重視）。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">保険や手当は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          医療保険完備、シフト/休日/夜勤手当、ビザ申請費用会社負担、（マレーシア）到着後の一時滞在提供など、安心して暮らせる制度があります。
+        <div class="faq-question" tabindex="0">
+          医療保険などの福利厚生は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          医療保険を完備。日本語対応の医療機関も利用しやすく、自己負担を抑えられます。各種手当（シフト等）、表彰・イベントなどの制度もあります。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">退職時の帰国費用は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          契約満了または会社都合の退職時は帰国航空券を支給。自己都合退職は自己負担です（詳細は雇用契約書をご確認ください）。
+        <div class="faq-question" tabindex="0">
+          退職時の帰国費用は支給されますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          契約満了または会社都合の退職時は<strong>帰国航空券支給</strong>。自己都合退職は自己負担です（詳細は雇用契約をご確認ください）。
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- 勤務地 -->
-    <section class="faq-category" data-category="locations">
-      <h2 class="category-title">勤務地（KL/ペナン/バンコク）</h2>
+    <!-- 生活・住まい（Cost of Living / Housing / 医療 / 交通 / 余暇） -->
+    <div class="faq-category" data-category="life">
+      <h2 class="category-title">生活・住まいについて</h2>
 
       <div class="faq-item">
-        <div class="faq-q">クアラルンプール（KL）の特徴は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          都市の利便性×多文化。日本食・医療・学校・交通（MRT/モノレール/Grab）が充実。高級コンドのプール/ジム付物件も日本より手頃です。
+        <div class="faq-question" tabindex="0">
+          日本と比べた生活コストは？（例：KL） <span class="faq-toggle">+</span>
         </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">ペナンの特徴は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          自然と歴史が調和する落ち着いた島ライフ。海の近い高層コンドやカフェ文化、KLよりやや低コストでのんびり暮らせます。
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">バンコクの特徴は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          日本人が最も多い東南アジアの大都市。日本向け施設が超充実、BTS/MRTで移動も快適。家具付きコンドは東京の<strong>約半額</strong>が目安です。
+        <div class="faq-answer">
+          物価が安く、時間・お金・心に<strong>“ゆとり”</strong>が生まれます。例（東京 vs KL）：
+          <table class="mini-table" aria-label="生活コスト比較">
+            <tr><th>項目</th><th>日本（東京）</th><th>マレーシア（KL）</th></tr>
+            <tr><td>家賃（1LDK）</td><td>約12万円〜</td><td>約5〜6万円（24hセキュリティ・プール・ジム付）</td></tr>
+            <tr><td>外食</td><td>1,000円〜</td><td>約300円〜</td></tr>
+            <tr><td>交通費</td><td>月1万円以上</td><td>数千円以内（Grab移動）</td></tr>
+          </table>
+          社員の声：カフェ巡りや外食、平日夜の余暇も楽しみやすくなった等の声が多いです。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">旅行アクセスは良い？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          KL/バンコクはアジアのハブ。日本各都市やソウル/台北/シンガポール等へ直行便が豊富。LCCで週末トリップもしやすい立地です。
+        <div class="faq-question" tabindex="0">
+          住居はどうやって探しますか？相場は？ <span class="faq-toggle">+</span>
         </div>
-      </div>
-    </section>
-
-    <!-- 成長・学習 -->
-    <section class="faq-category" data-category="growth">
-      <h2 class="category-title">成長・学習（キャリア/語学）</h2>
-
-      <div class="faq-item">
-        <div class="faq-q">キャリア成長の機会は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          実力主義で年齢や経歴に関係なくチャンスあり。別プロジェクト異動やトレーナー/QA/リーダー等、<strong>多彩なキャリアパス</strong>が描けます。
+        <div class="faq-answer">
+          到着後のホテル滞在中に内見・契約。日本人スタッフがエージェント紹介やアドバイスを行います。<br>
+          KL/ペナンの一般相場は<strong>RM1,500〜2,500</strong>（約5〜8万円）で<strong>プール・ジム付き</strong>が一般的。家具家電付きで即入居しやすい物件が多いです。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">語学・トレーニング支援は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          <strong>GoFluent</strong>などの英語学習プログラム、オンボーディング研修、現場OJTを提供。働きながら語学と業務スキルを伸ばせます。
+        <div class="faq-question" tabindex="0">
+          日本食や日用品は入手しやすい？ <span class="faq-toggle">+</span>
         </div>
-      </div>
-    </section>
-
-    <!-- カルチャー・その他 -->
-    <section class="faq-category" data-category="culture">
-      <h2 class="category-title">カルチャー・イベント・その他</h2>
-
-      <div class="faq-item">
-        <div class="faq-q">会社のカルチャーは？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          多様性と尊重が根付いたフラットなカルチャー。社内イベントや表彰、チームビルディングなど交流の機会が豊富で、
-          <strong>Great Place to Work®</strong>認証も取得しています。
+        <div class="faq-answer">
+          KLは<strong>ドン・キホーテ / AEON / 伊勢丹</strong>、バンコクは<strong>フジスーパー</strong>等があり、日本食レストランも充実。食に困ることはほぼありません。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">オフィスの様子を見られる？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          バーチャルオフィスツアーで現地の働く環境を体感できます。<a href="office-environment.html">オフィス＆環境</a>からご覧ください。
+        <div class="faq-question" tabindex="0">
+          医療や治安は大丈夫？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          日本語対応の医療機関が複数あり、医療水準も高いです。治安は比較的安定。基本的な防犯意識を持てば、女性の一人暮らしでも安心して生活できます。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">最新情報の受け取り方は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          <a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINE公式アカウント</a>で求人や現地暮らしの情報を配信しています。
-          そのまま質問も可能です。
+        <div class="faq-question" tabindex="0">
+          休日や週末はどんな過ごし方ができますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          ランニング・ジム・ヨガ、カフェ巡り、ナイトマーケット、ビーチ（日帰り/週末）など<strong>アクティブなオフ</strong>が楽しめます。<br>
+          旅行好きにも好立地（LCCで近隣国へ気軽に旅行 / KL・バンコクは多方面直行便）。
+        </div>
+      </div>
+    </div>
+
+    <!-- 各都市 -->
+    <div class="faq-category" data-category="locations">
+      <h2 class="category-title">各都市（KL/ペナン/バンコク）</h2>
+
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          クアラルンプール（KL）の特色は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          都市の利便性と多文化。<strong>MRT/モノレール/Grab</strong>で移動快適。<strong>Mont Kiara・KLCC</strong>等の人気エリアは高級コンドが多く、設備充実で日本より家賃は安価。病院や日本人会、日本語学校も充実し初めての海外でも安心です。
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">質問が解決しない場合は？<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          <strong>カジュアル面談</strong>で日本語相談が可能です（約30分・オンライン）。<a href="casual-interview.html">カジュアル面談の詳細</a>または
-          <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener">予約フォーム</a>からどうぞ。
+        <div class="faq-question" tabindex="0">
+          ペナン（Penang）の特色は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          自然×歴史の落ち着いた島暮らし。海に近い眺望の良い高層コンドが多く、KLよりやや生活費が安い傾向。長期滞在にも人気で、家族帯同にも向いています。
         </div>
       </div>
-    </section>
 
-    <!-- Help / TA CTA with team image -->
-    <section class="help-cta" aria-label="サポートのご案内">
-      <div class="help-grid">
-        <article class="help-card">
-          <img src="images/ta-joseph.jpg" alt="タレントアクイジション シニアマネージャー Joseph" loading="lazy">
-          <div class="hc-body">
-            <h3 style="margin:0 0 .3rem 0;font-weight:900;">採用チームに相談できます</h3>
-            <p style="color:var(--tp-gray-dark);margin-bottom:.8rem;">応募〜入社、現地生活まで日本語で伴走します。まずはお気軽に。</p>
-            <a class="btn-primary" href="ta-team.html">採用チームを見る</a>
-          </div>
-        </article>
-        <article class="help-card">
-          <img src="images/office-kl.jpg" alt="KLオフィス環境イメージ" loading="lazy">
-          <div class="hc-body">
-            <h3 style="margin:0 0 .3rem 0;font-weight:900;">バーチャルオフィスツアー</h3>
-            <p style="color:var(--tp-gray-dark);margin-bottom:.8rem;">現地の雰囲気・設備・働く空間をオンラインで体感できます。</p>
-            <a class="btn-primary" href="office-environment.html">オフィスを見る</a>
-          </div>
-        </article>
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          バンコク（Bangkok）の特色は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          “東南アジアの東京”とも言える便利な大都市。<strong>BTS/MRT</strong>発達、家具付きコンド（プール/ジム）で家賃は東京の約半額感。日本語施設や医療が非常に充実し、親日的で働きやすい環境です。
+        </div>
       </div>
-    </section>
+    </div>
 
-  </main>
+    <!-- 会社・カルチャー -->
+    <div class="faq-category" data-category="company">
+      <h2 class="category-title">会社・カルチャーについて</h2>
 
-  <!-- Footer -->
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          TPはどんな会社？認証・実績は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          1978年フランス創業、世界100カ国以上・従業員50万人以上のBPOリーダー。<strong>TPマレーシアはGreat Place to Work®認証</strong>を取得し、働きやすい職場環境が評価されています。多国籍・フラットな社風です。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          社内カルチャーやイベントはありますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          社内イベント、表彰、チームビルディングなど人とのつながりを大切にするカルチャー。国籍・年齢・性別を問わず尊重し合う文化で、価値観や視野が広がります。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          採用チーム（TA）はどんなサポートをしてくれますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          日本語対応のTAチームが応募〜入社まで丁寧に伴走。選考や現地生活の不安も日本語で相談OKです（例：Joseph/シニアマネージャーをはじめ、多国籍メンバーが在籍）。
+        </div>
+      </div>
+    </div>
+
+    <!-- リソース -->
+    <div class="faq-category" data-category="resources">
+      <h2 class="category-title">リソース（面談/LINE/バーチャルツアー）</h2>
+
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          バーチャルオフィスツアーはありますか？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          はい、オンラインで現地の職場環境を体感できます：<br>
+          <a href="https://vtour.cloud/mh2n0j/ae5772z1/Bella's" target="_blank" rel="noopener">Bella's Malaysian Adventure: Exploring the Beauty of Malaysia</a>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          最新情報はどこで見られますか？（LINE） <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <strong>LINE公式アカウント</strong>で求人更新・現地Q&amp;A・相談を配信中。登録はこちら：<br>
+          <a href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd" target="_blank" rel="noopener">LINE公式アカウント</a>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          カジュアル面談の予約方法は？ <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          こちらのフォームから日時をお選びください（選考ではありません / 約30分 / 日本語対応）：<br>
+          <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener">カジュアル面談フォーム</a>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" tabindex="0">
+          今すぐ応募したいのですが？（Apply Now） <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          ありがとうございます。応募はこちら：<br>
+          <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener">ご応募はこちら（iCIMS）</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ChatGPT helper -->
+  <section class="chatgpt-section">
+    <div class="chatgpt-container">
+      <div class="chatgpt-icon">🤖</div>
+      <h2 class="chatgpt-title">Ask ChatGPT</h2>
+      <p class="chatgpt-desc">
+        ここにない質問は、下のプロンプトをコピーしてChatGPTに相談してください。
+      </p>
+      <div class="chatgpt-prompt">
+        私はテレパフォーマンス（TP）のマレーシア・タイでの日本語スピーカー向け求人について知りたいです。<br>
+        以下について教えてください：<br>
+        - 応募資格と必要なスキル<br>
+        - 給与と福利厚生<br>
+        - ビザ申請プロセス<br>
+        - 現地での生活費と住環境<br>
+        - キャリアパスと成長機会
+      </div>
+      <button class="btn" onclick="copyPrompt()">プロンプトをコピー</button>
+    </div>
+  </section>
+
+  <!-- Footer (simple, same vibe as home) -->
   <footer>
     <div class="footer-inner">
-      <div class="foot-left">
-        <div class="foot-logo">TP</div>
-        <div>
-          <div style="font-weight:800">Teleperformance</div>
-          <div style="font-size:.8rem;color:#bbb">Malaysia · Thailand — 日本語採用</div>
+      <div class="footer-left">
+        <div class="logo">TP</div>
+        <div class="brand">
+          <div class="name">Teleperformance</div>
+          <div class="sub">Malaysia · Thailand — 日本語採用</div>
         </div>
       </div>
-      <nav class="foot-links" aria-label="Footer">
-        <a href="index.html">ホーム</a>
+      <div class="footer-links">
         <a href="about-tp.html">About TP</a>
-        <a href="jobs-and-benefits.html">求人＆福利厚生</a>
-        <a href="faq.html">FAQ</a>
-      </nav>
-      <a class="foot-apply" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">ご応募はこちら</a>
+        <a href="jobs-and-benefits.html">Jobs &amp; Benefits</a>
+        <a href="why-malaysia-thailand.html">勤務地</a>
+        <a href="office-environment.html">オフィス環境</a>
+        <a href="career-growth.html">キャリア成長</a>
+        <a href="testimonials.html">社員の声</a>
+        <a href="faq.html" aria-current="page">FAQ</a>
+      </div>
+      <div class="copy">© Teleperformance Malaysia &amp; Thailand</div>
     </div>
   </footer>
 
-  <!-- Floating Apply Now (no back-to-top arrow anywhere) -->
-  <a class="floating-apply" target="_blank"
-     href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
-     aria-label="今すぐ応募">
+  <!-- Floating Apply Now -->
+  <a class="floating-apply" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" aria-label="ご応募はこちら（外部サイト）">
     ご応募はこちら
   </a>
 
   <script>
-    // Toggle Q&A
-    document.querySelectorAll('.faq-item .faq-q').forEach(q => {
-      q.addEventListener('click', () => {
-        const item = q.parentElement;
-        const wasActive = item.classList.contains('active');
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-        if (!wasActive) item.classList.add('active');
+    // FAQ open/close (click or Enter/Space)
+    document.querySelectorAll('.faq-question').forEach(q=>{
+      q.addEventListener('click',toggleItem);
+      q.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleItem.call(q);}
       });
     });
+    function toggleItem(){
+      const item=this.parentElement;
+      const wasActive=item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active'));
+      if(!wasActive){item.classList.add('active');}
+    }
 
     // Tabs
-    function setCategory(cat){
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.category === cat || (cat==='all' && b.dataset.category==='all')));
-      document.querySelectorAll('.faq-category').forEach(c => {
-        c.style.display = (cat==='all' || c.dataset.category===cat) ? 'block' : 'none';
+    document.querySelectorAll('.tab-btn').forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        const category=tab.dataset.category;
+        document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('.faq-category').forEach(cat=>{
+          cat.style.display=(category==='all'||cat.dataset.category===category)?'block':'none';
+        });
+        // collapse all when switching tabs
+        document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active'));
       });
-    }
-    document.querySelectorAll('.tab-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=> setCategory(btn.dataset.category));
     });
-    setCategory('all'); // initial
 
-    // Search (click + enter + live)
-    const searchInput = document.querySelector('.search-input');
-    const searchBtn = document.querySelector('.search-btn');
+    // Search
+    const input=document.querySelector('.search-input');
     function runSearch(){
-      const term = searchInput.value.trim().toLowerCase();
-      const items = document.querySelectorAll('.faq-item');
-      if (!term){
-        items.forEach(i => i.style.display = 'block');
+      const term=input.value.trim().toLowerCase();
+      // show all categories for search results
+      document.querySelectorAll('.faq-category').forEach(cat=>cat.style.display='block');
+      if(!term){
+        // reset visibility
+        document.querySelectorAll('.faq-item').forEach(i=>i.style.display='block');
         return;
       }
-      items.forEach(i => {
-        const q = i.querySelector('.faq-q').textContent.toLowerCase();
-        const a = i.querySelector('.faq-a').textContent.toLowerCase();
-        i.style.display = (q.includes(term) || a.includes(term)) ? 'block' : 'none';
+      document.querySelectorAll('.faq-item').forEach(item=>{
+        const q=item.querySelector('.faq-question').textContent.toLowerCase();
+        const a=item.querySelector('.faq-answer').textContent.toLowerCase();
+        item.style.display=(q.includes(term)||a.includes(term))?'block':'none';
       });
+      // set tab to "all"
+      document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
+      document.querySelector('.tab-btn[data-category="all"]').classList.add('active');
     }
-    searchBtn.addEventListener('click', runSearch);
-    searchInput.addEventListener('keyup', e => { if (e.key === 'Enter') runSearch(); });
-    searchInput.addEventListener('input', runSearch);
+    document.querySelector('.search-btn').addEventListener('click',runSearch);
+    input.addEventListener('keydown',e=>{ if(e.key==='Enter'){ runSearch(); } });
+
+    // Copy prompt
+    function copyPrompt(){
+      const prompt=document.querySelector('.chatgpt-prompt').textContent;
+      navigator.clipboard.writeText(prompt).then(()=>alert('プロンプトをコピーしました！ChatGPTに貼り付けてください。'));
+    }
+    window.copyPrompt=copyPrompt;
   </script>
 </body>
 </html>
