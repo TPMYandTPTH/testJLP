@@ -1,772 +1,455 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>給与・福利厚生 | TP Japan - 充実の待遇とサポート</title>
-    <meta name="description" content="テレパフォーマンスの給与体系、医療保険、有給休暇、語学研修、社内イベントなど充実の福利厚生をご紹介。">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --tp-black: #000000;
-            --tp-dark: #1a1a1a;
-            --tp-charcoal: #2d2d2d;
-            --tp-gray-dark: #4a4a4a;
-            --tp-gray: #666666;
-            --tp-gray-light: #999999;
-            --tp-silver: #cccccc;
-            --tp-light: #e5e5e5;
-            --tp-off-white: #f5f5f5;
-            --tp-white: #ffffff;
-            
-            --font-primary: 'Noto Sans JP', sans-serif;
-            
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
-            --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
-            --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            color: var(--tp-dark);
-            line-height: 1.8;
-            background: var(--tp-white);
-        }
-
-        /* Header */
-        header {
-            background: var(--tp-white);
-            border-bottom: 1px solid var(--tp-light);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            background: var(--tp-black);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            color: var(--tp-white);
-            font-size: 1.2rem;
-        }
-
-        nav {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        nav a {
-            color: var(--tp-dark);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        nav a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--tp-black);
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: var(--tp-off-white);
-            padding: 5rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::after {
-            content: '¥';
-            position: absolute;
-            top: 50%;
-            right: 10%;
-            transform: translateY(-50%);
-            font-size: 15rem;
-            color: rgba(0,0,0,0.03);
-            font-weight: 900;
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            color: var(--tp-black);
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--tp-gray-dark);
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Salary Section */
-        .salary-section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--tp-black);
-            margin-bottom: 1rem;
-        }
-
-        .salary-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .salary-card {
-            background: var(--tp-white);
-            border: 1px solid var(--tp-light);
-            padding: 2.5rem;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .salary-card:hover {
-            box-shadow: var(--shadow-xl);
-            transform: translateY(-5px);
-            border-color: var(--tp-black);
-        }
-
-        .salary-card.featured {
-            border: 2px solid var(--tp-black);
-            transform: scale(1.05);
-        }
-
-        .salary-card.featured::before {
-            content: 'POPULAR';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--tp-black);
-            color: var(--tp-white);
-            padding: 0.3rem 1.5rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-        }
-
-        .position-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--tp-black);
-            margin-bottom: 1rem;
-        }
-
-        .salary-range {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--tp-black);
-            margin-bottom: 0.5rem;
-        }
-
-        .salary-currency {
-            font-size: 1rem;
-            color: var(--tp-gray);
-            margin-bottom: 1.5rem;
-        }
-
-        .salary-details {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-        }
-
-        .salary-details li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--tp-light);
-            color: var(--tp-gray-dark);
-            font-size: 0.9rem;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .salary-details li:last-child {
-            border-bottom: none;
-        }
-
-        .salary-details li::before {
-            content: '+';
-            position: absolute;
-            left: 0;
-            color: var(--tp-black);
-            font-weight: bold;
-        }
-
-        /* Benefits Categories */
-        .benefits-section {
-            padding: 5rem 2rem;
-            background: var(--tp-black);
-            color: var(--tp-white);
-        }
-
-        .benefits-categories {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .benefit-category {
-            padding: 2rem;
-            border: 1px solid var(--tp-charcoal);
-            background: rgba(255,255,255,0.03);
-        }
-
-        .benefit-category:hover {
-            background: rgba(255,255,255,0.06);
-            border-color: var(--tp-gray);
-        }
-
-        .category-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .category-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--tp-white);
-        }
-
-        .benefit-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .benefit-list li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .benefit-list li:last-child {
-            border-bottom: none;
-        }
-
-        .benefit-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--tp-white);
-            font-weight: bold;
-        }
-
-        .benefit-title-item {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .benefit-desc {
-            color: var(--tp-silver);
-            font-size: 0.9rem;
-        }
-
-        /* Additional Perks */
-        .perks-section {
-            padding: 5rem 2rem;
-            background: var(--tp-off-white);
-        }
-
-        .perks-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .perk-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background: var(--tp-white);
-            border: 1px solid var(--tp-light);
-            transition: all 0.3s ease;
-        }
-
-        .perk-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .perk-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .perk-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--tp-black);
-            margin-bottom: 0.5rem;
-        }
-
-        .perk-desc {
-            color: var(--tp-gray);
-            font-size: 0.85rem;
-        }
-
-        /* Comparison Table */
-        .comparison-section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .comparison-table {
-            width: 100%;
-            background: var(--tp-white);
-            border: 1px solid var(--tp-light);
-            overflow: hidden;
-        }
-
-        .comparison-table th {
-            background: var(--tp-black);
-            color: var(--tp-white);
-            padding: 1.5rem;
-            text-align: left;
-            font-weight: 700;
-        }
-
-        .comparison-table td {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--tp-light);
-        }
-
-        .comparison-table tr:hover {
-            background: var(--tp-off-white);
-        }
-
-        .check {
-            color: green;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .cross {
-            color: #ccc;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--tp-dark) 0%, var(--tp-black) 100%);
-            padding: 5rem 2rem;
-            text-align: center;
-            color: var(--tp-white);
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 3rem;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            display: inline-block;
-            border: 2px solid var(--tp-white);
-        }
-
-        .btn-primary {
-            background: var(--tp-white);
-            color: var(--tp-black);
-        }
-
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--tp-white);
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .salary-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .perks-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .benefits-categories {
-                grid-template-columns: 1fr;
-            }
-
-            .perks-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .comparison-table {
-                font-size: 0.85rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>給与・福利厚生 | Salary & Benefits | TP Japan</title>
+  <meta name="description" content="TPの給与・福利厚生。年次有給14→21日、病気休暇14日、医療保険、シフト手当、研修・語学支援（GoFluent/Language Bootcamp）、就労ビザ・移住サポート。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Tokens (same family as FAQ/Open Jobs) ===== */
+    :root{
+      --tp-black:#000; --tp-dark:#1a1a1a; --tp-charcoal:#2d2d2d; --tp-gray-dark:#4a4a4a; --tp-gray:#666; --tp-gray-light:#999;
+      --tp-silver:#ccc; --tp-light:#e5e5e5; --tp-off-white:#f5f5f5; --tp-white:#fff;
+
+      --accent-purple:#780096;
+      --accent-pink:#ff0082;
+
+      --font-primary:'Noto Sans JP',sans-serif;
+      --shadow-sm:0 2px 4px rgba(0,0,0,.08);
+      --shadow-md:0 4px 8px rgba(0,0,0,.12);
+      --shadow-lg:0 8px 16px rgba(0,0,0,.16);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-primary);color:var(--tp-dark);background:#fff;line-height:1.8}
+
+    /* ===== Header (match your structure) ===== */
+    header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--tp-light)}
+    .header-inner{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.75rem;color:inherit;text-decoration:none}
+    .brand img{width:40px;height:40px;display:block}
+    .brand-text{display:flex;flex-direction:column;line-height:1}
+    .brand-name{font-weight:900;font-size:1.1rem}
+    .brand-tagline{font-size:.72rem;color:var(--tp-gray)}
+    header nav ul{list-style:none;display:flex;gap:1.2rem;align-items:center}
+    header nav a{color:var(--tp-dark);text-decoration:none;font-weight:700;font-size:.95rem;position:relative;transition:.2s}
+    header nav a:hover{opacity:.7}
+    header nav a[aria-current="page"]::after{content:'';position:absolute;left:0;bottom:-6px;width:100%;height:2px;background:var(--accent-purple)}
+    .apply-btn{padding:.55rem 1rem;border:2px solid var(--tp-black);border-radius:999px}
+    .apply-btn:hover{background:var(--tp-black);color:#fff}
+    .mobile-toggle{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer}
+    .mobile-toggle span{display:block;width:24px;height:2px;background:#000}
+    .mobile-menu{display:none;border-top:1px solid var(--tp-light);background:#fff}
+    .mobile-menu ul{list-style:none;padding:1rem 2rem;display:flex;flex-direction:column;gap:.75rem}
+    .mobile-menu a{color:var(--tp-dark);text-decoration:none;font-weight:700}
+    @media (max-width:920px){
+      header nav{display:none}
+      .mobile-toggle{display:flex}
+      .mobile-menu.open{display:block}
+    }
+
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--tp-white) 0%,var(--tp-off-white) 100%);padding:3.75rem 20px;text-align:center}
+    .hero::before{
+      content:''; position:absolute; top:50%; right:6%;
+      width: clamp(220px, 32vw, 480px); height: clamp(220px, 32vw, 480px);
+      background-image:url('photos/TPLogo11.png'); background-size:contain; background-repeat:no-repeat; background-position:center;
+      opacity:.04; filter:saturate(0); transform:translateY(-50%); pointer-events:none;
+    }
+    .hero h1{font-size:2.4rem;font-weight:900;color:#000;margin-bottom:.6rem}
+    .hero p{color:var(--tp-gray-dark)}
+    .hero-cta{margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+    .btn{padding:.8rem 1.2rem;font-weight:900;border-radius:999px;text-decoration:none;display:inline-block;border:2px solid var(--accent-purple);color:var(--accent-purple);transition:.2s}
+    .btn:hover{background:var(--accent-purple);color:#fff}
+    .btn-solid{background:var(--accent-purple);color:#fff;border-color:var(--accent-purple)}
+    .btn-solid:hover{filter:brightness(.95)}
+
+    /* ===== Content sections ===== */
+    .section{max-width:1200px;margin:2rem auto;padding:0 20px}
+    .section h2{font-size:1.6rem;color:#000;font-weight:900;margin-bottom:.6rem}
+    .lead{color:var(--tp-gray-dark);margin-bottom:1rem}
+
+    /* highlight cards */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .card{background:#fff;border:1px solid var(--tp-light);border-radius:12px;padding:1.1rem;box-shadow:var(--shadow-sm)}
+    .card h3{font-size:1.05rem;margin-bottom:.35rem;color:#000}
+    .card p{color:var(--tp-gray-dark);font-size:.95rem}
+    @media (max-width:980px){ .cards{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:640px){ .cards{grid-template-columns:1fr} }
+
+    /* tables */
+    .mini-table{width:100%;border-collapse:collapse;margin:.75rem 0;border:1px solid var(--tp-light)}
+    .mini-table th,.mini-table td{border:1px solid var(--tp-light);padding:.6rem .7rem;font-size:.95rem}
+    .mini-table th{background:var(--tp-off-white);text-align:left}
+
+    /* accordion */
+    .acc{border:1px solid var(--tp-light);border-radius:12px;overflow:hidden}
+    .acc-item + .acc-item{border-top:1px solid var(--tp-light)}
+    .acc-q{padding:1rem 1.1rem;background:#fff;font-weight:900;color:#000;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+    .acc-q:focus{outline:2px dashed var(--accent-purple);outline-offset:3px}
+    .acc-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 1.1rem;color:var(--tp-gray-dark);background:#fff}
+    .acc-item.open .acc-a{max-height:900px;padding:0 1.1rem 1rem}
+    .plus{font-size:1.4rem;font-weight:300;transition:transform .2s}
+    .acc-item.open .plus{transform:rotate(45deg)}
+
+    /* pill list */
+    .pills{display:flex;flex-wrap:wrap;gap:.5rem}
+    .pill{font-size:.85rem;background:var(--tp-off-white);border:1px solid var(--tp-light);padding:.3rem .6rem;border-radius:999px}
+
+    /* helper strip */
+    .helper{background:#fff;border-top:1px solid var(--tp-light);border-bottom:1px solid var(--tp-light);padding:2rem 20px;margin:2rem 0}
+    .helper .inner{max-width:1000px;margin:0 auto;text-align:center}
+    .helper h2{font-size:1.6rem;font-weight:900;color:#000;margin-bottom:.4rem}
+    .helper p{color:var(--tp-gray-dark)}
+
+    /* team photos */
+    .team-strip{max-width:1200px;margin:2rem auto 3rem;padding:0 20px}
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+    .team-grid div{aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#eee center/cover no-repeat}
+    @media (max-width:900px){ .team-grid{grid-template-columns:repeat(2,1fr)} }
+
+    /* Footer (same as Open Jobs) */
+    footer{border-top:1px solid var(--tp-light);background:#fff}
+    .footer-content{max-width:1400px;margin:0 auto;padding:2rem 20px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:1.5rem}
+    .footer-brand .footer-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit}
+    .footer-brand img{width:36px;height:36px}
+    .footer-logo-text{font-weight:900}
+    .footer-desc{color:var(--tp-gray-dark);margin:.6rem 0}
+    .badges{margin:.5rem 0}
+    .badge-item{display:inline-block;font-size:.85rem;background:var(--tp-off-white);border:1px solid var(--tp-light);padding:.25rem .5rem;border-radius:6px}
+    .footer-section h3{font-size:1rem;margin-bottom:.5rem}
+    .footer-section ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-section a{text-decoration:none;color:var(--tp-gray-dark);font-weight:700}
+    .footer-section a:hover{color:#000}
+    .footer-bottom{border-top:1px solid var(--tp-light);padding:1rem 20px;text-align:center;color:var(--tp-gray-dark)}
+    .footer-bottom a{color:inherit}
+    @media (max-width:960px){ .footer-content{grid-template-columns:1fr 1fr} }
+    @media (max-width:560px){ .footer-content{grid-template-columns:1fr} }
+
+    /* Floating Apply */
+    .floating-apply{
+      position:fixed;right:18px;bottom:18px;z-index:9999;background:var(--accent-purple);color:#fff;
+      border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
+    }
+    .floating-apply:hover{background:#fff;color:var(--accent-purple)}
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo-section">
-                <div class="logo">TP</div>
-                <div>
-                    <div style="font-weight: 700; font-size: 1.3rem;">Teleperformance</div>
-                    <div style="font-size: 0.75rem; color: #666;">Malaysia · Thailand — 日本語採用</div>
-                </div>
-            </div>
-            <nav>
-                <a href="index.html">ホーム</a>
-                <a href="about-tp.html">About TP</a>
-                <a href="open-jobs.html">求人情報</a>
-                <a href="salary-and-benefits.html" class="active">福利厚生</a>
-                <a href="relocation-visa.html">移住・ビザ</a>
-                <a href="interview-process.html">面接プロセス</a>
-                <a href="why-malaysia-thailand.html">勤務地</a>
-                <a href="faq.html">FAQ</a>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <h1 class="hero-title">給与・福利厚生</h1>
-        <p class="hero-subtitle">
-            競争力のある給与と充実した福利厚生で<br>
-            あなたの海外キャリアを全面サポート
+  <!-- Header -->
+  <header role="banner">
+    <div class="header-inner">
+      <a class="brand" href="https://tpmyandtpth.github.io/JLP/index.html">
+        <img src="photos/TPLogo11.png" alt="TP Japan">
+        <div class="brand-text">
+          <span class="brand-name">TP</span>
+          <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
+        </div>
+      </a>
+
+      <nav aria-label="メインナビゲーション">
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html" aria-current="page">Salary &amp; Benefits</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+          <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション">
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html" aria-current="page">Salary &amp; Benefits</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+        <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>給与・福利厚生 <span aria-hidden="true">/</span> Salary &amp; Benefits</h1>
+    <p>安心して海外キャリアをスタートできるよう、<strong>公正な評価</strong>と<strong>充実の福利厚生</strong>、<strong>移住サポート</strong>をご用意しています。<br>
+       ※ポジション・勤務地により詳細はオファーレターでご案内します。</p>
+    <div class="hero-cta" role="group" aria-label="関連ページ">
+      <a class="btn" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+      <a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a>
+      <a class="btn" href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a>
+    </div>
+  </section>
+
+  <!-- Summary Highlights -->
+  <section class="section" aria-labelledby="sum">
+    <h2 id="sum">ハイライト</h2>
+    <p class="lead">「Great Place to Work®」認証（TPマレーシア）/ 年2回の評価 / 語学・研修サポート / 医療保険 / 充実の移住支援</p>
+    <div class="cards">
+      <div class="card">
+        <h3>報酬（Compensation）</h3>
+        <p>役割・経験・勤務地に応じて決定。<strong>シフト手当</strong>（早朝/夜間等）対象の職種あり。成果に基づく評価制度で昇給機会があります（年<strong>2回</strong>評価）。</p>
+      </div>
+      <div class="card">
+        <h3>休暇（Time Off）</h3>
+        <p>初年度<strong>年14日</strong>（勤続で最⼤<strong>21日</strong>）、<strong>病気休暇14日</strong>。現地の祝日＋一部日本の祝日も休み（プロジェクトにより異なる場合あり）。</p>
+      </div>
+      <div class="card">
+        <h3>移住・ビザ（Relocation &amp; Visa）</h3>
+        <p>就労ビザは専門チームが日本語で支援、<strong>会社負担</strong>で申請。<strong>片道航空券支給・空港送迎</strong>。マレーシアは<strong>到着後6泊7日のホテル</strong>手配あり。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compensation Details -->
+  <section class="section" aria-labelledby="comp">
+    <h2 id="comp">報酬の考え方</h2>
+    <p class="lead">透明性を大切にし、選考過程でレンジ目安を共有、最終条件はオファーレターにて明示します。</p>
+
+    <div class="acc" role="region" aria-label="報酬詳細アコーディオン">
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          基本給・各種手当 <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <ul>
+            <li><strong>基本給：</strong>職務内容・経験・勤務地に基づき決定。</li>
+            <li><strong>シフト手当：</strong>早朝・夜間・週末などのシフトに応じて支給（該当職種）。</li>
+            <li><strong>交通/通信などの補助：</strong>プロジェクトにより異なるため、面接時に案内。</li>
+          </ul>
+          <p style="margin-top:.5rem;color:var(--tp-gray-dark)">※いずれも雇用契約にて確定・明示されます。</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          評価・昇給の機会 <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <p>年<strong>2回</strong>のパフォーマンスレビュー。成果・スキル・貢献に応じて昇給・登用のチャンスがあります（年齢や在籍年数ではなく実力重視）。</p>
+          <div class="pills" style="margin-top:.5rem">
+            <span class="pill">公正な評価</span>
+            <span class="pill">スキル成長</span>
+            <span class="pill">社内異動の機会</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          学習支援・トレーニング <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <p><strong>入社時研修＋継続トレーニング</strong>を提供し、現場で即戦力化を支援。語学面は <strong>Language Bootcamp / GoFluent</strong> 等で英語力アップを応援します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Time Off & Holidays -->
+  <section class="section" aria-labelledby="timeoff">
+    <h2 id="timeoff">休暇・休日</h2>
+    <table class="mini-table" aria-label="休暇制度">
+      <tr><th>区分</th><th>内容</th></tr>
+      <tr><td>年次有給</td><td>初年度<strong>14日</strong>、勤続に応じて最⼤<strong>21日</strong></td></tr>
+      <tr><td>病気休暇</td><td><strong>14日</strong>（年間）</td></tr>
+      <tr><td>祝日</td><td>現地祝日＋一部日本祝日（プロジェクトにより異なる）</td></tr>
+    </table>
+    <p class="lead">詳細は配属プロジェクトのポリシーに準じます。オファー時に明示します。</p>
+  </section>
+
+  <!-- Health & Wellbeing -->
+  <section class="section" aria-labelledby="health">
+    <h2 id="health">医療保険・ウェルビーイング</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>医療保険</h3>
+        <p>現地の医療機関で利用可能な保険を完備。日本語対応の病院・クリニックにもアクセスしやすい環境です。</p>
+      </div>
+      <div class="card">
+        <h3>安全・安心</h3>
+        <p>到着直後からの生活立ち上げを支援。基本的な防犯意識があれば、単身・女性の一人暮らしでも安心して暮らせます。</p>
+      </div>
+      <div class="card">
+        <h3>カルチャー &amp; イベント</h3>
+        <p>表彰制度や社内イベント、チームビルディングを通じて、働きやすく多様性のあるカルチャーを育んでいます。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Relocation & Visa -->
+  <section class="section" aria-labelledby="relovisa">
+    <h2 id="relovisa">移住・ビザサポート</h2>
+    <p class="lead">専門チームが<strong>日本語</strong>で伴走します。必要書類の案内から申請、入社後の生活立ち上げまで。</p>
+
+    <div class="acc" role="region" aria-label="移住サポート詳細">
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          就労ビザ（EP） <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <ul>
+            <li>申請費用：<strong>会社負担</strong></li>
+            <li>目安：内定から<strong>1〜2ヶ月</strong>で発行</li>
+            <li>配偶者・子どもは <strong>Dependent Pass</strong> 申請可（EP取得後）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          渡航・到着時の支援 <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <ul>
+            <li><strong>片道航空券支給</strong>（入社時）</li>
+            <li><strong>空港送迎</strong></li>
+            <li><strong>到着後6泊7日のホテル（マレーシア）</strong>：滞在中に住居探しをサポート</li>
+          </ul>
+          <p style="margin-top:.5rem;color:var(--tp-gray-dark)">※タイはホテル手配の有無が職種により異なるため、面接時にご案内します。</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          住まい・生活立ち上げ <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <p>日本人スタッフが、現地エージェントの紹介や内見の進め方をアドバイス。KL/ペナンでは<strong>プール・ジム付きコンド</strong>が一般的で家具付き入居がしやすいです。</p>
+          <div class="pills" style="margin-top:.5rem">
+            <span class="pill">家具・家電付き</span>
+            <span class="pill">24hセキュリティ</span>
+            <span class="pill">プール/ジム</span>
+          </div>
+          <p style="margin-top:.5rem">都市の特徴は <a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地の魅力</a> をご覧ください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fine print -->
+  <section class="section" aria-labelledby="notes">
+    <h2 id="notes">ご留意事項</h2>
+    <ul class="lead" style="padding-left:1.1rem">
+      <li>本ページは概要です。条件・制度は所属プロジェクト/勤務地/法令により異なります。</li>
+      <li>最終条件はオファーレターおよび雇用契約書にて確定・明示されます。</li>
+    </ul>
+  </section>
+
+  <!-- Helper -->
+  <section class="helper">
+    <div class="inner">
+      <h2>迷ったら日本語でご相談ください</h2>
+      <p>30分の <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a> で、給与・福利厚生・移住・生活の疑問に日本語でお答えします。<br>
+        すぐ応募したい方は <a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a> へ。</p>
+    </div>
+  </section>
+
+  <!-- Team images (use your photos) -->
+  <section class="team-strip" aria-label="チームフォト">
+    <div class="team-grid">
+      <div style="background-image:url('photos/team_benefits_1.jpg')"></div>
+      <div style="background-image:url('photos/team_benefits_2.jpg')"></div>
+      <div style="background-image:url('photos/team_benefits_3.jpg')"></div>
+      <div style="background-image:url('photos/team_benefits_4.jpg')"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="https://tpmyandtpth.github.io/JLP/index.html">
+          <img src="photos/TPLogo11.png" alt="TP">
+          <span class="footer-logo-text">TP</span>
+        </a>
+        <p class="footer-desc">
+          世界100カ国以上で展開するグローバルBPO企業。<br>
+          日本語スピーカーの皆様の新たなキャリアをサポートします。
         </p>
-    </section>
+        <div class="badges">
+          <span class="badge-item">🏆 Great Place to Work® 認証</span>
+        </div>
+        <div class="footer-cta" style="margin-top:.5rem">
+          <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn btn-accent">ご応募はこちら</a>
+        </div>
+      </div>
 
-    <!-- Salary Section -->
-    <section class="salary-section">
-        <div class="section-title">
-            <h2>給与レンジ（月額）</h2>
-            <p style="color: #666;">ポジション・経験・スキルに応じた適正な評価</p>
-        </div>
-        
-        <div class="salary-grid">
-            <div class="salary-card">
-                <h3 class="position-title">エントリーレベル</h3>
-                <div class="salary-range">RM 6,000-8,000</div>
-                <div class="salary-currency">約20-27万円</div>
-                <ul class="salary-details">
-                    <li>未経験者歓迎</li>
-                    <li>研修制度充実</li>
-                    <li>昇給年2回</li>
-                    <li>インセンティブあり</li>
-                </ul>
-            </div>
-            
-            <div class="salary-card featured">
-                <h3 class="position-title">経験者</h3>
-                <div class="salary-range">RM 8,000-12,000</div>
-                <div class="salary-currency">約27-40万円</div>
-                <ul class="salary-details">
-                    <li>業界経験評価</li>
-                    <li>役職手当</li>
-                    <li>パフォーマンスボーナス</li>
-                    <li>キャリアパス明確</li>
-                </ul>
-            </div>
-            
-            <div class="salary-card">
-                <h3 class="position-title">シニア・管理職</h3>
-                <div class="salary-range">RM 12,000+</div>
-                <div class="salary-currency">約40万円〜</div>
-                <ul class="salary-details">
-                    <li>マネジメント手当</li>
-                    <li>成果報酬制度</li>
-                    <li>ストックオプション</li>
-                    <li>エグゼクティブ特典</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+      <div class="footer-section">
+        <h3>会社情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">会社紹介</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/virtual-office-tour.html">バーチャルツアー</a></li>
+        </ul>
+      </div>
 
-    <!-- Benefits Categories -->
-    <section class="benefits-section">
-        <div class="section-title">
-            <h2 style="color: white;">福利厚生カテゴリー</h2>
-            <p style="color: #ccc;">安心・成長・楽しさを全方位でサポート</p>
-        </div>
-        
-        <div class="benefits-categories">
-            <div class="benefit-category">
-                <div class="category-icon">🏥</div>
-                <h3 class="category-title">健康・医療</h3>
-                <ul class="benefit-list">
-                    <li>
-                        <span class="benefit-title-item">総合医療保険</span>
-                        <span class="benefit-desc">入社初日から適用、家族も加入可能</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">歯科保険</span>
-                        <span class="benefit-desc">年間RM2,000まで補助</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">健康診断</span>
-                        <span class="benefit-desc">年1回の定期健診無料</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">メンタルヘルスサポート</span>
-                        <span class="benefit-desc">24時間電話相談サービス</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="benefit-category">
-                <div class="category-icon">✈️</div>
-                <h3 class="category-title">移住・渡航サポート</h3>
-                <ul class="benefit-list">
-                    <li>
-                        <span class="benefit-title-item">片道航空券</span>
-                        <span class="benefit-desc">日本からの渡航費用全額負担</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">初期宿泊</span>
-                        <span class="benefit-desc">到着後6泊7日のホテル提供</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">ビザサポート</span>
-                        <span class="benefit-desc">就労ビザ申請費用・手続き代行</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">空港送迎</span>
-                        <span class="benefit-desc">到着時の空港〜ホテル送迎</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="benefit-category">
-                <div class="category-icon">📚</div>
-                <h3 class="category-title">教育・研修</h3>
-                <ul class="benefit-list">
-                    <li>
-                        <span class="benefit-title-item">語学研修（GoFluent）</span>
-                        <span class="benefit-desc">24時間アクセス可能なオンライン英語学習</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">専門スキル研修</span>
-                        <span class="benefit-desc">業務に必要な資格取得支援</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">リーダーシップ研修</span>
-                        <span class="benefit-desc">管理職向けマネジメントプログラム</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">外部セミナー参加</span>
-                        <span class="benefit-desc">業界カンファレンス参加費補助</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="benefit-category">
-                <div class="category-icon">🏖️</div>
-                <h3 class="category-title">休暇・ワークライフバランス</h3>
-                <ul class="benefit-list">
-                    <li>
-                        <span class="benefit-title-item">年次有給休暇</span>
-                        <span class="benefit-desc">初年度14日、最大21日まで</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">病気休暇</span>
-                        <span class="benefit-desc">年間14日（医師証明書付き）</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">祝日</span>
-                        <span class="benefit-desc">マレーシア/タイの公式祝日＋日本の主要祝日</span>
-                    </li>
-                    <li>
-                        <span class="benefit-title-item">産休・育休</span>
-                        <span class="benefit-desc">法定期間＋追加サポート</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
+      <div class="footer-section">
+        <h3>求人・応募</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/faq.html">FAQ</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a></li>
+        </ul>
+      </div>
 
-    <!-- Additional Perks -->
-    <section class="perks-section">
-        <div class="section-title">
-            <h2>その他の特典</h2>
-            <p style="color: #666;">働きやすさを追求した様々なサポート</p>
-        </div>
-        
-        <div class="perks-grid">
-            <div class="perk-item">
-                <div class="perk-icon">🎉</div>
-                <h3 class="perk-title">社内イベント</h3>
-                <p class="perk-desc">年次パーティー、チームビルディング、文化祭</p>
-            </div>
-            <div class="perk-item">
-                <div class="perk-icon">🏆</div>
-                <h3 class="perk-title">表彰制度</h3>
-                <p class="perk-desc">月間MVP、年間優秀社員賞</p>
-            </div>
-            <div class="perk-item">
-                <div class="perk-icon">🍱</div>
-                <h3 class="perk-title">食事補助</h3>
-                <p class="perk-desc">社食利用補助、ミールクーポン</p>
-            </div>
-            <div class="perk-item">
-                <div class="perk-icon">🚗</div>
-                <h3 class="perk-title">交通手当</h3>
-                <p class="perk-desc">通勤手当または送迎バス</p>
-            </div>
-            <div class="perk-item">
-                <div class="perk-icon">💻</div>
-                <h3 class="perk-title">在宅勤務</h3>
-                <p class="perk-desc">ハイブリッド勤務可（職種による）</p>
-            </div>
-            <div class="perk-item">
-                <div class="perk-icon">👥</div>
-                <h3 class="perk-title">紹介報酬</h3>
-                <p class="perk-desc">友人紹介ボーナス制度</p>
-            </div>
-            <div class="perk-item">
-                <div class="perk-icon">🎯</div>
-                <h3 class="perk-title">ジム会員</h3>
-                <p class="perk-desc">提携ジム割引・補助</p>
-            </div>
-            <div class="perk-item">
-                <div class="perk-icon">📱</div>
-                <h3 class="perk-title">通信手当</h3>
-                <p class="perk-desc">携帯電話・インターネット補助</p>
-            </div>
-        </div>
-    </section>
+      <div class="footer-section">
+        <h3>現地情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地の魅力</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">現地生活</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html">生活コスト</a></li>
+          <li><a target="_blank" rel="noopener" href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">LINE公式</a></li>
+        </ul>
+      </div>
+    </div>
 
-    <!-- Comparison Table -->
-    <section class="comparison-section">
-        <div class="section-title">
-            <h2>日本との比較</h2>
-            <p style="color: #666;">TPで働くメリット</p>
-        </div>
-        
-        <table class="comparison-table">
-            <thead>
-                <tr>
-                    <th>項目</th>
-                    <th>TP（マレーシア/タイ）</th>
-                    <th>日本（一般企業）</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>生活費に対する給与水準</td>
-                    <td><span class="check">✓</span> 高い（物価が安い）</td>
-                    <td><span class="cross">×</span> 普通</td>
-                </tr>
-                <tr>
-                    <td>住環境</td>
-                    <td><span class="check">✓</span> プール・ジム付きコンド</td>
-                    <td><span class="cross">×</span> ワンルーム中心</td>
-                </tr>
-                <tr>
-                    <td>通勤時間</td>
-                    <td><span class="check">✓</span> 平均30分以内</td>
-                    <td><span class="cross">×</span> 平均1時間以上</td>
-                </tr>
-                <tr>
-                    <td>語学習得機会</td>
-                    <td><span class="check">✓</span> 英語環境で自然に上達</td>
-                    <td><span class="cross">×</span> 限定的</td>
-                </tr>
-                <tr>
-                    <td>キャリアの国際性</td>
-                    <td><span class="check">✓</span> グローバル企業での経験</td>
-                    <td><span class="cross">×</span> 国内中心</td>
-                </tr>
-                <tr>
-                    <td>昇進スピード</td>
-                    <td><span class="check">✓</span> 実力次第で早い</td>
-                    <td><span class="cross">×</span> 年功序列</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TP. All rights reserved. |
+        <a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a>
+      </p>
+    </div>
+  </footer>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">充実の待遇であなたをお待ちしています</h2>
-        <p>詳しい条件は面談でご説明します</p>
-        <div class="cta-buttons">
-            <a href="https://careerseng-tp.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job" 
-               class="btn btn-primary" target="_blank">
-                今すぐ応募する
-            </a>
-        </div>
-    </section>
+  <!-- Floating Apply Now -->
+  <a class="floating-apply"
+     href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+     target="_blank" rel="noopener" aria-label="ご応募はこちら（外部サイト）">
+    ご応募はこちら
+  </a>
+
+  <script>
+    // mobile menu
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+
+    // accordion
+    document.querySelectorAll('.acc-q').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const item = btn.parentElement;
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.acc-item').forEach(i=>{i.classList.remove('open'); i.querySelector('.acc-q').setAttribute('aria-expanded','false');});
+        if(!open){ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+      });
+      btn.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault(); btn.click(); }
+      });
+    });
+  </script>
 </body>
 </html>
