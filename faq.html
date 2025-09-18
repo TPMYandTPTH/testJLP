@@ -151,6 +151,74 @@
 
 /* Optional: category bar a bit lighter but still bold */
 .tabs-section{ background: var(--tp-black); border-bottom: 2px solid #222; }
+/* ==== HEADER parity with home (fixes .header-inner / nav ul / apply button) ==== */
+.header-inner{
+  max-width:1050px;margin:0 auto;padding:.75rem 20px;
+  display:flex;justify-content:space-between;align-items:center;gap:1.25rem;
+}
+.brand{display:flex;align-items:center;gap:.625rem;text-decoration:none}
+.brand img{width:40px;height:40px;object-fit:contain}
+.brand-text{display:flex;flex-direction:column;line-height:1.2}
+.brand-name{font-size:1rem;font-weight:700;color:#000}
+.brand-tagline{font-size:.7rem;color:var(--tp-gray)}
+nav ul{display:flex;gap:1.25rem;list-style:none;align-items:center;margin:0;padding:0}
+nav a{font-size:.85rem;position:relative;padding:.2rem 0}
+nav a[aria-current="page"]{font-weight:600}
+nav a[aria-current="page"]::after{
+  content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:var(--tp-black);
+}
+
+/* apply button (your markup uses .apply-btn, not .apply-link) */
+.apply-btn{
+  background:var(--accent-purple);color:#fff;padding:.5rem 1.25rem;border-radius:4px;
+  font-weight:600;border:2px solid var(--accent-purple);transition:all .3s;
+}
+.apply-btn:hover{background:#fff;color:var(--accent-purple)}
+
+/* ==== MOBILE MENU (styles to match your markup) ==== */
+.mobile-toggle{display:none;width:36px;height:36px;background:transparent;border:2px solid #000;border-radius:4px;cursor:pointer;position:relative}
+.mobile-toggle span{display:block;width:18px;height:2px;background:#000;position:absolute;left:50%;transform:translateX(-50%);transition:.3s}
+.mobile-toggle span:nth-child(1){top:10px}
+.mobile-toggle span:nth-child(2){top:17px}
+.mobile-toggle span:nth-child(3){bottom:10px}
+.mobile-toggle.active span:nth-child(1){transform:translateX(-50%) rotate(45deg);top:17px}
+.mobile-toggle.active span:nth-child(2){opacity:0}
+.mobile-toggle.active span:nth-child(3){transform:translateX(-50%) rotate(-45deg);bottom:17px}
+
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:#fff;border-top:1px solid var(--tp-light);
+  box-shadow:var(--shadow-lg);max-height:calc(100vh - 60px);overflow-y:auto;z-index:999}
+.mobile-menu.active{display:block}
+.mobile-menu ul{list-style:none;padding:.875rem 0;margin:0}
+.mobile-menu a{display:block;padding:.625rem 1.25rem;border-bottom:1px solid var(--tp-light)}
+
+@media (max-width:900px){ nav{display:none} .mobile-toggle{display:block} }
+
+/* ==== FOOTER parity with home (your markup uses .footer-content etc.) ==== */
+footer{background:#000;color:#fff;padding:40px 20px 16px;position:relative;overflow:hidden;border-top:none}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-purple),transparent)}
+.footer-content{
+  max-width:1050px;margin:0 auto;display:grid;grid-template-columns:2fr repeat(3,1fr);
+  gap:2rem;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.1)
+}
+@media (max-width:768px){.footer-content{grid-template-columns:1fr;text-align:center}}
+.footer-brand{display:flex;flex-direction:column;gap:.875rem}
+.footer-logo{display:flex;align-items:center;gap:.625rem}
+.footer-logo img{width:42px;height:42px;filter:brightness(0) invert(1)}
+.footer-logo-text{font-size:1.15rem;font-weight:700}
+.footer-desc{opacity:.8;line-height:1.75;font-size:.85rem}
+.footer-section h3{margin-bottom:.75rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.08em;opacity:.9}
+.footer-section ul{list-style:none;padding:0;margin:0}
+.footer-section li{margin-bottom:.3rem}
+.footer-section a{opacity:.7;transition:opacity .3s;font-size:.8rem;color:#fff;text-decoration:none}
+.footer-section a:hover{opacity:1}
+.badges{display:flex;gap:.75rem;align-items:center;margin-top:.75rem;flex-wrap:wrap}
+.badges .badge-item{display:flex;align-items:center;gap:.3rem;font-size:.8rem;opacity:.8}
+.footer-cta{margin-top:1rem}
+.footer-bottom{text-align:center;padding-top:12px;font-size:.75rem;opacity:.6}
+.footer-bottom a{color:#fff;text-decoration:underline}
+
+/* ==== hero watermark (already added) + accent colors ==== */
+:root{ --accent-purple:#780096; --accent-pink:#ff0082; --tp-off:#f5f5f5; }
 
   </style>
 </head>
@@ -708,5 +776,15 @@
     }
     window.copyPrompt=copyPrompt;
   </script>
+  <script>
+(function(){
+  const t=document.getElementById('mobileToggle');
+  const m=document.getElementById('mobileMenu');
+  if(t&&m){
+    t.addEventListener('click',()=>{ t.classList.toggle('active'); m.classList.toggle('active'); });
+    m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ t.classList.remove('active'); m.classList.remove('active'); }));
+  }
+})();
+</script>
 </body>
 </html>
