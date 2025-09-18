@@ -117,30 +117,83 @@
       .tab-btn{width:100%}
       .faq-question{font-size:.98rem}
     }
+    /* ===== unify palette with home ===== */
+:root{
+  --accent-purple:#780096;
+  --accent-pink:#ff0082;
+  --tp-off:#f5f5f5; /* keep name consistent with home */
+}
+
+/* Hero looks like home (subtle TP watermark). Remove old ? marks */
+.hero-section{
+  min-height: 42vh;
+  background: linear-gradient(135deg, var(--tp-white) 0%, var(--tp-off) 100%);
+  position: relative; overflow: hidden; padding: 3.5rem 20px; text-align: center;
+}
+.hero-section::before{
+  content:''; position:absolute; top:50%; right:6%;
+  width: clamp(220px, 32vw, 480px); height: clamp(220px, 32vw, 480px);
+  background-image:url('photos/TPLogo11.png'); background-size:contain; background-repeat:no-repeat; background-position:center;
+  opacity:.04; filter:saturate(0); transform:translateY(-50%); pointer-events:none;
+}
+.hero-section::after{ content:none !important; } /* hide old big '?' */
+
+/* Accent touches */
+.tab-btn.active{ background:var(--accent-purple); color:var(--tp-white); border-color:var(--accent-purple); }
+.search-btn{ background:var(--accent-purple); border-color:var(--accent-purple); }
+.search-btn:hover{ background:var(--tp-white); color:var(--accent-purple); }
+.btn{ border-color:var(--accent-purple); }
+.btn:hover{ background:var(--accent-purple); color:#fff; }
+
+/* Dark section header line-up like home */
+.chatgpt-section{ background: var(--tp-white); color: var(--tp-dark); }
+.chatgpt-prompt{ border-color: var(--tp-light); }
+
+/* Optional: category bar a bit lighter but still bold */
+.tabs-section{ background: var(--tp-black); border-bottom: 2px solid #222; }
+
   </style>
 </head>
 <body>
   <!-- Header -->
-  <header>
-    <div class="header-container">
-      <div class="logo-section">
-        <div class="logo">TP</div>
-        <div class="brand">
-          <div class="name">Teleperformance</div>
-          <div class="sub">Malaysia · Thailand — 日本語採用</div>
-        </div>
+<header role="banner">
+  <div class="header-inner">
+    <a class="brand" href="https://tpmyandtpth.github.io/JLP/index.html">
+      <img src="photos/TPLogo11.png" alt="TP Japan" width="40" height="40">
+      <div class="brand-text">
+        <span class="brand-name">TP</span>
+        <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
       </div>
-      <!-- Compact menu: Home → 3 links (we picked) → Current → Apply -->
-      <nav aria-label="Primary">
-        <a href="index.html">ホーム</a>
-        <a href="about-tp.html">About TP</a>
-        <a href="jobs-and-benefits.html">Jobs &amp; Benefits</a>
-        <a href="why-malaysia-thailand.html">勤務地</a>
-        <a href="faq.html" class="active" aria-current="page">FAQ</a>
-        <a class="apply-link" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener">ご応募はこちら</a>
-      </nav>
-    </div>
-  </header>
+    </a>
+
+    <nav aria-label="メインナビゲーション">
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html">Jobs &amp; Benefits</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/faq.html" aria-current="page">FAQ</a></li>
+        <li><a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="apply-btn">応募する</a></li>
+      </ul>
+    </nav>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション">
+    <ul>
+      <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html">Jobs &amp; Benefits</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/faq.html" aria-current="page">FAQ</a></li>
+      <li><a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="apply-btn">応募する</a></li>
+    </ul>
+  </nav>
+</header>
+
 
   <!-- Hero -->
   <section class="hero-section">
@@ -533,27 +586,63 @@
   </section>
 
   <!-- Footer (simple, same vibe as home) -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-left">
-        <div class="logo">TP</div>
-        <div class="brand">
-          <div class="name">Teleperformance</div>
-          <div class="sub">Malaysia · Thailand — 日本語採用</div>
-        </div>
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <a class="footer-logo" href="https://tpmyandtpth.github.io/JLP/index.html">
+        <img src="photos/TPLogo11.png" alt="TP">
+        <span class="footer-logo-text">TP</span>
+      </a>
+      <p class="footer-desc">
+        世界100カ国以上で展開するグローバルBPO企業。<br>
+        日本語スピーカーの皆様の新たなキャリアをサポートします。
+      </p>
+      <div class="badges">
+        <span class="badge-item">🏆 Great Place to Work® 6年連続</span>
       </div>
-      <div class="footer-links">
-        <a href="about-tp.html">About TP</a>
-        <a href="jobs-and-benefits.html">Jobs &amp; Benefits</a>
-        <a href="why-malaysia-thailand.html">勤務地</a>
-        <a href="office-environment.html">オフィス環境</a>
-        <a href="career-growth.html">キャリア成長</a>
-        <a href="testimonials.html">社員の声</a>
-        <a href="faq.html" aria-current="page">FAQ</a>
+      <div class="footer-cta">
+        <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn btn-accent">ご応募はこちら</a>
       </div>
-      <div class="copy">© Teleperformance Malaysia &amp; Thailand</div>
     </div>
-  </footer>
+
+    <div class="footer-section">
+      <h3>会社情報</h3>
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">会社紹介</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html#benefits">福利厚生</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">オフィス環境</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/ta-team.html">採用チーム</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3>求人・応募</h3>
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html#open-jobs">求人一覧</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/faq.html">よくある質問</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">お問い合わせ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3>生活情報</h3>
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務先都市</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住サポート</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">ライフスタイル</a></li>
+        <li><a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINE公式</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 TP. All rights reserved. |
+      <a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a>
+    </p>
+  </div>
+</footer>
+
 
   <!-- Floating Apply Now -->
   <a class="floating-apply" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" aria-label="ご応募はこちら（外部サイト）">
