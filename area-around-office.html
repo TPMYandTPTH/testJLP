@@ -120,6 +120,22 @@
       border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
     }
     .floating-apply:hover{background:#fff;color:var(--accent-purple)}
+    /* ===== Why TP (benefits) ===== */
+.benefits { margin-top:1rem; display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
+@media (max-width:900px){ .benefits{ grid-template-columns:1fr; } }
+.benefit{
+  background:#fff; border:1px solid var(--tp-light); border-radius:var(--radius);
+  padding:1rem; box-shadow:var(--shadow-sm);
+}
+.benefit h3{ font-size:1rem; margin-bottom:.4rem; }
+.location-note{
+  border-left:4px solid var(--accent-purple); background:var(--tp-off-white);
+  padding:.8rem 1rem; border-radius:8px;
+}
+.checklist{ list-style:none; margin-top:.6rem; padding-left:0; }
+.checklist li{ margin:.25rem 0; }
+.checklist li::before{ content:'✅ '; }
+
   </style>
 </head>
 <body>
@@ -182,6 +198,7 @@
   <!-- Hero -->
   <section class="hero">
     <h1>周辺環境 / Area Around the Office</h1>
+    <a class="pill" href="#why-tp">TPで働く魅力</a>
     <p>通勤・ランチ・カフェ・買い物・公園。<br>毎日の“暮らしやすさ”が、働きやすさに直結します。</p>
     <div class="hero-cta" role="group" aria-label="関連アクション">
       <a class="btn-solid" href="#kl">KL 周辺</a>
@@ -195,6 +212,65 @@
       <a class="pill" href="#tips">ローカルおすすめ</a>
     </div>
   </section>
+
+  <section id="why-tp" class="section">
+  <h2>TPで働く魅力 / Why TP in Malaysia &amp; Thailand</h2>
+  <p class="lead">🌐 世界中の仲間と出会い、協力しながら働ける環境です！</p>
+
+  <div class="benefits">
+    <article class="benefit">
+      <h3>🌍 1. グローバルな環境で、自分をレベルアップ！</h3>
+      <p class="muted">TP Malaysia・Thailandは、世界中から集まったスタッフが活躍する国際的なBPO企業。まるで“毎日がプチ留学”のような環境で、自然と英語力や異文化理解力がアップします。「海外で働く」という体験を通じて、あなたの視野とキャリアは確実に広がります！</p>
+    </article>
+
+    <article class="benefit">
+      <h3>🗣️ 2. 日本語スピーカー向けのポジションが豊富！安心してスタート可能</h3>
+      <p class="muted">日本語を活かせるカスタマーサポートや営業職などのポジションを多数ご用意。「英語に少し自信がない…」という方も、日本語中心の業務から安心して始められます。段階的に英語に触れながら、無理なくスキルを伸ばせます。英語バイリンガル向けのポジションも豊富で、スキルを存分に活かせます。</p>
+    </article>
+
+    <article class="benefit">
+      <h3>👥 3. 日本人サポートも充実！初めての海外でも安心</h3>
+      <p class="muted">多数の日本人スタッフが在籍。「困ったときにすぐ相談できる」体制で、生活・お仕事の両面をサポートします。</p>
+    </article>
+
+    <article class="benefit">
+      <h3>💼 4. 実力次第でキャリアアップのチャンスも！</h3>
+      <p class="muted">年齢や経歴に関係なく「頑張り」をしっかり評価。トレーナー、QA、チームリーダー、マネージャーへの昇進や、別プロジェクトへの異動など、多彩なキャリアパスが描けます！</p>
+    </article>
+
+    <article class="benefit">
+      <h3>🏡 5. 就労ビザ＆一時滞在先サポートあり！スムーズに移住可能</h3>
+      <p class="muted">就労ビザ申請サポート、空港送迎、一時滞在先（マレーシアのみ）の手配まで、入社前後の手続きをフルサポート。初めての海外生活でも安心してスタートできます。</p>
+    </article>
+
+    <article class="benefit">
+      <h3>🌈 6. 多様性あふれる、自由でフラットな社風</h3>
+      <p class="muted">国籍・年齢・性別を問わず、お互いを尊重し合う文化が根付いています。世界中の仲間と協力し合いながら働けるのもTPならではの魅力。</p>
+    </article>
+
+    <article class="benefit" style="grid-column:1/-1">
+      <h3>🎉 7. 仕事だけじゃない！イベント＆福利厚生も充実</h3>
+      <p class="muted">社内イベントや表彰制度、チームビルディング活動など、人とのつながりを大切にするカルチャー。医療保険、有給休暇、各種手当なども完備し、安心して長く働けます。</p>
+    </article>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <div class="location-note">
+      <strong>🏢 勤務地：</strong>マレーシア（ペナン・クアラルンプール）、タイ（バンコク）<br>
+      <small class="muted">住みやすく、観光・グルメも充実しています！</small>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <h3>✅ こんな方におすすめ！</h3>
+    <ul class="checklist">
+      <li>日本語を活かして海外で働いてみたい</li>
+      <li>英語を使う環境にチャレンジしたい</li>
+      <li>多国籍な職場で価値観を広げたい</li>
+      <li>海外生活を楽しみながらキャリアを築きたい</li>
+    </ul>
+  </div>
+</section>
 
   <!-- KL -->
   <section id="kl" class="section">
