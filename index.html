@@ -10,11 +10,14 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="テレパフォーマンス採用 | マレーシア・タイで働く">
 <meta property="og:description" content="日本語を活かして海外で働く。充実の福利厚生と移住サポート。">
-<meta property="og:image" content="photos/TPLogo11.png">
-<meta property="og:url" content="https://tp-japan.com/">
+<meta property="og:image" content="https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png">
+<meta property="og:url" content="https://tpmyandtpth.github.io/JLP/">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="テレパフォーマンス採用 | マレーシア・タイで働く">
+<meta name="twitter:description" content="日本語を活かして海外で働く。充実の福利厚生と移住サポート。">
+<meta name="twitter:image" content="https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://tp-japan.com/">
+<link rel="canonical" href="https://tpmyandtpth.github.io/JLP/">
 <link rel="icon" href="photos/TPLogo11.png">
 <link rel="apple-touch-icon" href="photos/TPLogo11.png">
 
@@ -23,8 +26,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Fonts (Optimized - only loading weights actually used) -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
 
 <style>
 /* CSS Variables */
@@ -47,6 +50,7 @@
   --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
   --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
   --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
+  --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.25);
 }
 
 /* Base Styles */
@@ -63,7 +67,8 @@ html {
 body {
   font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--tp-dark);
-  line-height: 1.75;
+  line-height: 1.8; /* Japanese text benefits from more line height */
+  letter-spacing: 0.05em; /* Slightly increase letter spacing for readability */
   background: var(--tp-white);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "palt" 1;
@@ -84,6 +89,109 @@ a {
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Skip Link for Accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--tp-black);
+  color: var(--tp-white);
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Language Toggle */
+.language-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid var(--tp-light);
+  border-radius: 4px;
+  padding: 0.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.lang-btn {
+  padding: 0.25rem 0.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn.active {
+  background: var(--tp-black);
+  color: var(--tp-white);
+}
+
+/* Search Container */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#site-search {
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border: 1px solid var(--tp-light);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  width: 150px;
+  transition: all 0.3s;
+}
+
+#site-search:focus {
+  outline: none;
+  border-color: var(--tp-black);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+  width: 200px;
+}
+
+.search-container button {
+  position: absolute;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  padding: 1rem 20px;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.breadcrumb ol {
+  display: flex;
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--tp-gray);
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: "›";
+  margin: 0 0.5rem;
+}
+
+.breadcrumb a {
+  color: var(--tp-gray);
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: var(--tp-black);
 }
 
 /* Header */
@@ -189,6 +297,8 @@ nav a:focus {
   font-weight: 600;
   border: 2px solid var(--accent-purple);
   transition: all 0.3s;
+  min-height: 48px; /* Improved touch target */
+  min-width: 48px;
 }
 
 .apply-btn:hover,
@@ -211,6 +321,8 @@ nav a:focus {
   border-radius: 4px;
   cursor: pointer;
   position: relative;
+  min-height: 48px; /* Improved touch target */
+  min-width: 48px;
 }
 
 .mobile-toggle span {
@@ -254,10 +366,13 @@ nav a:focus {
   max-height: calc(100vh - 60px);
   overflow-y: auto;
   z-index: 999;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
 }
 
 .mobile-menu.active {
   display: block;
+  transform: translateX(0);
 }
 
 .mobile-menu ul {
@@ -270,6 +385,9 @@ nav a:focus {
   padding: 0.625rem 1.25rem;
   border-bottom: 1px solid var(--tp-light);
   transition: background 0.3s;
+  min-height: 48px; /* Improved touch target */
+  display: flex;
+  align-items: center;
 }
 
 .mobile-menu a:hover,
@@ -353,6 +471,11 @@ nav a:focus {
   border: 2px solid var(--tp-black);
   cursor: pointer;
   font-size: 0.9rem;
+  min-height: 48px; /* Improved touch target */
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn:focus {
@@ -459,6 +582,20 @@ nav a:focus {
   font-weight: 900;
   color: var(--tp-black);
   letter-spacing: -0.02em;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--tp-black);
+  border-radius: 2px;
 }
 
 .section-subtitle {
@@ -618,6 +755,7 @@ nav a:focus {
   gap: 0.75rem;
   transition: all 0.3s;
   cursor: pointer;
+  min-height: 48px; /* Improved touch target */
 }
 
 .icon-card:hover,
@@ -1046,6 +1184,9 @@ nav a:focus {
   gap: 1rem;
   max-width: var(--max);
   margin: 2rem auto 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lifestyle-item {
@@ -1056,6 +1197,8 @@ nav a:focus {
   background: var(--tp-off);
   cursor: pointer;
   transition: all 0.3s;
+  scroll-snap-align: start;
+  flex-shrink: 0;
 }
 
 .lifestyle-item:hover {
@@ -1390,6 +1533,7 @@ nav a:focus {
   padding: 14px 14px;
   box-shadow: var(--shadow-sm);
   transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  min-height: 48px; /* Improved touch target */
 }
 
 .cta-link:hover {
@@ -1565,6 +1709,11 @@ footer::before {
   border: 2px solid var(--accent-purple);
   font-size: 0.85rem;
   backdrop-filter: blur(10px);
+  min-height: 48px; /* Improved touch target */
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .floating-apply:hover,
@@ -1591,6 +1740,11 @@ footer::before {
   border: 2px solid var(--tp-black);
   font-size: 0.85rem;
   backdrop-filter: blur(10px);
+  min-height: 48px; /* Improved touch target */
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .floating-casual:hover,
@@ -1622,6 +1776,8 @@ footer::before {
   backdrop-filter: blur(10px);
   font-size: 1rem;
   font-weight: bold;
+  min-height: 48px; /* Improved touch target */
+  min-width: 48px;
 }
 
 .back-to-top.show {
@@ -1633,6 +1789,31 @@ footer::before {
   background: var(--tp-black);
   color: var(--tp-white);
   transform: translateY(-2px);
+}
+
+/* Loading Animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  border-top-color: var(--accent-purple);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Ruby support for furigana */
+ruby {
+  ruby-align: center;
+}
+
+rt {
+  font-size: 0.5em;
+  color: var(--tp-gray);
 }
 
 /* Responsive */
@@ -1773,22 +1954,21 @@ footer::before {
 }
 </style>
 
-<!-- Structured Data -->
+<!-- Structured Data (Fixed URLs) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "TP Japan",
   "alternateName": "TP Japan",
-  "url": "https://tp-japan.com/",
-  "logo": "https://tp-japan.com/photos/TPLogo11.png",
+  "url": "https://tpmyandtpth.github.io/JLP/",
+  "logo": "https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png",
   "description": "テレパフォーマンス（TP）マレーシア・タイの日本語スピーカー採用。世界100カ国以上で展開するグローバルBPO企業。",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "MY"
   },
   "sameAs": [
-    "https://www.TP.com",
     "https://line.me/R/ti/p/@286nmdsd"
   ]
 }
@@ -1796,7 +1976,7 @@ footer::before {
 </head>
 <body>
 <!-- Skip Navigation -->
-<a href="#main" class="sr-only">メインコンテンツへスキップ</a>
+<a href="#main" class="skip-link">メインコンテンツへスキップ</a>
 
 <header role="banner">
   <div class="header-inner">
@@ -1816,11 +1996,21 @@ footer::before {
         <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">なぜマレーシア・タイ</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a></li>
-        <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="apply-btn">応募する</a></li>
+        <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="apply-btn">応募する</a></li>
       </ul>
     </nav>
 
-    <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+    <div class="search-container">
+      <input type="search" id="site-search" placeholder="サイト内検索">
+      <button type="submit" aria-label="検索">🔍</button>
+    </div>
+
+    <div class="language-toggle">
+      <button class="lang-btn active" data-lang="ja">日本語</button>
+      <button class="lang-btn" data-lang="en">English</button>
+    </div>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -1833,13 +2023,13 @@ footer::before {
       <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
       <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">なぜマレーシア・タイ</a></li>
       <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a></li>
-      <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="apply-btn">応募する</a></li>
+      <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="apply-btn">応募する</a></li>
     </ul>
   </nav>
 </header>
 
 <main id="main">
-  <!-- Hero Section -->
+  <!-- Hero Section (Fixed links) -->
   <section class="hero">
     <div class="hero-container">
       <h1><span id="hero-rotate"></span></h1>
@@ -1849,8 +2039,8 @@ footer::before {
         コストを抑えた快適な暮らし。そんな「ちょうどいい」海外生活、マレーシアで始めませんか？
       </p>
       <div class="hero-cta">
-        <a href="#jobs" class="btn btn-accent">求人を見る</a>
-        <a href="#relocation" class="btn btn-secondary">移住サポートを見る</a>
+        <a href="https://tpmyandtpth.github.io/JLP/open-jobs.html" class="btn btn-accent">求人を見る</a>
+        <a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html" class="btn btn-secondary">移住サポートを見る</a>
       </div>
       <div class="hero-stats">
         <div class="stat-item">
@@ -1859,11 +2049,11 @@ footer::before {
         </div>
         <div class="stat-item">
           <span class="stat-number">500K+</span>
-          <span class="stat-label">従業員数</span>
+          <span class="stat-label">従業員数（グローバル）</span>
         </div>
         <div class="stat-item">
           <span class="stat-number">7,000+</span>
-          <span class="stat-label">従業員</span>
+          <span class="stat-label">従業員（マレーシア/タイ）</span>
         </div>
       </div>
     </div>
@@ -2032,7 +2222,7 @@ footer::before {
           </div>
         </a>
 
-        <a href="https://tpmyandtpth.github.io/xRAF/" target="_blank" rel="noopener" class="icon-card">
+        <a href="https://tpmyandtpth.github.io/xRAF/" target="_blank" rel="noopener noreferrer" class="icon-card">
           <span class="icon-card-icon">🌐</span>
           <div class="icon-card-meta">
             <div class="icon-card-title">External RAF</div>
@@ -2040,7 +2230,7 @@ footer::before {
           </div>
         </a>
 
-        <a href="https://tpmyandtpth.github.io/JLP/index.html#blog" class="icon-card">
+        <a href="https://tpmyandtpth.github.io/JLP/" class="icon-card">
           <span class="icon-card-icon">📝</span>
           <div class="icon-card-meta">
             <div class="icon-card-title">ブログ・コラム</div>
@@ -2048,7 +2238,7 @@ footer::before {
           </div>
         </a>
         
-        <a href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd" target="_blank" rel="noopener" class="icon-card">
+        <a href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd" target="_blank" rel="noopener noreferrer" class="icon-card">
           <span class="icon-card-icon">💬</span>
           <div class="icon-card-meta">
             <div class="icon-card-title">LINE公式アカウント</div>
@@ -2081,7 +2271,7 @@ footer::before {
           <header class="video-meta">
             <h3 class="video-title">TP社員インタビュー：最新動画</h3>
             <p class="video-desc">実際に働く社員のリアルな声をお届け</p>
-            <a class="video-link" href="https://youtu.be/N6l7PUQR0tw" target="_blank" rel="noopener">YouTubeで見る →</a>
+            <a class="video-link" href="https://youtu.be/N6l7PUQR0tw" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
           </header>
         </article>
 
@@ -2099,7 +2289,7 @@ footer::before {
           <header class="video-meta">
             <h3 class="video-title">TP社員インタビュー：エージェント編</h3>
             <p class="video-desc">採用の最前線で活躍するエージェントの視点</p>
-            <a class="video-link" href="https://youtu.be/H4SVUrCjTPM" target="_blank" rel="noopener">YouTubeで見る →</a>
+            <a class="video-link" href="https://youtu.be/H4SVUrCjTPM" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
           </header>
         </article>
 
@@ -2117,7 +2307,7 @@ footer::before {
           <header class="video-meta">
             <h3 class="video-title">TP社員インタビュー：チームリーダー編</h3>
             <p class="video-desc">現場マネジメント・育成のリアル</p>
-            <a class="video-link" href="https://youtu.be/VB6KSdFYLdE" target="_blank" rel="noopener">YouTubeで見る →</a>
+            <a class="video-link" href="https://youtu.be/VB6KSdFYLdE" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
           </header>
         </article>
 
@@ -2135,7 +2325,7 @@ footer::before {
           <header class="video-meta">
             <h3 class="video-title">TP社員インタビュー：オペレーションマネージャー編</h3>
             <p class="video-desc">品質・生産性を支えるオペレーションの舞台裏</p>
-            <a class="video-link" href="https://youtu.be/pa-qdCGkxA4" target="_blank" rel="noopener">YouTubeで見る →</a>
+            <a class="video-link" href="https://youtu.be/pa-qdCGkxA4" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
           </header>
         </article>
       </div>
@@ -2387,7 +2577,7 @@ footer::before {
       </div>
       
       <div style="text-align: center; margin-top: 2rem;">
-        <a href="https://vtour.cloud/mh2n0j/ae5772z1/Bella's" target="_blank" rel="noopener" class="btn btn-accent">バーチャルオフィスツアー →</a>
+        <a href="https://vtour.cloud/mh2n0j/ae5772z1/Bella%27s" target="_blank" rel="noopener noreferrer" class="btn btn-accent">バーチャルオフィスツアー →</a>
       </div>
     </div>
   </section>
@@ -2537,7 +2727,7 @@ footer::before {
   </p>
   <div class="ta-links">
     <a class="btn btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
-    <a class="btn btn-sm btn-ghost" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINEで質問</a>
+    <a class="btn btn-sm btn-ghost" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer">LINEで質問</a>
     <a class="btn btn-sm btn-ghost" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
   </div>
 </div>
@@ -2665,7 +2855,7 @@ footer::before {
     <p class="section-subtitle">目的にあわせて、すぐアクセス</p>
 
     <div class="cta-links">
-      <a class="cta-link" href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener">
+      <a class="cta-link" href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer">
         <span class="cta-ico" aria-hidden="true">🗓️</span>
         <span class="cta-main">
           <strong>カジュアル面談予約</strong>
@@ -2674,7 +2864,7 @@ footer::before {
         <span class="cta-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="cta-link" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">
+      <a class="cta-link" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer">
         <span class="cta-ico" aria-hidden="true">💬</span>
         <span class="cta-main">
           <strong>LINE公式アカウント</strong>
@@ -2683,7 +2873,7 @@ footer::before {
         <span class="cta-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="cta-link" href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener">
+      <a class="cta-link" href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer">
         <span class="cta-ico" aria-hidden="true">✍️</span>
         <span class="cta-main">
           <strong>応募ページ</strong>
@@ -2697,7 +2887,7 @@ footer::before {
 
 </main>
 
-<!-- Footer -->
+<!-- Footer (Fixed links) -->
 <footer>
   <div class="footer-content">
     <div class="footer-brand">
@@ -2713,7 +2903,7 @@ footer::before {
         <span class="badge-item">🏆 Great Place to Work® 6年連続</span>
       </div>
       <div class="footer-cta">
-        <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn btn-accent">ご応募はこちら</a>
+        <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="btn btn-accent">ご応募はこちら</a>
       </div>
     </div>
     
@@ -2721,7 +2911,7 @@ footer::before {
       <h3>会社情報</h3>
       <ul>
         <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">会社紹介</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html#benefits">福利厚生</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html#benefits">福利厚生</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">オフィス環境</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/ta-team.html">採用チーム</a></li>
       </ul>
@@ -2730,7 +2920,7 @@ footer::before {
     <div class="footer-section">
       <h3>求人・応募</h3>
       <ul>
-        <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html#open-jobs">求人一覧</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/faq.html">よくある質問</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">お問い合わせ</a></li>
@@ -2743,7 +2933,7 @@ footer::before {
         <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務先都市</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住サポート</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">ライフスタイル</a></li>
-        <li><a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINE公式</a></li>
+        <li><a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer">LINE公式</a></li>
       </ul>
     </div>
   </div>
@@ -2757,178 +2947,319 @@ footer::before {
 </footer>
 
 <!-- Floating Apply Button -->
-<a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="floating-apply" aria-label="今すぐ応募">応募する</a>
+<a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="floating-apply" aria-label="今すぐ応募">応募する</a>
 
 <!-- Floating Casual Interview Button -->
-<a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener" class="floating-casual" aria-label="カジュアル面談">カジュアル面談</a>
+<a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談">カジュアル面談</a>
 
 <!-- Back to Top Button -->
 <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
-<!-- JavaScript -->
+<!-- JavaScript (with Error Handling Added) -->
 <script>
-// Hero Typewriter Effect
-(function(){
+// Hero Typewriter Effect with Error Handling
+try {
+  (function(){
+    const el = document.getElementById('hero-rotate');
+    if(!el) return;
+    
+    const lines = [
+      '暮らすように、海外で働く。',
+      '日本語で始める、グローバルキャリア。',
+      '東南アジアの"ちょうどいい"生活。'
+    ];
+    
+    const speed = 46;
+    const hold = 1400;
+    const gap = 350;
+    let i = 0, j = 0, del = false;
+
+    function tick(){
+      const text = lines[i];
+      el.textContent = del ? text.slice(0, j--) : text.slice(0, j++);
+      
+      if(!del && j > text.length){ 
+        del = true; 
+        setTimeout(tick, hold); 
+        return; 
+      }
+      
+      if(del && j < 0){ 
+        del = false; 
+        i = (i+1) % lines.length; 
+        setTimeout(tick, gap); 
+        return; 
+      }
+      
+      setTimeout(tick, speed);
+    }
+    
+    tick();
+  })();
+} catch(error) {
+  console.warn('Typewriter effect failed:', error);
+  // Fallback: show static text
   const el = document.getElementById('hero-rotate');
-  if(!el) return;
-  
-  const lines = [
-    '暮らすように、海外で働く。',
-    '日本語で始める、グローバルキャリア。',
-    '東南アジアの"ちょうどいい"生活。'
-  ];
-  
-  const speed = 46;
-  const hold = 1400;
-  const gap = 350;
-  let i = 0, j = 0, del = false;
+  if(el) el.textContent = '暮らすように、海外で働く。';
+}
 
-  function tick(){
-    const text = lines[i];
-    el.textContent = del ? text.slice(0, j--) : text.slice(0, j++);
+// GPTW Years Animation with Error Handling
+try {
+  (function(){
+    const el = document.getElementById('gptwYears');
+    if(!el) return;
     
-    if(!del && j > text.length){ 
-      del = true; 
-      setTimeout(tick, hold); 
-      return; 
+    const logo = '<img src="photos/great place to work.png" alt="Great Place to Work®">';
+    let n = 0, target = 6;
+    let hasAnimated = false;
+    
+    function animate(){
+      if(hasAnimated) return;
+      hasAnimated = true;
+      
+      function step(){ 
+        n++; 
+        el.innerHTML = `${logo}<span>Great Place to Work® <strong>${n}</strong> 年連続</span>`;
+        if(n < target) setTimeout(step, 240);
+      }
+      step();
     }
     
-    if(del && j < 0){ 
-      del = false; 
-      i = (i+1) % lines.length; 
-      setTimeout(tick, gap); 
-      return; 
-    }
-    
-    setTimeout(tick, speed);
-  }
-  
-  tick();
-})();
-
-// GPTW Years Animation
-(function(){
+    // Trigger on scroll into view
+    const observer = new IntersectionObserver((entries) => {
+      if(entries[0].isIntersecting) animate();
+    });
+    observer.observe(el);
+  })();
+} catch(error) {
+  console.warn('GPTW animation failed:', error);
   const el = document.getElementById('gptwYears');
-  if(!el) return;
-  
-  const logo = '<img src="photos/great place to work.png" alt="Great Place to Work®">';
-  let n = 0, target = 6;
-  let hasAnimated = false;
-  
-  function animate(){
-    if(hasAnimated) return;
-    hasAnimated = true;
-    
-    function step(){ 
-      n++; 
-      el.innerHTML = `${logo}<span>Great Place to Work® <strong>${n}</strong> 年連続</span>`;
-      if(n < target) setTimeout(step, 240);
-    }
-    step();
-  }
-  
-  // Trigger on scroll into view
-  const observer = new IntersectionObserver((entries) => {
-    if(entries[0].isIntersecting) animate();
-  });
-  observer.observe(el);
-})();
+  if(el) el.innerHTML = '<img src="photos/great place to work.png" alt="Great Place to Work®"><span>Great Place to Work® <strong>6</strong> 年連続</span>';
+}
 
-// Mobile Menu Toggle
-(function(){
-  const toggle = document.getElementById('mobileToggle');
-  const menu = document.getElementById('mobileMenu');
-  
-  if(toggle && menu){
-    toggle.addEventListener('click', function(){
-      toggle.classList.toggle('active');
-      menu.classList.toggle('active');
-      toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
+// Mobile Menu Toggle with Error Handling
+try {
+  (function(){
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
+    
+    if(toggle && menu){
+      toggle.addEventListener('click', function(){
+        toggle.classList.toggle('active');
+        menu.classList.toggle('active');
+        toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
+      });
+      
+      // Close menu when clicking links
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          toggle.classList.remove('active');
+          menu.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if(!menu.contains(e.target) && !toggle.contains(e.target)) {
+          menu.classList.remove('active');
+          toggle.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+} catch(error) {
+  console.warn('Mobile menu setup failed:', error);
+}
+
+// Back to Top Button with Error Handling
+try {
+  (function(){
+    const backToTop = document.getElementById('backToTop');
+    if(!backToTop) return;
+    
+    // Show/hide button on scroll
+    window.addEventListener('scroll', () => {
+      if(window.pageYOffset > 300){
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
     });
     
-    // Close menu when clicking links
-    menu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        toggle.classList.remove('active');
-        menu.classList.remove('active');
+    // Scroll to top when clicked
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
       });
     });
+  })();
+} catch(error) {
+  console.warn('Back to top button failed:', error);
+}
+
+// FAQ Accordion with Error Handling
+try {
+  (function(){
+    const items = document.querySelectorAll('.faq-item');
     
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if(!menu.contains(e.target) && !toggle.contains(e.target)) {
-        menu.classList.remove('active');
-        toggle.classList.remove('active');
-      }
-    });
-  }
-})();
-
-// Back to Top Button
-(function(){
-  const backToTop = document.getElementById('backToTop');
-  if(!backToTop) return;
-  
-  // Show/hide button on scroll
-  window.addEventListener('scroll', () => {
-    if(window.pageYOffset > 300){
-      backToTop.classList.add('show');
-    } else {
-      backToTop.classList.remove('show');
-    }
-  });
-  
-  // Scroll to top when clicked
-  backToTop.addEventListener('click', () => {
-    window.scrollTo({ 
-      top: 0, 
-      behavior: 'smooth' 
-    });
-  });
-})();
-
-// FAQ Accordion
-(function(){
-  const items = document.querySelectorAll('.faq-item');
-  
-  items.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    
-    question.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
+    items.forEach(item => {
+      const question = item.querySelector('.faq-question');
       
-      // Close all items
-      items.forEach(i => i.classList.remove('active'));
-      
-      // Open clicked item if it wasn't active
-      if(!isActive) {
-        item.classList.add('active');
-      }
-    });
-  });
-})();
-
-// Smooth Scroll for Anchor Links
-(function(){
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if(href === '#') return;
-      
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if(target){
-        const offset = 70; // Header height
-        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
         
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-      }
+        // Close all items
+        items.forEach(i => i.classList.remove('active'));
+        
+        // Open clicked item if it wasn't active
+        if(!isActive) {
+          item.classList.add('active');
+        }
+      });
     });
-  });
-})();
+  })();
+} catch(error) {
+  console.warn('FAQ accordion failed:', error);
+}
+
+// Smooth Scroll for Anchor Links with Error Handling
+try {
+  (function(){
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if(href === '#') return;
+        
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if(target){
+          const offset = 70; // Header height
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  })();
+} catch(error) {
+  console.warn('Smooth scroll failed:', error);
+}
+
+// Language Toggle with Error Handling
+try {
+  (function(){
+    const langButtons = document.querySelectorAll('.lang-btn');
+    
+    langButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        langButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        // Here you would implement the actual language switching logic
+        // For now, we'll just log the selected language
+        const selectedLang = button.getAttribute('data-lang');
+        console.log('Language selected:', selectedLang);
+        
+        // In a real implementation, you would:
+        // 1. Store the preference in localStorage
+        // 2. Reload the page with the appropriate language
+        // 3. Or dynamically update the content
+      });
+    });
+  })();
+} catch(error) {
+  console.warn('Language toggle failed:', error);
+}
+
+// Search Functionality with Error Handling
+try {
+  (function(){
+    const searchInput = document.getElementById('site-search');
+    const searchButton = searchInput.nextElementSibling;
+    
+    if(searchInput && searchButton) {
+      searchButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const searchTerm = searchInput.value.trim();
+        
+        if(searchTerm) {
+          // In a real implementation, you would:
+          // 1. Send the search term to a search API
+          // 2. Display the search results
+          // 3. Or redirect to a search results page
+          console.log('Searching for:', searchTerm);
+          
+          // For now, we'll just show an alert
+          alert(`「${searchTerm}」の検索結果は準備中です。`);
+        }
+      });
+      
+      searchInput.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') {
+          searchButton.click();
+        }
+      });
+    }
+  })();
+} catch(error) {
+  console.warn('Search functionality failed:', error);
+}
+
+// Swipe Gestures for Lifestyle Gallery with Error Handling
+try {
+  (function(){
+    const lifestyleGrid = document.querySelector('.lifestyle-grid');
+    if(!lifestyleGrid) return;
+    
+    let startX, scrollLeft;
+    
+    lifestyleGrid.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].pageX - lifestyleGrid.offsetLeft;
+      scrollLeft = lifestyleGrid.scrollLeft;
+    });
+    
+    lifestyleGrid.addEventListener('touchmove', (e) => {
+      if (!startX) return;
+      const x = e.touches[0].pageX - lifestyleGrid.offsetLeft;
+      const walk = (x - startX) * 2;
+      lifestyleGrid.scrollLeft = scrollLeft - walk;
+    });
+    
+    lifestyleGrid.addEventListener('touchend', () => {
+      startX = null;
+    });
+  })();
+} catch(error) {
+  console.warn('Swipe gestures failed:', error);
+}
+
+// Service Worker Registration for PWA with Error Handling
+try {
+  (function(){
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful');
+          })
+          .catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  })();
+} catch(error) {
+  console.warn('Service Worker registration failed:', error);
+}
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
