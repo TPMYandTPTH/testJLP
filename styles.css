@@ -1,87 +1,103 @@
 /* ==========================================================================
-   TP External RAF Dashboard — styles.css (enhanced)
-   Theme: Professional dashboard with TP branding
-   Updated: December 2024 - TP Brand Colors
+   TP External RAF Dashboard — styles.css
+   Theme: Black & White base with TP Brand accent colors (matching xRAF)
+   Updated: December 2024
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   0) Design Tokens - UPDATED with TP Brand Colors
+   0) Design Tokens - Matching xRAF Color Scheme
 -------------------------------------------------------------------------- */
 :root {
-  /* Dashboard Specific Colors - TP Brand */
-  --primary-color: #3047b0;      /* Blue TP */
-  --primary-light: #0087FF;      /* Light Blue TP */
-  --success-color: #84c98b;      /* Green Light TP */
-  --success-dark: #00d769;       /* Green Flash TP */
-  --warning-color: #F5D200;      /* Yellow TP */
-  --danger-color: #dc3545;
-  --gray-color: #676767;         /* Gray TP */
-  --light-gray: #f8f9fa;
-  --border-color: #dee2e6;
-  --orange-tp: #ff5c00;          /* Orange TP */
-  --dashboard-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  --dashboard-shadow-lg: 0 12px 40px rgba(0,0,0,0.18);
-  
-  /* Original Palette */
-  --bg: #ffffff;
-  --ink: #0b0b0b;
-  --muted: #6b6b6b;
-  --ink-2: #1f2937;
-  --surface: #fbfdff;
-  --line: #EEF1F4;
-
-  /* Solid accents */
-  --accent: #3047b0;   /* Blue TP */
-  --accent-2: #ff5c00; /* Orange TP */
-
-  /* Shadows & Radii */
-  --shadow-xl: 0 18px 60px rgba(16, 24, 40, 0.10);
-  --shadow-lg: 0 14px 40px rgba(16, 24, 40, 0.08);
-  --shadow-md: 0 8px 24px rgba(16, 24, 40, 0.08);
-  --shadow-sm: 0 6px 20px rgba(16, 24, 40, 0.06);
-
-  --radius: 14px;
-  --radius-lg: 18px;
-  --radius-full: 999px;
-
-  /* Layout */
-  --maxw: 1200px;
-  --pad: 24px;
-  --gap: 20px;
-  --navH: 64px;
-
-  /* Focus ring */
-  --focus: 0 0 0 3px rgba(48,71,176,0.25);
+    /* Base Colors - Black & White Theme */
+    --primary-color: #000000;
+    --light-color: #ffffff;
+    --dark-color: #000000;
+    --border-color: #000000;
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --muted-color: #555555;
+    
+    /* TP Brand Colors - Primary Palette */
+    --tp-blue: #3047b0;
+    --tp-light-blue: #0087FF;
+    --tp-turquoise: #00af9b;
+    --tp-green-flash: #00d769;
+    --tp-green-light: #84c98b;
+    --tp-yellow: #f5d200;
+    
+    /* TP Brand Colors - Secondary (Limited Use) */
+    --tp-burgundy: #5f365e;
+    --tp-carmine: #ab2c37;
+    --tp-raspberry: #d53865;
+    --tp-orange: #ff5c00;
+    
+    /* Status Colors using TP Palette */
+    --status-received: var(--tp-light-blue);     /* Light Blue - Application Received */
+    --status-assessment: var(--tp-green-flash);  /* Green Flash - Assessment Stage */
+    --status-probation: var(--tp-yellow);        /* Yellow - Hired (Probation) */
+    --status-confirmed: var(--tp-green-light);   /* Green Light - Hired (Confirmed) */
+    --status-previous: var(--tp-burgundy);       /* Burgundy - Previously Applied */
+    --status-failed: var(--tp-carmine);          /* Carmine - Not Selected */
+    
+    /* Payment Tier Colors */
+    --tier-johor: var(--tp-orange);      /* Orange - RM500 Johor */
+    --tier-standard: #000000;            /* Black - RM800 Standard */
+    --tier-interpreter: var(--tp-blue);  /* Blue - RM3000 Interpreter */
+    
+    /* Layout */
+    --border-radius: 0px;
+    --border-radius-sm: 0px;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 12px 40px rgba(0,0,0,0.18);
+    --transition: all 0.3s ease;
 }
 
 /* --------------------------------------------------------------------------
-   1) Base
+   1) Base Styles
 -------------------------------------------------------------------------- */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 html { scroll-behavior: smooth; }
+
 body {
-  margin: 0;
-  color: var(--ink);
-  background: #ffffff;
-  font-family: "Noto Sans JP","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    color: var(--text-color);
+    background: var(--background-color);
+    font-family: "Noto Sans JP", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
+
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
-.wrap { max-width: var(--maxw); margin: 0 auto; padding: var(--pad); }
-.container { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad); }
 
-/* Dashboard Logo Specific */
+.container { 
+    max-width: 1200px; 
+    margin-inline: auto; 
+    padding-inline: 24px; 
+}
+
+/* --------------------------------------------------------------------------
+   2) Logo & Branding
+-------------------------------------------------------------------------- */
 .logo {
     max-width: 200px;
     height: auto;
     margin-bottom: 2rem;
+    filter: grayscale(100%);
+    transition: var(--transition);
 }
 
-/* Alert Container for Dashboard */
+.logo:hover {
+    filter: grayscale(0%);
+}
+
+/* --------------------------------------------------------------------------
+   3) Alert Container
+-------------------------------------------------------------------------- */
 #alert-container {
     position: fixed;
     top: 20px;
@@ -92,60 +108,80 @@ a { color: inherit; text-decoration: none; }
 
 #alert-container .alert {
     margin-bottom: 10px;
-    box-shadow: var(--dashboard-shadow-lg);
+    box-shadow: var(--shadow-xl);
+    border-radius: var(--border-radius);
 }
 
-/* Buttons */
+/* --------------------------------------------------------------------------
+   4) Buttons - Matching xRAF Style
+-------------------------------------------------------------------------- */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: #fff;
-  cursor: pointer;
-  font-weight: 800;
-  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
-}
-.btn:hover { box-shadow: var(--shadow-sm); }
-.btn:active { transform: translateY(1px); }
-.btn:focus { outline: none; box-shadow: var(--focus); }
-.btn.primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(48,71,176,0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background: var(--light-color);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
 }
 
-/* Dashboard Button Styles */
+.btn:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
-    color: white;
+    color: var(--light-color);
 }
 
 .btn-primary:hover {
-    background-color: #263a8e;
-    border-color: #263a8e;
+    background-color: #333333;
+    border-color: #333333;
+    color: var(--light-color);
 }
 
 .btn-primary:disabled {
     opacity: 0.65;
+    cursor: not-allowed;
 }
 
 .btn-outline-secondary {
-    color: #6c757d;
-    border-color: #6c757d;
+    background: var(--light-color);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
 }
 
 .btn-outline-secondary:hover {
-    color: white;
-    background-color: #6c757d;
-    border-color: #6c757d;
+    background: var(--primary-color);
+    color: var(--light-color);
+}
+
+.btn-success {
+    background: var(--tp-green-flash);
+    border-color: var(--tp-green-flash);
+    color: var(--light-color);
 }
 
 .btn-link {
-    color: var(--primary-color);
+    color: var(--tp-blue);
     text-decoration: none;
+    background: transparent;
+    border: none;
 }
 
 .btn-link:hover {
@@ -153,15 +189,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* --------------------------------------------------------------------------
-   4) Cards
+   5) Cards - Clean Design
 -------------------------------------------------------------------------- */
 .card {
-  background: #fff; border: 1px solid var(--line);
-  border-radius: 14px; box-shadow: var(--shadow-sm); padding: 18px;
-  border: none;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-  margin-bottom: 1.5rem;
+    background: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 1.5rem;
 }
 
 .card-body {
@@ -171,33 +206,48 @@ a { color: inherit; text-decoration: none; }
 .card-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 1rem;
 }
 
-/* Dashboard Stats Cards */
+.card-text {
+    color: var(--muted-color);
+    font-size: 1rem;
+}
+
+/* Social Card - Boxed with heavier shadow */
+.social-card {
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+/* --------------------------------------------------------------------------
+   6) Stats Cards
+-------------------------------------------------------------------------- */
 .stats-card {
-    background: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
 }
 
 .stats-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 50px rgba(0,0,0,0.2);
+    box-shadow: var(--shadow-xl);
 }
 
 .stats-card.total {
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--tp-blue);
 }
 
 .stats-card.hired {
-    border-left: 4px solid var(--success-color);
+    border-left: 4px solid var(--tp-green-light);
 }
 
 .stats-card.in-progress {
-    border-left: 4px solid var(--warning-color);
+    border-left: 4px solid var(--tp-yellow);
 }
 
 .stats-card .card-body {
@@ -206,7 +256,7 @@ a { color: inherit; text-decoration: none; }
 
 .stats-card h5 {
     font-size: 0.875rem;
-    color: #6c757d;
+    color: var(--muted-color);
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -216,10 +266,11 @@ a { color: inherit; text-decoration: none; }
     font-size: 2rem;
     font-weight: 700;
     margin: 0;
+    color: var(--text-color);
 }
 
 /* --------------------------------------------------------------------------
-   Chart Container
+   7) Chart Container
 -------------------------------------------------------------------------- */
 .chart-container {
     position: relative;
@@ -233,14 +284,12 @@ a { color: inherit; text-decoration: none; }
 
 .chart-logo {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    opacity: 0.15;
+    inset: 0;
+    margin: auto;
+    width: 60px;
+    height: 60px;
+    opacity: 0.1;
     pointer-events: none;
-    z-index: 0;
 }
 
 #statusChart {
@@ -249,77 +298,30 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* --------------------------------------------------------------------------
-   Status Guide
+   8) Tables
 -------------------------------------------------------------------------- */
-.status-examples {
-    display: grid;
-    gap: 1rem;
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 6px 0 0;
 }
 
-.status-example {
-    padding: 1rem;
-    background: var(--light-gray);
-    border-radius: 0.375rem;
-    border-left: 3px solid var(--primary-color);
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
 }
 
-.status-guide-table {
-    font-size: 0.875rem;
-}
-
-.payment-notes {
-    background: #e7f5ff;
-    padding: 1rem;
-    border-radius: 0.375rem;
-    border-left: 3px solid var(--primary-color);
-}
-
-.payment-notes p {
-    margin-bottom: 0.25rem;
-}
-
-/* --------------------------------------------------------------------------
-   Friend Reminder Cards
--------------------------------------------------------------------------- */
-.friend-to-remind {
-    background: white;
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    padding: 1.25rem;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.10);
-    transition: transform 0.2s;
-}
-
-.friend-to-remind:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 36px rgba(0,0,0,0.15);
-}
-
-.friend-to-remind h5 {
-    font-size: 1.125rem;
+th {
+    background: #f8f9fa;
     font-weight: 600;
-    margin: 0;
+    color: var(--text-color);
 }
 
-.remind-btn {
-    background: #25D366;
-    color: white;
-    border: none;
-    transition: background 0.2s;
+tbody tr:hover {
+    background: #fafafa;
 }
-
-.remind-btn:hover {
-    background: #20bd5a;
-    color: white;
-}
-
-/* --------------------------------------------------------------------------
-   Tables
--------------------------------------------------------------------------- */
-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 6px 0 0; }
-th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
-th { background: #F7FAFF; text-align: left; font-weight: 800; }
-tbody tr:hover { background: #fafcff; }
 
 /* Earnings Table */
 .earnings-table {
@@ -329,17 +331,16 @@ tbody tr:hover { background: #fafcff; }
 }
 
 .earnings-table thead th {
-    background: var(--light-gray);
+    background: #f8f9fa;
     border-bottom: 2px solid var(--border-color);
     padding: 0.75rem;
-    text-align: left;
     font-weight: 600;
-    color: #495057;
+    color: var(--text-color);
 }
 
 .earnings-table tbody td {
     padding: 0.75rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #dee2e6;
 }
 
 .earnings-table tbody tr:hover {
@@ -348,45 +349,59 @@ tbody tr:hover { background: #fafcff; }
 
 .earnings-table tfoot th {
     background: var(--primary-color);
-    color: white;
+    color: var(--light-color);
     padding: 0.75rem;
     font-weight: 700;
 }
 
-/* --------------------------------------------------------------------------
-   Forms
--------------------------------------------------------------------------- */
-form label { font-weight: 800; }
-form input, form textarea, form select {
-  width: 100%; padding: 12px;
-  border-radius: 12px; border: 1px solid var(--line);
-  margin: 8px 0; background: #fff; color: var(--ink);
-  font-family: inherit; font-size: 16px;
+/* Payment Tier Row Colors */
+.earnings-table .tier-johor td:first-child {
+    border-left: 4px solid var(--tp-orange);
 }
-form input:focus, form textarea:focus, form select:focus {
-  outline: none; box-shadow: var(--focus);
+
+.earnings-table .tier-standard td:first-child {
+    border-left: 4px solid var(--primary-color);
+}
+
+.earnings-table .tier-interpreter td:first-child {
+    border-left: 4px solid var(--tp-blue);
+}
+
+/* --------------------------------------------------------------------------
+   9) Forms - Clean Design
+-------------------------------------------------------------------------- */
+form label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
 }
 
 .form-control, .form-select {
-    border-radius: 0.375rem;
+    width: 100%;
+    padding: 12px 16px;
     border: 1px solid var(--border-color);
-    padding: 0.625rem 0.875rem;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    transition: var(--transition);
+    background: var(--light-color);
+    color: var(--text-color);
 }
 
 .form-control:focus, .form-select:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(48, 71, 176, 0.25);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+    outline: none;
 }
 
 .form-control.is-invalid {
-    border-color: var(--danger-color);
+    border-color: var(--tp-carmine);
 }
 
 .invalid-feedback {
     display: none;
     font-size: 0.875rem;
-    color: var(--danger-color);
+    color: var(--tp-carmine);
     margin-top: 0.25rem;
 }
 
@@ -394,78 +409,54 @@ form input:focus, form textarea:focus, form select:focus {
     display: block;
 }
 
-/* --------------------------------------------------------------------------
-   Footer
--------------------------------------------------------------------------- */
-.footer {
-    background-color: #343a40;
-    color: white;
-    margin-top: auto;
-}
-
-.footer p {
-    margin-bottom: 0.5rem;
+.form-label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
 }
 
 /* --------------------------------------------------------------------------
-   Social Media Icons
--------------------------------------------------------------------------- */
-.social-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: var(--light-gray);
-    color: #495057;
-    border-radius: 50%;
-    transition: all 0.2s;
-    text-decoration: none;
-}
-
-.social-icon:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
-}
-
-/* --------------------------------------------------------------------------
-   Referral Cards & Status System
+   10) Status System - Using TP Colors
 -------------------------------------------------------------------------- */
 .referral-card {
-    background: white;
+    background: var(--light-color);
+    border: 1px solid var(--border-color);
     border-left: 4px solid var(--border-color);
-    transition: all 0.2s;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
 }
 
 .referral-card:hover {
-    box-shadow: 0 10px 36px rgba(0,0,0,0.15);
+    box-shadow: var(--shadow-lg);
     transform: translateX(2px);
 }
 
+/* Status Border Colors */
 .referral-card.status-received {
-    border-left-color: var(--primary-color);
+    border-left-color: var(--status-received);
 }
 
 .referral-card.status-assessment {
-    border-left-color: var(--success-dark);
+    border-left-color: var(--status-assessment);
 }
 
 .referral-card.status-probation {
-    border-left-color: var(--warning-color);
+    border-left-color: var(--status-probation);
 }
 
 .referral-card.status-passed {
-    border-left-color: var(--success-color);
+    border-left-color: var(--status-confirmed);
 }
 
 .referral-card.status-failed {
-    border-left-color: var(--danger-color);
+    border-left-color: var(--status-failed);
 }
 
 .referral-card.status-previously-applied {
-    border-left-color: var(--gray-color);
+    border-left-color: var(--status-previous);
 }
 
 /* Status Badges */
@@ -473,95 +464,169 @@ form input:focus, form textarea:focus, form select:focus {
     padding: 0.375rem 0.75rem;
     font-size: 0.875rem;
     font-weight: 600;
-    border-radius: 0.25rem;
+    border-radius: var(--border-radius);
     display: inline-block;
 }
 
 .bg-received {
-    background-color: var(--primary-color) !important;
-    color: white;
+    background-color: var(--status-received) !important;
+    color: var(--light-color);
 }
 
 .bg-assessment {
-    background-color: var(--success-dark) !important;
-    color: white;
+    background-color: var(--status-assessment) !important;
+    color: var(--light-color);
 }
 
 .bg-probation {
-    background-color: var(--warning-color) !important;
-    color: #333;
+    background-color: var(--status-probation) !important;
+    color: var(--text-color);
 }
 
 .bg-passed {
-    background-color: var(--success-color) !important;
-    color: white;
+    background-color: var(--status-confirmed) !important;
+    color: var(--light-color);
 }
 
 .bg-failed {
-    background-color: var(--danger-color) !important;
-    color: white;
+    background-color: var(--status-failed) !important;
+    color: var(--light-color);
 }
 
 .bg-previously-applied {
-    background-color: var(--gray-color) !important;
-    color: white;
+    background-color: var(--status-previous) !important;
+    color: var(--light-color);
 }
 
 /* --------------------------------------------------------------------------
-   Dashboard Specific Elements
+   11) Status Guide & Examples
 -------------------------------------------------------------------------- */
-.user-name-display {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--primary-color);
+.status-examples {
+    display: grid;
+    gap: 1rem;
+}
+
+.status-example {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--tp-blue);
+}
+
+.status-guide-table {
+    font-size: 0.875rem;
+}
+
+.payment-notes {
+    background: #f0f7ff;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--tp-blue);
+}
+
+.payment-notes p {
     margin-bottom: 0.25rem;
 }
 
-/* Empty States */
-.empty-state {
-    text-align: center;
-    padding: 3rem 1rem;
+/* --------------------------------------------------------------------------
+   12) Friend Reminder Cards
+-------------------------------------------------------------------------- */
+.friend-to-remind {
+    background: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
 }
 
-.empty-state-icon {
-    font-size: 4rem;
-    color: #dee2e6;
-    margin-bottom: 1rem;
+.friend-to-remind:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
-.empty-state h4 {
-    color: #6c757d;
-    margin-bottom: 0.5rem;
+.friend-to-remind h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-color);
 }
 
-.empty-state p {
-    color: #adb5bd;
-    margin-bottom: 1.5rem;
+.remind-btn {
+    background: #25D366;
+    color: var(--light-color);
+    border: none;
+    transition: var(--transition);
 }
 
-/* Loading Spinner */
-.spinner-border-sm {
-    width: 1rem;
-    height: 1rem;
-    border-width: 0.15em;
+.remind-btn:hover {
+    background: #20bd5a;
+    color: var(--light-color);
 }
 
 /* --------------------------------------------------------------------------
-   Modal Styles
+   13) Footer - Matching xRAF
+-------------------------------------------------------------------------- */
+.footer {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    margin-top: auto;
+    padding: 1rem 0;
+}
+
+.footer p {
+    margin-bottom: 0.5rem;
+}
+
+.footer a {
+    color: var(--light-color);
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   14) Social Media Icons - Minimalist
+-------------------------------------------------------------------------- */
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    color: var(--text-color);
+    font-size: 18px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    background: var(--primary-color);
+    color: var(--light-color);
+    transform: translateY(-3px);
+}
+
+/* --------------------------------------------------------------------------
+   15) Modal Styles
 -------------------------------------------------------------------------- */
 .modal-content {
-    border: none;
-    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
 }
 
 .modal-header {
-    background: var(--light-gray);
+    background: #f8f9fa;
     border-bottom: 1px solid var(--border-color);
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .modal-title {
     font-weight: 600;
+    color: var(--text-color);
 }
 
 .modal-body {
@@ -574,7 +639,50 @@ form input:focus, form textarea:focus, form select:focus {
 }
 
 /* --------------------------------------------------------------------------
-   Media Queries
+   16) Empty States
+-------------------------------------------------------------------------- */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 1rem;
+}
+
+.empty-state h4 {
+    color: var(--muted-color);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #adb5bd;
+    margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   17) User Display
+-------------------------------------------------------------------------- */
+.user-name-display {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   18) Loading Spinner
+-------------------------------------------------------------------------- */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+}
+
+/* --------------------------------------------------------------------------
+   19) Media Queries
 -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
     .card-body {
@@ -613,20 +721,33 @@ form input:focus, form textarea:focus, form select:focus {
     .earnings-table tbody td {
         padding: 0.5rem;
     }
+    
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
 }
 
 /* --------------------------------------------------------------------------
-   Reduced Motion
+   20) Reduced Motion
 -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .btn, .stats-card, .referral-card, .friend-to-remind, .social-icon { transition: none !important; }
+    html { scroll-behavior: auto; }
+    .btn, .stats-card, .referral-card, .friend-to-remind, .social-icon, .logo { 
+        transition: none !important; 
+    }
 }
 
 /* --------------------------------------------------------------------------
-   Print
+   21) Print
 -------------------------------------------------------------------------- */
 @media print {
-  .social-card, .footer, #alert-container { display: none !important; }
-  .card { break-inside: avoid; box-shadow: none; }
+    .social-card, .footer, #alert-container { 
+        display: none !important; 
+    }
+    .card { 
+        break-inside: avoid; 
+        box-shadow: none; 
+        border: 1px solid #000;
+    }
 }

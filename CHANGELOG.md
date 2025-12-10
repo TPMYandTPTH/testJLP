@@ -16,91 +16,93 @@
 1. **No more RM50 assessment bonus** - All payment related to assessment has been removed
 2. **Single payment after 90 days probation** - All tiers now pay only after 90 days
 3. **Three-tier payment structure** based on job type/location:
-   - **RM500** - Mandarin speakers in Johor
-   - **RM800** - Standard roles in other locations
-   - **RM3,000** - Work From Home Interpreter positions
+   - **RM500** - Mandarin speakers in Johor (Orange color)
+   - **RM800** - Standard roles in other locations (Black color)
+   - **RM3,000** - Work From Home Interpreter positions (Blue color)
+
+### Mock Data - 18 Records
+
+| Status | Johor (RM500) | Standard (RM800) | Interpreter (RM3000) |
+|--------|---------------|------------------|----------------------|
+| Application Received | Tarek Ezz | Loai Ahmed | Sarah Chen |
+| Assessment Stage | Micole Barrientos | Pourya Tohidi | Wei Lin Tan |
+| Hired (Probation) | Melaine Sua | Anna Saw Yee Lin | Koji Yamamoto |
+| Hired (Confirmed) ✅ | Maho Yoriguchi | Sieon Lee | Liu Mei Hua |
+| Previously Applied | David Ong (LinkedIn) | Chloe Tan (JobStreet) | Ahmad Razak (Walk-in) |
+| Not Selected | Nurul Lydia Adini | Hanna Wong | Park Min Jun |
+
+**Total: 18 records** (6 statuses × 3 payment tiers)
+
+**Payment Eligible (Hired Confirmed + xRAF): 3 records**
+- 1 Johor = RM500
+- 1 Standard = RM800  
+- 1 Interpreter = RM3,000
+- **Total: RM4,300**
 
 ### Files Updated
 
 | File | Changes |
 |------|---------|
-| `statusMapping.js` | Updated `earningsStructure` with 3 tiers, removed assessment payment logic |
-| `script.js` | Updated earnings calculation, removed assessment eligibility checks |
-| `translations.js` | Updated payment text in all 5 languages (EN, JA, KO, ZH-CN, ZH-HK) |
-| `index.html` | Updated TnG modal with new payment cards (Orange/Black/Blue styling) |
-| `styles.css` | Updated to TP Brand colors (Blue `#3047b0`, Orange `#ff5c00`) |
-| `apiService.js` | Updated mock data with 12 records (2 per status category) |
+| `statusMapping.js` | Updated earningsStructure with 3 tiers |
+| `script.js` | Updated earnings calculation with tier detection |
+| `translations.js` | Updated payment text in all 5 languages |
+| `index.html` | Updated TnG modal with flat tier cards |
+| `styles.css` | Updated to match xRAF colors (Black/White base with TP accents) |
+| `apiService.js` | 18 mock records with PaymentTier field |
 
-### Color Updates (TP Brand)
+### Color Scheme - Matching xRAF
 
-| Element | Old Color | New Color |
-|---------|-----------|-----------|
-| Primary Blue | `#0087FF` | `#3047b0` (Blue TP) |
-| Accent | `#FFD700` | `#ff5c00` (Orange TP) |
-| Success | `#00d769` | `#84c98b` (Green Light TP) |
-| Warning | `#f5d200` | `#F5D200` (Yellow TP) |
+**Base Theme:**
+- Primary: Black #000000
+- Background: White #ffffff
 
-### Status Categories (Unchanged)
+**TP Brand Accents:**
+| Element | Color | Hex |
+|---------|-------|-----|
+| Application Received | Light Blue TP | #0087FF |
+| Assessment Stage | Green Flash TP | #00d769 |
+| Hired (Probation) | Yellow TP | #f5d200 |
+| Hired (Confirmed) | Green Light TP | #84c98b |
+| Previously Applied | Burgundy TP | #5f365e |
+| Not Selected | Carmine TP | #ab2c37 |
 
-The 6 status groups remain the same:
-1. Application Received
-2. Assessment Stage
-3. Hired (Probation) - less than 90 days
-4. Hired (Confirmed) - 90+ days ✅ Payment eligible
-5. Previously Applied (No Payment)
-6. Not Selected
+**Payment Tier Colors:**
+| Tier | Color | Hex |
+|------|-------|-----|
+| Johor (RM500) | Orange TP | #ff5c00 |
+| Standard (RM800) | Black | #000000 |
+| Interpreter (RM3000) | Blue TP | #3047b0 |
 
-### Mock Data (Demo Mode)
+### Demo Mode
 
-Demo credentials: `0123456789` / `amr@tp.com` or add `?demo=1` to URL
-
-12 records total (2 per status category):
-- Application Received: Tarek Ezz, Loai Ahmed
-- Assessment Stage: Micole Barrientos, Pourya Tohidi  
-- Hired (Probation): Melaine Sua, Anna Saw Yee Lin
-- Hired (Confirmed): Maho Yoriguchi, Sieon Lee
-- Previously Applied: David Ong (LinkedIn), Chloe Tan (JobStreet)
-- Not Selected: Nurul Lydia Adini, Hanna Wong
+**Credentials:** 0123456789 / amr@tp.com
+**URL Parameter:** ?demo=1
 
 ---
 
-## For RPA Team - Future Backend Requirements
+## For RPA Team
 
-### No Changes Required Now
-The backend/SharePoint doesn't need changes for this update. The current structure works.
+### No Backend Changes Required Now
+The current SharePoint structure works with this update.
 
 ### Future Enhancement (When Ready)
-To differentiate between the 3 payment tiers, we'll need:
-
-1. **Job Location Column** - To identify Johor vs other locations
-   - Current: `Location` field exists
-   - Need: Standardize values (e.g., "Johor Bahru", "Johor")
-
-2. **Job Type/Position Column** - To identify WFH Interpreter
-   - May need: New field for job category
-   - Or: Use position title to detect "Interpreter"
-
-3. **Language Column** - To identify Mandarin speakers
-   - May need: Candidate language proficiency field
-
-### Current Workaround
-For now, the dashboard shows all eligible referrals under "Standard Roles (RM800)" until the backend can differentiate between tiers.
+To auto-detect payment tiers, the system currently checks:
+1. Position field for "interpreter" → RM3,000 tier
+2. Location field for "johor" → RM500 tier
+3. Default → RM800 standard tier
 
 ---
 
 ## Deployment Checklist
 
-- [ ] Add `TPLogo11.png` to the dashboard folder
-- [ ] Test demo mode: `?demo=1` or use credentials
+- [ ] Add TPLogo11.png to the dashboard folder
+- [ ] Test demo mode: ?demo=1 or use credentials
 - [ ] Verify all 5 languages display correctly
+- [ ] Verify earnings table shows 3 tiers with correct counts
 - [ ] Test WhatsApp reminder function
 - [ ] Verify payment modal shows new structure
 - [ ] Deploy to hosting
 
 ---
-
-## Contact
-
-For questions about these changes, contact the Recruitment & Selection team.
 
 Last Updated: December 2024
