@@ -1,0 +1,632 @@
+/* ==========================================================================
+   TP External RAF Dashboard — styles.css (enhanced)
+   Theme: Professional dashboard with TP branding
+   Updated: December 2024 - TP Brand Colors
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0) Design Tokens - UPDATED with TP Brand Colors
+-------------------------------------------------------------------------- */
+:root {
+  /* Dashboard Specific Colors - TP Brand */
+  --primary-color: #3047b0;      /* Blue TP */
+  --primary-light: #0087FF;      /* Light Blue TP */
+  --success-color: #84c98b;      /* Green Light TP */
+  --success-dark: #00d769;       /* Green Flash TP */
+  --warning-color: #F5D200;      /* Yellow TP */
+  --danger-color: #dc3545;
+  --gray-color: #676767;         /* Gray TP */
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --orange-tp: #ff5c00;          /* Orange TP */
+  --dashboard-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  --dashboard-shadow-lg: 0 12px 40px rgba(0,0,0,0.18);
+  
+  /* Original Palette */
+  --bg: #ffffff;
+  --ink: #0b0b0b;
+  --muted: #6b6b6b;
+  --ink-2: #1f2937;
+  --surface: #fbfdff;
+  --line: #EEF1F4;
+
+  /* Solid accents */
+  --accent: #3047b0;   /* Blue TP */
+  --accent-2: #ff5c00; /* Orange TP */
+
+  /* Shadows & Radii */
+  --shadow-xl: 0 18px 60px rgba(16, 24, 40, 0.10);
+  --shadow-lg: 0 14px 40px rgba(16, 24, 40, 0.08);
+  --shadow-md: 0 8px 24px rgba(16, 24, 40, 0.08);
+  --shadow-sm: 0 6px 20px rgba(16, 24, 40, 0.06);
+
+  --radius: 14px;
+  --radius-lg: 18px;
+  --radius-full: 999px;
+
+  /* Layout */
+  --maxw: 1200px;
+  --pad: 24px;
+  --gap: 20px;
+  --navH: 64px;
+
+  /* Focus ring */
+  --focus: 0 0 0 3px rgba(48,71,176,0.25);
+}
+
+/* --------------------------------------------------------------------------
+   1) Base
+-------------------------------------------------------------------------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #ffffff;
+  font-family: "Noto Sans JP","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: var(--pad); }
+.container { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad); }
+
+/* Dashboard Logo Specific */
+.logo {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+/* Alert Container for Dashboard */
+#alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    max-width: 400px;
+}
+
+#alert-container .alert {
+    margin-bottom: 10px;
+    box-shadow: var(--dashboard-shadow-lg);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 800;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.btn:hover { box-shadow: var(--shadow-sm); }
+.btn:active { transform: translateY(1px); }
+.btn:focus { outline: none; box-shadow: var(--focus); }
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(48,71,176,0.18);
+}
+
+/* Dashboard Button Styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #263a8e;
+    border-color: #263a8e;
+}
+
+.btn-primary:disabled {
+    opacity: 0.65;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    color: white;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-link {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   4) Cards
+-------------------------------------------------------------------------- */
+.card {
+  background: #fff; border: 1px solid var(--line);
+  border-radius: 14px; box-shadow: var(--shadow-sm); padding: 18px;
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  margin-bottom: 1.5rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Dashboard Stats Cards */
+.stats-card {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stats-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.2);
+}
+
+.stats-card.total {
+    border-left: 4px solid var(--primary-color);
+}
+
+.stats-card.hired {
+    border-left: 4px solid var(--success-color);
+}
+
+.stats-card.in-progress {
+    border-left: 4px solid var(--warning-color);
+}
+
+.stats-card .card-body {
+    padding: 1.5rem;
+}
+
+.stats-card h5 {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stats-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Chart Container
+-------------------------------------------------------------------------- */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#statusChart {
+    position: relative;
+    z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Status Guide
+-------------------------------------------------------------------------- */
+.status-examples {
+    display: grid;
+    gap: 1rem;
+}
+
+.status-example {
+    padding: 1rem;
+    background: var(--light-gray);
+    border-radius: 0.375rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+.status-guide-table {
+    font-size: 0.875rem;
+}
+
+.payment-notes {
+    background: #e7f5ff;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+.payment-notes p {
+    margin-bottom: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Friend Reminder Cards
+-------------------------------------------------------------------------- */
+.friend-to-remind {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+    transition: transform 0.2s;
+}
+
+.friend-to-remind:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 36px rgba(0,0,0,0.15);
+}
+
+.friend-to-remind h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.remind-btn {
+    background: #25D366;
+    color: white;
+    border: none;
+    transition: background 0.2s;
+}
+
+.remind-btn:hover {
+    background: #20bd5a;
+    color: white;
+}
+
+/* --------------------------------------------------------------------------
+   Tables
+-------------------------------------------------------------------------- */
+table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 6px 0 0; }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { background: #F7FAFF; text-align: left; font-weight: 800; }
+tbody tr:hover { background: #fafcff; }
+
+/* Earnings Table */
+.earnings-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.earnings-table thead th {
+    background: var(--light-gray);
+    border-bottom: 2px solid var(--border-color);
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+}
+
+.earnings-table tbody td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.earnings-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.earnings-table tfoot th {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem;
+    font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Forms
+-------------------------------------------------------------------------- */
+form label { font-weight: 800; }
+form input, form textarea, form select {
+  width: 100%; padding: 12px;
+  border-radius: 12px; border: 1px solid var(--line);
+  margin: 8px 0; background: #fff; color: var(--ink);
+  font-family: inherit; font-size: 16px;
+}
+form input:focus, form textarea:focus, form select:focus {
+  outline: none; box-shadow: var(--focus);
+}
+
+.form-control, .form-select {
+    border-radius: 0.375rem;
+    border: 1px solid var(--border-color);
+    padding: 0.625rem 0.875rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(48, 71, 176, 0.25);
+}
+
+.form-control.is-invalid {
+    border-color: var(--danger-color);
+}
+
+.invalid-feedback {
+    display: none;
+    font-size: 0.875rem;
+    color: var(--danger-color);
+    margin-top: 0.25rem;
+}
+
+.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+-------------------------------------------------------------------------- */
+.footer {
+    background-color: #343a40;
+    color: white;
+    margin-top: auto;
+}
+
+.footer p {
+    margin-bottom: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Social Media Icons
+-------------------------------------------------------------------------- */
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--light-gray);
+    color: #495057;
+    border-radius: 50%;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Referral Cards & Status System
+-------------------------------------------------------------------------- */
+.referral-card {
+    background: white;
+    border-left: 4px solid var(--border-color);
+    transition: all 0.2s;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+}
+
+.referral-card:hover {
+    box-shadow: 0 10px 36px rgba(0,0,0,0.15);
+    transform: translateX(2px);
+}
+
+.referral-card.status-received {
+    border-left-color: var(--primary-color);
+}
+
+.referral-card.status-assessment {
+    border-left-color: var(--success-dark);
+}
+
+.referral-card.status-probation {
+    border-left-color: var(--warning-color);
+}
+
+.referral-card.status-passed {
+    border-left-color: var(--success-color);
+}
+
+.referral-card.status-failed {
+    border-left-color: var(--danger-color);
+}
+
+.referral-card.status-previously-applied {
+    border-left-color: var(--gray-color);
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    display: inline-block;
+}
+
+.bg-received {
+    background-color: var(--primary-color) !important;
+    color: white;
+}
+
+.bg-assessment {
+    background-color: var(--success-dark) !important;
+    color: white;
+}
+
+.bg-probation {
+    background-color: var(--warning-color) !important;
+    color: #333;
+}
+
+.bg-passed {
+    background-color: var(--success-color) !important;
+    color: white;
+}
+
+.bg-failed {
+    background-color: var(--danger-color) !important;
+    color: white;
+}
+
+.bg-previously-applied {
+    background-color: var(--gray-color) !important;
+    color: white;
+}
+
+/* --------------------------------------------------------------------------
+   Dashboard Specific Elements
+-------------------------------------------------------------------------- */
+.user-name-display {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+/* Empty States */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 1rem;
+}
+
+.empty-state h4 {
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #adb5bd;
+    margin-bottom: 1.5rem;
+}
+
+/* Loading Spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+}
+
+/* --------------------------------------------------------------------------
+   Modal Styles
+-------------------------------------------------------------------------- */
+.modal-content {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.modal-header {
+    background: var(--light-gray);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.modal-title {
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* --------------------------------------------------------------------------
+   Media Queries
+-------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .stats-card h3 {
+        font-size: 1.5rem;
+    }
+    
+    .chart-container {
+        height: 250px;
+    }
+    
+    .user-name-display {
+        font-size: 1rem;
+    }
+    
+    #dashboard-back {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .earnings-table {
+        font-size: 0.875rem;
+    }
+    
+    .earnings-table thead th,
+    .earnings-table tbody td {
+        padding: 0.5rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion
+-------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .stats-card, .referral-card, .friend-to-remind, .social-icon { transition: none !important; }
+}
+
+/* --------------------------------------------------------------------------
+   Print
+-------------------------------------------------------------------------- */
+@media print {
+  .social-card, .footer, #alert-container { display: none !important; }
+  .card { break-inside: avoid; box-shadow: none; }
+}
