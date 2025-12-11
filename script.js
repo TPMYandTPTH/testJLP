@@ -1,892 +1,542 @@
-// Main Application Script with Updated Logic
-// Updated: December 2024 - New payment structure (RM500/RM800/RM3000)
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Application State
-    const AppState = {
-        currentLanguage: 'en',
-        statusChart: null,
-        currentReferralsData: [],
-        isLoading: false,
-        debugMode: false // Set to true for debugging
+    const elements = {
+        pageLangSelect: document.getElementById('page-lang-select'),
+        fullName: document.getElementById('full-name'),
+        phoneNumber: document.getElementById('phone-number'),
+        email: document.getElementById('email'),
+        jobLangSelect: document.getElementById('job-lang-select'),
+        locationSelect: document.getElementById('location-select'),
+        consentCheckbox: document.getElementById('consent-checkbox'),
+        step1: document.getElementById('step1'),
+        step2: document.getElementById('step2'),
+        nextBtn: document.getElementById('next-btn'),
+        backBtn: document.getElementById('back-btn'),
+        referralLink: document.getElementById('referral-link'),
+        copyBtn: document.getElementById('copy-btn'),
+        qrCodeCanvas: document.getElementById('qr-code-canvas'),
+        shareWhatsapp: document.getElementById('share-whatsapp'),
+        shareLine: document.getElementById('share-line'),
+        shareFacebook: document.getElementById('share-facebook'),
+        locationSocialLinks: document.getElementById('location-social-links'),
+        termsModal: document.getElementById('termsModal'),
+        termsContent: document.getElementById('termsContent'),
+        mainCountdownAmount: document.getElementById('mainCountdownAmount')
     };
-    
-    // Initialize application
-    function initializeApp() {
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        updateTranslations();
-        setupEventListeners();
-        document.getElementById('dashboard-phone').focus();
-        
-        // Test connection if in debug mode
-        if (AppState.debugMode) {
-            ApiService.testConnection();
-        }
-        
-        // Check for demo mode
-        checkForDemoMode();
-    }
-    
-    // Check if demo credentials are used
-    function checkForDemoMode() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('demo') === 'true' || urlParams.get('demo') === '1') {
-            document.getElementById('dashboard-phone').value = '0123456789';
-            document.getElementById('dashboard-email').value = 'amr@tp.com';
-        }
-    }
-    
-    // Set up event listeners
-    function setupEventListeners() {
-        document.getElementById('lang-select').addEventListener('change', handleLanguageChange);
-        document.getElementById('dashboard-submit').addEventListener('click', handleFormSubmit);
-        
-        // Phone number validation - only numbers
-        document.getElementById('dashboard-phone').addEventListener('input', function(e) {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-        
-        // Delegate event handling for dynamic content
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.remind-btn')) {
-                handleReminderClick(e);
-            }
-            if (e.target.id === 'dashboard-back') {
-                handleBackButton();
-            }
-        });
-        
-        // Enter key support
-        document.getElementById('dashboard-form').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                handleFormSubmit();
-            }
-        });
-    }
-    
-    // Handle form submission
-    async function handleFormSubmit() {
-        const phone = document.getElementById('dashboard-phone').value.trim();
-        const email = document.getElementById('dashboard-email').value.trim();
-        
-        if (!validateInputs(phone, email)) return;
-        
-        setLoadingState(true);
-        
-        try {
-            // Fetch referrals from API (handles demo mode internally)
-            const apiData = await ApiService.fetchReferrals(phone, email);
-            
-            // Process and store referrals with deduplication
-            AppState.currentReferralsData = processReferrals(apiData);
-            
-            // Always show dashboard
-            showReferralResults(AppState.currentReferralsData);
-            
-        } catch (error) {
-            console.error('Error:', error);
-            // Still show dashboard with empty data
-            AppState.currentReferralsData = [];
-            showReferralResults([]);
-            showNonBlockingError(translations[AppState.currentLanguage].errorMessage);
-        } finally {
-            setLoadingState(false);
-        }
-    }
-    
-    // Process API response with deduplication and fixed status mapping
-    function processReferrals(apiData) {
-        if (!Array.isArray(apiData)) return [];
-        
-        // Create a Map to track unique referrals by email+name combination
-        const uniqueReferrals = new Map();
-        
-        apiData.forEach(item => {
-            // Create unique key using email and name (or phone as fallback)
-            const email = (item.Email || item.email || '').toLowerCase().trim();
-            const name = (item.First_Name || item.name || 'Unknown').trim();
-            const phone = (item.Employee || item.phone || '').trim();
-            
-            // Use email+name as primary key, or phone+name as fallback
-            const uniqueKey = email ? `${email}_${name}` : `${phone}_${name}`;
-            
-            // Skip if we've already processed this person
-            if (uniqueReferrals.has(uniqueKey)) {
-                const existing = uniqueReferrals.get(uniqueKey);
-                // If duplicate found, keep the one with more recent update date
-                const existingDate = new Date(existing.UpdatedDate || existing.updatedDate || 0);
-                const currentDate = new Date(item.UpdatedDate || item.updatedDate || 0);
-                if (currentDate <= existingDate) {
-                    return; // Skip this duplicate
-                }
-            }
-            
-            // Parse dates
-            const parseDate = (dateStr) => {
-                if (!dateStr) return new Date();
-                // Handle various date formats
-                if (dateStr.includes('/')) {
-                    const [month, day, year] = dateStr.split(/[\/\s]/).filter(Boolean).map(Number);
-                    return new Date(year, month - 1, day);
-                }
-                return new Date(dateStr);
-            };
-            
-            const updatedDate = parseDate(item.UpdatedDate || item.updatedDate);
-            const createdDate = parseDate(item.CreatedDate || item.createdDate);
-            const daysInStage = Math.floor((new Date() - updatedDate) / (86400000));
-            const daysSinceCreation = Math.floor((new Date() - createdDate) / (86400000));
-            
-            // Get status and source
-            const rawStatus = (item.Status || item.status || 'Application Received').trim();
-            const source = (item.Source || item.source || item.SourceName || '').trim();
-            
-            // Check if xRAF referral (only xRAF is accepted for payment)
-            const sourceL = source.toLowerCase().trim();
-            const isXRAF = sourceL === 'xraf';
-            
-            // Map status with all parameters including source and days
-            let mappedStatus = StatusMapping.mapStatusToGroup(rawStatus, null, source, daysInStage);
-            
-            // Special case: if status indicates hired and has been more than 90 days since created date
-            if (mappedStatus === 'Hired (Probation)' && daysSinceCreation >= 90) {
-                mappedStatus = 'Hired (Confirmed)';
-            }
-            
-            const statusType = StatusMapping.getSimplifiedStatusType(rawStatus, null, source, daysInStage);
-            const stage = StatusMapping.determineStage(rawStatus, null, source, daysInStage);
-            
-            // Check if needs reminder (any Application Received status)
-            const needsAction = mappedStatus === 'Application Received';
-            
-            // Get location and position for payment tier determination
-            const location = (item.Location || item.location || '').trim();
-            const position = (item.Position || item.position || '').trim();
-            const paymentTier = item.PaymentTier || null; // From mock data
-            
-            const processedReferral = {
-                // IDs
-                id: item.Person_system_id || item.personId || item.ID || uniqueKey,
-                personId: item.Person_system_id || item.personId || item.ID,
-                uniqueKey: uniqueKey,
-                
-                // Contact info
-                name: name,
-                email: email,
-                phone: phone,
-                
-                // Status info
-                status: rawStatus,
-                mappedStatus: mappedStatus,
-                statusType: statusType,
-                stage: stage,
-                
-                // Source and eligibility
-                source: source,
-                isXRAF: isXRAF,
-                isPreviousCandidate: !isXRAF && source !== '',
-                
-                // Location and position info
-                location: location,
-                position: position,
-                nationality: item.F_Nationality || item.nationality || '',
-                PaymentTier: paymentTier, // For tier-based earnings calculation
-                
-                // Dates
-                createdDate: createdDate,
-                updatedDate: updatedDate,
-                daysInStage: daysInStage,
-                daysSinceCreation: daysSinceCreation,
-                
-                // Action flags
-                needsAction: needsAction,
-                
-                // Payment eligibility - only after 90 days probation
-                isEligibleForPayment: isXRAF && mappedStatus === 'Hired (Confirmed)',
-                
-                // Original data for debugging
-                _original: item
-            };
-            
-            // Add to unique map
-            uniqueReferrals.set(uniqueKey, processedReferral);
-        });
-        
-        // Convert Map values to array and sort by created date (newest first)
-        return Array.from(uniqueReferrals.values()).sort((a, b) => {
-            return b.createdDate - a.createdDate;
-        });
-    }
-    
-    // Validate form inputs
-    function validateInputs(phone, email) {
-        let isValid = true;
-        
-        if (!validatePhone(phone)) {
-            showError(document.getElementById('dashboard-phone'), 
-                     translations[AppState.currentLanguage].phoneError);
-            isValid = false;
-        } else {
-            clearError(document.getElementById('dashboard-phone'));
-        }
-        
-        if (!validateEmail(email)) {
-            showError(document.getElementById('dashboard-email'), 
-                     translations[AppState.currentLanguage].emailError);
-            isValid = false;
-        } else {
-            clearError(document.getElementById('dashboard-email'));
-        }
-        
-        return isValid;
-    }
-    
-    function validatePhone(phone) {
-        return /^01\d{8,9}$/.test(phone);
-    }
-    
-    function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-    
-    function showError(input, message) {
-        const formControl = input.closest('.mb-3');
-        const error = formControl.querySelector('.invalid-feedback');
-        error.textContent = message;
-        input.classList.add('is-invalid');
-    }
-    
-    function clearError(input) {
-        input.classList.remove('is-invalid');
-    }
-    
-    // Set loading state
-    function setLoadingState(isLoading) {
-        const submitBtn = document.getElementById('dashboard-submit');
-        submitBtn.disabled = isLoading;
-        submitBtn.innerHTML = isLoading ? 
-            `<span class="spinner-border spinner-border-sm me-2"></span>${translations[AppState.currentLanguage].connectingMessage}` :
-            translations[AppState.currentLanguage].viewStatusBtn;
-    }
-    
-    // Handle language change
-    function handleLanguageChange(e) {
-        AppState.currentLanguage = e.target.value;
-        updateTranslations();
-        if (document.getElementById('results-step').style.display !== 'none') {
-            showReferralResults(AppState.currentReferralsData);
-        }
-    }
-    
-    // Show results dashboard
-    function showReferralResults(referrals) {
-        document.getElementById('auth-step').style.display = 'none';
-        const resultsStep = document.getElementById('results-step');
-        resultsStep.style.display = 'block';
-        
-        // Create results content
-        resultsStep.innerHTML = createResultsContent(referrals);
-        
-        // Initialize dashboard components
-        updateChart(referrals);
-        updateEarningsTable(referrals);
-        updateReminderSection(referrals);
-        updateReferralList(referrals);
-        updateStatusGuide();
-        updateTranslations();
-    }
-    
-    // Create results HTML with new sections
-    function createResultsContent(referrals) {
-        const hiredCount = referrals.filter(r => 
-            r.mappedStatus === 'Hired (Confirmed)' || r.mappedStatus === 'Hired (Probation)'
-        ).length;
-        
-        const inProgressCount = referrals.filter(r => 
-            r.mappedStatus === 'Application Received' || 
-            r.mappedStatus === 'Assessment Stage'
-        ).length;
-        
-        // Debug logging
-        console.log('Referral Status Summary:');
-        referrals.forEach(r => {
-            console.log(`${r.name}: ${r.status} -> ${r.mappedStatus} (Source: ${r.source})`);
-        });
-        console.log('In Progress Count:', inProgressCount);
-        console.log('Hired Count:', hiredCount);
-        
-        const userName = document.getElementById('dashboard-email').value.split('@')[0];
-        
-        return `
-            <div class="d-flex justify-content-between align-items-start mb-4">
-                <div>
-                    <h3 class="user-name-display">${userName}</h3>
-                    <h4 data-translate="yourReferralsTitle">Your Referrals</h4>
-                </div>
-                <button id="dashboard-back" class="btn btn-outline-secondary" data-translate="backBtn">
-                    <i class="fas fa-arrow-left me-2"></i> Back
-                </button>
-            </div>
-            
-            <!-- Stats Cards -->
-            <div class="row mb-4">
-                <div class="col-md-4 mb-3">
-                    <div class="card stats-card total">
-                        <div class="card-body text-center">
-                            <h5 class="card-title" data-translate="totalReferrals">Total Referrals</h5>
-                            <h3 class="text-primary">${referrals.length}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card stats-card hired">
-                        <div class="card-body text-center">
-                            <h5 class="card-title" data-translate="hiredReferrals">Hired</h5>
-                            <h3 class="text-success">${hiredCount}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card stats-card in-progress">
-                        <div class="card-body text-center">
-                            <h5 class="card-title" data-translate="inProgress">In Progress</h5>
-                            <h3 class="text-warning">${inProgressCount}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Status Distribution Chart -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
-                    <div class="chart-container">
-                        <canvas id="statusChart"></canvas>
-                        <img src="TPLogo11.png" class="chart-logo" alt="TP Logo">
-                    </div>
-                </div>
-            </div>
 
-            <!-- Earnings Table -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title text-center mb-3" data-translate="earningsTitle">Your Earnings</h5>
-                    <div class="table-responsive">
-                        <table class="earnings-table">
-                            <thead>
-                                <tr>
-                                    <th data-translate="earningsStage">Stage</th>
-                                    <th data-translate="earningsAmount">Amount (RM)</th>
-                                    <th data-translate="earningsCount">Count</th>
-                                    <th data-translate="earningsTotal">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="earnings-body"></tbody>
-                            <tfoot>
-                                <tr>
-                                    <th colspan="3" data-translate="earningsTotal">Total Earnings</th>
-                                    <th id="total-earnings">RM 0</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#tngModal" data-translate="paymentNote">
-                            Payment Terms & Conditions
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Reminder Section -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title text-center mb-3" data-translate="remindFriendsTitle">Remind Your Friends</h5>
-                    <p class="text-center" data-translate="remindFriendsText">Help your friends complete their assessments to join TP!</p>
-                    <div id="friends-to-remind" class="row"></div>
-                </div>
-            </div>
-            
-            <!-- Referral List -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="mb-3">All Referrals</h5>
-                    <div id="referral-list"></div>
-                </div>
-            </div>
-            
-            <!-- Status Guide moved to end -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title text-center mb-4" data-translate="statusGuideTitle">Status Guide & Payment Information</h5>
-                    <div id="status-guide-content"></div>
-                </div>
-            </div>           
-        `;
+    let currentLanguage = 'en';
+    let currentLocation = '';
+    let jobData = [];
+
+    // Main page countdown configuration
+    const mainCountdownConfig = {
+        startAmount: 20000,
+        endAmount: 20000,
+        duration: 30000,
+        updateInterval: 2000
+    };
+
+    // Create phone hint element
+    const phoneHint = document.createElement('div');
+    phoneHint.className = 'phone-hint mt-1 small text-muted';
+    elements.phoneNumber.parentNode.insertBefore(phoneHint, elements.phoneNumber.nextSibling);
+
+    function formatMoney(amount) {
+        return 'RM' + Math.floor(amount).toLocaleString('en-US');
     }
-    
-    // Handle back button
-    function handleBackButton() {
-        document.getElementById('auth-step').style.display = 'block';
-        document.getElementById('results-step').style.display = 'none';
-        document.getElementById('dashboard-phone').value = '';
-        document.getElementById('dashboard-email').value = '';
-        document.getElementById('dashboard-phone').focus();
-        AppState.currentReferralsData = [];
-    }
-    
-    // Handle WhatsApp reminders with professional message
-    function handleReminderClick(e) {
-        const button = e.target.closest('.remind-btn');
-        if (!button) return;
-        
-        const name = button.dataset.name;
-        const phone = button.dataset.phone;
-        const lang = button.dataset.lang || AppState.currentLanguage;
-        if (!phone) return;
-        
-        // Format phone for WhatsApp
-        const formattedPhone = phone.startsWith('0') ? '6' + phone : phone;
-        
-        // Professional messages in different languages
-        const messages = {
-            en: `Hello ${name},\n\nI hope this message finds you well. This is a friendly reminder regarding your application to TP.\n\nWe noticed that you haven't completed your assessment yet. Please check your personal email for the assessment link that was sent to you.\n\nCompleting the assessment is an important step in your application process. If you have any questions or need assistance, please don't hesitate to reach out.\n\nBest regards,\nTP Recruitment Team`,
+
+    function startMainCountdown() {
+        function addVisualEffects() {
+            elements.mainCountdownAmount.classList.add('pulse');
             
-            ja: `${name}様\n\nお世話になっております。テレパフォーマンスへのご応募に関するリマインダーです。\n\nまだアセスメントを完了されていないようです。個人のメールアドレスに送信されたアセスメントのリンクをご確認ください。\n\nアセスメントの完了は、応募プロセスの重要なステップです。ご不明な点がございましたら、お気軽にお問い合わせください。\n\nよろしくお願いいたします。\nTP採用チーム`,
+            setTimeout(() => {
+                elements.mainCountdownAmount.classList.remove('pulse');
+            }, 800);
             
-            ko: `안녕하세요 ${name}님,\n\n텔레퍼포먼스 지원과 관련하여 안내 드립니다.\n\n아직 평가를 완료하지 않으신 것으로 확인됩니다. 개인 이메일로 발송된 평가 링크를 확인해 주시기 바랍니다.\n\n평가 완료는 지원 과정에서 중요한 단계입니다. 궁금한 점이 있으시면 언제든지 문의해 주세요.\n\n감사합니다.\nTP 채용팀`,
-            
-            "zh-CN": `${name} 您好，\n\n这是关于您申请TP的友好提醒。\n\n我们注意到您还没有完成评估。请查看您的个人邮箱中发送的评估链接。\n\n完成评估是申请过程中的重要步骤。如果您有任何问题或需要帮助，请随时与我们联系。\n\n祝好，\nTP招聘团队`,
-            
-            "zh-HK": `${name} 您好，\n\n這是關於您申請TP的友好提醒。\n\n我們注意到您還沒有完成評估。請查看您的個人郵箱中發送的評估鏈接。\n\n完成評估是申請過程中的重要步驟。如果您有任何問題或需要幫助，請隨時與我們聯繫。\n\n祝好，\nTP招聘團隊`
-        };
-        
-        const message = messages[lang] || messages.en;
-        window.open(`https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-    
-    // Update status chart with fixed mapping
-    function updateChart(referrals) {
-        const ctx = document.getElementById('statusChart')?.getContext('2d');
-        if (!ctx) return;
-        
-        // Destroy previous chart
-        if (AppState.statusChart) {
-            AppState.statusChart.destroy();
+            setTimeout(addVisualEffects, 8000);
         }
         
-        // Count statuses using fixed mapping
-        const counts = {};
-        StatusMapping.displayOrder.forEach(status => {
-            counts[status] = 0;
-        });
+        setTimeout(addVisualEffects, 5000);
+    }
+
+    function showWelcomePopup() {
+        const popup = document.createElement('div');
+        popup.className = 'welcome-popup';
         
-        // Count each referral's mapped status
-        referrals.forEach(r => {
-            if (counts[r.mappedStatus] !== undefined) {
-                counts[r.mappedStatus]++;
-            }
-        });
+        // Logo section
+        const logo = document.createElement('img');
+        logo.src = 'TPLogo11.png';
+        logo.alt = 'Teleperformance Logo';
+        logo.className = 'welcome-logo';
         
-        // Chart colors - TP Brand colors
-        const colors = [
-            '#3047b0',  // Application Received - Blue TP
-            '#00d769',  // Assessment Stage - Green Flash TP
-            '#F5D200',  // Hired (Probation) - Yellow TP
-            '#84c98b',  // Hired (Confirmed) - Green Light TP
-            '#676767',  // Previously Applied (No Payment) - Gray TP
-            '#dc3545'   // Not Selected - red
+        // TP in Johor big text
+        const johorTitle = document.createElement('div');
+        johorTitle.className = 'welcome-johor-title';
+        johorTitle.innerHTML = 'TP in <span class="johor-highlight">Johor</span>';
+        
+        // Create money countdown container
+        const countdownContainer = document.createElement('div');
+        countdownContainer.className = 'welcome-countdown-container';
+        
+        const countdownTitle = document.createElement('div');
+        countdownTitle.className = 'welcome-countdown-title';
+        countdownTitle.textContent = 'Total Rewards Available';
+        
+        const moneyCountdown = document.createElement('div');
+        moneyCountdown.className = 'welcome-money-countdown';
+        moneyCountdown.id = 'welcomeMoneyCountdown';
+        moneyCountdown.textContent = 'RM30,000';
+        
+        const hurryMessage = document.createElement('div');
+        hurryMessage.className = 'welcome-hurry-message';
+        hurryMessage.textContent = 'Hurry! The rewards are disappearing fast! 🚀';
+        
+        countdownContainer.appendChild(countdownTitle);
+        countdownContainer.appendChild(moneyCountdown);
+        countdownContainer.appendChild(hurryMessage);
+        
+        // Multi-language welcome messages at the bottom
+        const messageContainer = document.createElement('div');
+        messageContainer.className = 'welcome-message-container';
+        
+        const welcomeMessages = [
+            translations.en.welcomeMessage,
+            translations.ja.welcomeMessage,
+            translations.ko.welcomeMessage,
+            translations['zh-CN'].welcomeMessage,
+            translations['zh-HK'].welcomeMessage
         ];
         
-        // Create new chart
-        AppState.statusChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: StatusMapping.displayOrder.map(status => 
-                    translations[AppState.currentLanguage][`status${status.replace(/[\s()]/g, '')}`] || status
-                ),
-                datasets: [{
-                    data: StatusMapping.displayOrder.map(status => counts[status] || 0),
-                    backgroundColor: colors,
-                    borderWidth: 2,
-                    borderColor: '#fff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 15,
-                            font: {
-                                size: 12
-                            },
-                            generateLabels: function(chart) {
-                                const data = chart.data;
-                                if (data.labels.length && data.datasets.length) {
-                                    return data.labels.map((label, i) => {
-                                        const value = data.datasets[0].data[i];
-                                        const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-                                        const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-                                        return {
-                                            text: `${label} (${value})`,
-                                            fillStyle: data.datasets[0].backgroundColor[i],
-                                            hidden: false,
-                                            index: i
-                                        };
-                                    });
-                                }
-                                return [];
-                            }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-                                return `${label}: ${value} (${percentage}%)`;
-                            }
-                        }
-                    }
-                }
-            }
+        welcomeMessages.forEach((msg, index) => {
+            const message = document.createElement('div');
+            message.className = 'welcome-message-line';
+            message.textContent = msg;
+            message.style.animationDelay = `${index * 0.3}s`;
+            messageContainer.appendChild(message);
         });
-    }
-    
-    // Update earnings table with new 3-tier structure
-    // Counts eligible referrals by payment tier based on PaymentTier field or auto-detection
-    function updateEarningsTable(referrals) {
-        const earningsBody = document.getElementById('earnings-body');
-        if (!earningsBody) return;
         
-        // Count eligible candidates (Hired Confirmed + xRAF source)
-        const eligibleReferrals = referrals.filter(r => r.isEligibleForPayment);
+        popup.appendChild(logo);
+        popup.appendChild(johorTitle);
+        popup.appendChild(countdownContainer);
+        popup.appendChild(messageContainer);
+        document.body.appendChild(popup);
         
-        // Count by payment tier
-        let johorCount = 0;
-        let standardCount = 0;
-        let interpreterCount = 0;
+        // Start the countdown animation in popup only
+        const moneyElement = document.getElementById('welcomeMoneyCountdown');
+        const startAmount = 30000;
+        const endAmount = 20000;
+        let currentAmount = startAmount;
+        const duration = 3000;
+        const startTime = Date.now();
         
-        eligibleReferrals.forEach(r => {
-            // Use PaymentTier if available (from mock data), otherwise auto-detect
-            const tier = r.PaymentTier || detectPaymentTier(r);
+        function updateCountdown() {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
             
-            if (tier === 'johor') {
-                johorCount++;
-            } else if (tier === 'interpreter') {
-                interpreterCount++;
-            } else {
-                standardCount++;
+            const easedProgress = 1 - Math.pow(1 - progress, 3);
+            
+            currentAmount = startAmount - (startAmount - endAmount) * easedProgress;
+            
+            moneyElement.textContent = formatMoney(currentAmount);
+            
+            moneyElement.classList.add('pumping');
+            setTimeout(() => {
+                moneyElement.classList.remove('pumping');
+            }, 500);
+            
+            if (Math.random() < 0.02) {
+                const hurryMessages = [
+                    "Hurry! The rewards are disappearing fast! 🚀",
+                    "Don't wait - the amount is dropping! ⏳",
+                    "Limited rewards available! 💰",
+                    "Join now before it's too late! 🔥",
+                    "Others are claiming their rewards - don't miss out! 👥"
+                ];
+                hurryMessage.textContent = hurryMessages[Math.floor(Math.random() * hurryMessages.length)];
             }
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateCountdown);
+            } else {
+                const finalMessages = [
+                    "Last chance to claim your rewards!",
+                    "Time's almost up! Don't miss out!",
+                    "Final amounts remaining - act now!",
+                    "Rewards are going fast - join today!"
+                ];
+                hurryMessage.textContent = finalMessages[Math.floor(Math.random() * finalMessages.length)];
+            }
+        }
+        
+        updateCountdown();
+        
+        // Hide after 5 seconds
+        setTimeout(() => {
+            popup.classList.add('hidden');
+            setTimeout(() => {
+                popup.remove();
+                startMainCountdown();
+            }, 1000);
+        }, 5000);
+    }
+
+    function init() {
+        showWelcomePopup();
+        loadJobData();
+        setupEventListeners();
+        updatePageContent();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    }
+
+    function loadJobData() {
+        fetch('data.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                jobData = data;
+                populateJobDropdowns();
+                // Set default values after data is loaded
+                setDefaultValues();
+            })
+            .catch(error => {
+                console.error('Error loading job data:', error);
+                alert(translations[currentLanguage].loadError);
+            });
+    }
+
+    function populateJobDropdowns() {
+        const languages = [...new Set(jobData.map(job => job.Language))];
+        const locations = [...new Set(jobData.map(job => job.Location))];
+
+        elements.jobLangSelect.innerHTML = '';
+        addOption(elements.jobLangSelect, '', translations[currentLanguage].selectOption, true, true);
+        languages.forEach(lang => {
+            addOption(elements.jobLangSelect, lang, lang);
         });
-        
-        // Calculate earnings
-        const johorEarnings = johorCount * 500;
-        const standardEarnings = standardCount * 800;
-        const interpreterEarnings = interpreterCount * 3000;
-        const totalEarnings = johorEarnings + standardEarnings + interpreterEarnings;
-        
-        const t = translations[AppState.currentLanguage];
-        
-        earningsBody.innerHTML = `
-            <tr class="tier-johor">
-                <td>${t.statusJohorProbation || 'Mandarin - Johor (RM500)'}</td>
-                <td>RM 500</td>
-                <td>${johorCount}</td>
-                <td>RM ${johorEarnings.toLocaleString()}</td>
-            </tr>
-            <tr class="tier-standard">
-                <td>${t.statusStandardProbation || 'Standard Roles (RM800)'}</td>
-                <td>RM 800</td>
-                <td>${standardCount}</td>
-                <td>RM ${standardEarnings.toLocaleString()}</td>
-            </tr>
-            <tr class="tier-interpreter">
-                <td>${t.statusInterpreterProbation || 'Interpreter WFH (RM3,000)'}</td>
-                <td>RM 3,000</td>
-                <td>${interpreterCount}</td>
-                <td>RM ${interpreterEarnings.toLocaleString()}</td>
-            </tr>
-        `;
-        
-        document.getElementById('total-earnings').textContent = `RM ${totalEarnings.toLocaleString()}`;
+
+        elements.locationSelect.innerHTML = '';
+        addOption(elements.locationSelect, '', translations[currentLanguage].selectOption, true, true);
+        locations.forEach(loc => {
+            addOption(elements.locationSelect, loc, loc);
+        });
     }
-    
-    // Auto-detect payment tier from referral data
-    function detectPaymentTier(referral) {
-        const position = (referral.position || referral.Position || '').toLowerCase();
-        const location = (referral.location || referral.Location || '').toLowerCase();
-        
-        // Check for Interpreter position
-        if (position.includes('interpreter')) {
-            return 'interpreter';
-        }
-        
-        // Check for Johor location
-        if (location.includes('johor')) {
-            return 'johor';
-        }
-        
-        // Default to standard
-        return 'standard';
+
+    function addOption(select, value, text, disabled = false, selected = false) {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = text;
+        option.disabled = disabled;
+        option.selected = selected;
+        select.appendChild(option);
     }
-    
-    // Update reminder section
-    function updateReminderSection(referrals) {
-        const container = document.getElementById('friends-to-remind');
-        if (!container) return;
+
+    // NEW FUNCTION: Set default values to Mandarin and Johor
+    function setDefaultValues() {
+        // Set Job Language to Mandarin
+        elements.jobLangSelect.value = 'Mandarin';
         
-        // Filter friends needing reminder (Application Received status only)
-        const friendsToRemind = referrals.filter(r => 
-            r.mappedStatus === 'Application Received' && r.phone
-        );
+        // Update locations based on Mandarin selection
+        updateLocationsByLanguage();
         
-        if (friendsToRemind.length === 0) {
-            container.innerHTML = `
-                <div class="col-12 text-center">
-                    <p class="text-muted" data-translate="noRemindersNeeded">All your friends are on track!</p>
-                </div>
-            `;
+        // Set Working Location to Johor
+        elements.locationSelect.value = 'Johor';
+        
+        // Validate form after setting defaults
+        validateForm();
+    }
+
+    // Update locations based on selected language
+    function updateLocationsByLanguage() {
+        const selectedLanguage = elements.jobLangSelect.value;
+        
+        elements.locationSelect.value = '';
+        elements.locationSelect.classList.remove('is-invalid');
+        
+        if (!selectedLanguage) {
+            const locations = [...new Set(jobData.map(job => job.Location))];
+            elements.locationSelect.innerHTML = '';
+            addOption(elements.locationSelect, '', translations[currentLanguage].selectOption, true, true);
+            locations.forEach(loc => {
+                addOption(elements.locationSelect, loc, loc);
+            });
             return;
         }
         
-        container.innerHTML = '';
-        friendsToRemind.forEach(friend => {
-            container.innerHTML += `
-                <div class="col-md-6 mb-3">
-                    <div class="friend-to-remind">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h5>${friend.name}</h5>
-                            <span class="badge bg-${friend.statusType}">${friend.mappedStatus}</span>
-                        </div>
-                        <p class="small mb-1">${friend.email}</p>
-                        <p class="small mb-2"><span data-translate="referralDays">Days in Stage</span>: ${friend.daysInStage}</p>
-                        <button class="btn btn-primary w-100 remind-btn" 
-                            data-name="${friend.name}" 
-                            data-phone="${friend.phone}"
-                            data-lang="${AppState.currentLanguage}">
-                            <i class="fab fa-whatsapp me-2"></i>
-                            <span data-translate="remindBtn">Send Reminder</span>
-                        </button>
-                    </div>
-                </div>
-            `;
+        const availableLocations = [...new Set(
+            jobData
+                .filter(job => job.Language === selectedLanguage)
+                .map(job => job.Location)
+        )];
+        
+        elements.locationSelect.innerHTML = '';
+        addOption(elements.locationSelect, '', translations[currentLanguage].selectOption, true, true);
+        availableLocations.forEach(loc => {
+            addOption(elements.locationSelect, loc, loc);
         });
     }
-    
-    // Update referral list
-    function updateReferralList(referrals) {
-        const container = document.getElementById('referral-list');
-        if (!container) return;
-        
-        if (referrals.length === 0) {
-            container.innerHTML = `
-                <div class="card">
-                    <div class="card-body text-center py-5 empty-state">
-                        <i class="fas fa-users empty-state-icon"></i>
-                        <h4 data-translate="noReferrals">No referrals found yet</h4>
-                        <p data-translate="startReferring">Start referring friends to see them appear here!</p>
-                        <a href="https://tpmyandtpth.github.io/xRAF/" class="btn btn-primary mt-3">
-                            <i class="fas fa-user-plus me-2"></i><span data-translate="referFriend">Refer a Friend</span>
-                        </a>
-                    </div>
-                </div>
-            `;
-            return;
-        }
-        
-        container.innerHTML = '<h5 class="mb-3">All Referrals</h5>';
-        
-        // Sort referrals by status order
-        const sortedReferrals = [...referrals].sort((a, b) => {
-            const aIndex = StatusMapping.displayOrder.indexOf(a.mappedStatus);
-            const bIndex = StatusMapping.displayOrder.indexOf(b.mappedStatus);
-            return aIndex - bIndex;
-        });
-        
-        sortedReferrals.forEach(ref => {
-            container.innerHTML += `
-                <div class="card referral-card status-${ref.statusType} mb-3">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5>${ref.name}</h5>
-                                <p class="small text-muted mb-1">${ref.email}</p>
-                                ${ref.personId ? `<p class="small text-muted">ID: ${ref.personId}</p>` : ''}
-                            </div>
-                            <div class="text-end">
-                                <span class="badge bg-${ref.statusType} status-badge">
-                                    ${ref.mappedStatus}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                <small class="text-muted" data-translate="referralStage">Stage</small>
-                                <p>${ref.stage}</p>
-                            </div>
-                            <div class="col-md-3">
-                                <small class="text-muted" data-translate="location">Location</small>
-                                <p>${ref.location || 'N/A'}</p>
-                            </div>
-                            <div class="col-md-3">
-                                <small class="text-muted" data-translate="referralDays">Days in Stage</small>
-                                <p>${ref.daysInStage}</p>
-                            </div>
-                            <div class="col-md-3">
-                                ${ref.needsAction && ref.phone ? `
-                                <button class="btn btn-sm btn-success w-100 remind-btn" 
-                                    data-name="${ref.name}" 
-                                    data-phone="${ref.phone}">
-                                    <i class="fab fa-whatsapp me-2"></i>
-                                    <span data-translate="remindBtn">Remind</span>
-                                </button>
-                                ` : ''}
-                            </div>
-                        </div>
-                        
-                        <div class="mt-2">
-                            <small class="text-muted">
-                                <span data-translate="source">Source</span>: ${ref.source || 'N/A'} | 
-                                <span data-translate="statusDetails">Status Details</span>: ${ref.status}
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-    }
-    
-    // Update status guide section
-    function updateStatusGuide() {
-        const container = document.getElementById('status-guide-content');
-        if (!container) return;
-        
-        const t = translations[AppState.currentLanguage];
-        
-        container.innerHTML = `
-            <div class="row">
-                <!-- Status Examples -->
-                <div class="col-md-6">
-                    <h6 class="mb-3" data-translate="statusExamples">Status Examples</h6>
-                    <div class="status-examples">
-                        ${statusExamples.map(example => {
-                            // Get the correct status type for coloring
-                            let statusType = StatusMapping.getSimplifiedStatusType(example.status);
-                            if (example.status === "Hired (Confirmed)") statusType = 'passed';
-                            if (example.status === "Previously Applied (No Payment)") statusType = 'previously-applied';
-                            
-                            return `
-                                <div class="status-example">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <strong>${t[`status${example.status.replace(/[\s()]/g, '')}`] || example.status}</strong>
-                                        <span class="badge bg-${statusType}">
-                                            ${example.status}
-                                        </span>
-                                    </div>
-                                    <p class="mb-1 mt-2 small">${example.description}</p>
-                                    <small class="text-muted">${example.action}</small>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                </div>
-                
-                <!-- Payment Conditions -->
-                <div class="col-md-6">
-                    <h6 class="mb-3" data-translate="paymentConditions">Payment Conditions</h6>
-                    <div class="table-responsive">
-                        <table class="table status-guide-table">
-                            <thead>
-                                <tr>
-                                    <th data-translate="stage">Stage</th>
-                                    <th data-translate="condition">Condition</th>
-                                    <th data-translate="payment">Payment</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${Object.entries(earningsStructure).map(([key, value]) => `
-                                    <tr>
-                                        <td>${value.label}</td>
-                                        <td>${value.condition}</td>
-                                        <td><strong>${value.payment}</strong></td>
-                                    </tr>
-                                `).join('')}
-                                <tr>
-                                    <td>Previously Applied</td>
-                                    <td data-translate="noPaymentNote">Candidate applied before referral</td>
-                                    <td><strong>No Payment</strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="payment-notes mt-3">
-                        <p class="small mb-1"><i class="fas fa-info-circle me-2"></i>All payments via Touch 'n Go eWallet</p>
-                        <p class="small mb-1"><i class="fas fa-info-circle me-2"></i>Payments processed within 30 days after probation</p>
-                        <p class="small"><i class="fas fa-info-circle me-2"></i>Only xRAF referrals are eligible for payment</p>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    
-    // Update translations
-    function updateTranslations() {
-        const lang = AppState.currentLanguage;
-        const t = translations[lang] || translations.en;
+
+    function updatePageContent() {
+        const translation = translations[currentLanguage] || translations.en;
         
         document.querySelectorAll('[data-translate]').forEach(el => {
             const key = el.getAttribute('data-translate');
-            if (t[key]) {
-                el.textContent = t[key];
+            if (translation[key]) {
+                if (el.tagName === 'INPUT' && el.type === 'button') {
+                    el.value = translation[key];
+                } else {
+                    el.textContent = translation[key];
+                }
             }
         });
         
         document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
             const key = el.getAttribute('data-translate-placeholder');
-            if (t[key]) {
-                el.placeholder = t[key];
+            if (translation[key]) el.placeholder = translation[key];
+        });
+        
+        if (elements.termsContent) {
+            elements.termsContent.innerHTML = translation.termsContent;
+        }
+        
+        phoneHint.textContent = translation.phoneHint;
+        
+        populateJobDropdowns();
+        // Re-apply default values after language change
+        setDefaultValues();
+    }
+
+    function changeLanguage() {
+        currentLanguage = elements.pageLangSelect.value;
+        updatePageContent();
+    }
+
+    // Phone number validation - only allow numbers
+    elements.phoneNumber.addEventListener('input', function() {
+        this.value = this.value.replace(/[^\d]/g, '');
+        
+        if (this.value.length > 0) {
+            phoneHint.style.display = 'block';
+        } else {
+            phoneHint.style.display = 'none';
+        }
+        
+        validateForm();
+    });
+
+    function validatePhoneNumber(phone) {
+        const regex = /^\+601\d{8,9}$/;
+        return regex.test(phone);
+    }
+
+    function validateForm() {
+        let isValid = true;
+        
+        if (!elements.fullName.value.trim()) {
+            elements.fullName.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            elements.fullName.classList.remove('is-invalid');
+        }
+        
+        if (!elements.phoneNumber.value.trim() || elements.phoneNumber.value.trim().length < 8) {
+            elements.phoneNumber.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            elements.phoneNumber.classList.remove('is-invalid');
+        }
+        
+        if (!validateEmail(elements.email.value)) {
+            elements.email.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            elements.email.classList.remove('is-invalid');
+        }
+        
+        if (!elements.jobLangSelect.value) {
+            elements.jobLangSelect.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            elements.jobLangSelect.classList.remove('is-invalid');
+        }
+        
+        if (!elements.locationSelect.value) {
+            elements.locationSelect.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            elements.locationSelect.classList.remove('is-invalid');
+        }
+        
+        if (!elements.consentCheckbox.checked) {
+            elements.consentCheckbox.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            elements.consentCheckbox.classList.remove('is-invalid');
+        }
+        
+        elements.nextBtn.disabled = !isValid;
+        return isValid;
+    }
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    function generateReferral() {
+        if (!validateForm()) return false;
+        
+        const name = elements.fullName.value.trim().replace(/\s+/g, '+');
+        const phone = encodeURIComponent(elements.phoneNumber.value.trim());
+        const email = encodeURIComponent(elements.email.value.trim());
+        const jobLanguage = elements.jobLangSelect.value;
+        const location = elements.locationSelect.value;
+        
+        currentLocation = location.toLowerCase().includes('malaysia') ? 'malaysia' : 
+                         location.toLowerCase().includes('thailand') ? 'thailand' : 'global';
+        
+        const job = jobData.find(
+            item => item.Language === jobLanguage && 
+                   item.Location === location
+        );
+        
+        if (job) {
+            const baseUrl = job['Evergreen link'].split('?')[0];
+            const referralUrl = `${baseUrl}?iis=xRAF&iisn=${name}%7C${phone}%7C${email}`;
+            
+            elements.referralLink.value = referralUrl;
+            generateQRCode(referralUrl);
+            updateSocialLinks();
+            return true;
+        }
+        
+        console.error('No matching job found');
+        return false;
+    }
+
+    function generateQRCode(url) {
+        QRCode.toCanvas(elements.qrCodeCanvas, url, {
+            width: 200,
+            margin: 2,
+            color: {
+                dark: '#000000',
+                light: '#ffffff'
             }
+        }, function(error) {
+            if (error) console.error('QR Code generation error:', error);
         });
     }
-    
-    // Show non-blocking error
-    function showNonBlockingError(message) {
-        const alertContainer = document.getElementById('alert-container');
-        const alertId = 'alert-' + Date.now();
-        
-        const alert = document.createElement('div');
-        alert.id = alertId;
-        alert.className = 'alert alert-warning alert-dismissible fade show';
-        alert.setAttribute('role', 'alert');
-        alert.innerHTML = `
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        
-        alertContainer.appendChild(alert);
-        
-        // Auto-dismiss after 5 seconds
-        setTimeout(() => {
-            const alertEl = document.getElementById(alertId);
-            if (alertEl) {
-                alertEl.classList.remove('show');
-                setTimeout(() => alertEl.remove(), 150);
-            }
-        }, 5000);
+
+    function updateSocialLinks() {
+        elements.locationSocialLinks.innerHTML = '';
+
+        const container = document.createElement('div');
+        container.className = 'social-media-container';
+
+        const sections = [
+            { title: translations[currentLanguage].tpGlobal || 'TP Global', links: locationSocialLinks.global },
+            { title: translations[currentLanguage].followMalaysia || 'TP Malaysia', links: locationSocialLinks.malaysia },
+            { title: translations[currentLanguage].followThailand || 'TP Thailand', links: locationSocialLinks.thailand }
+        ];
+
+        sections.forEach(section => {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'social-media-section';
+            
+            const title = document.createElement('h6');
+            title.textContent = section.title;
+            title.className = 'social-media-title';
+            sectionDiv.appendChild(title);
+            
+            const linksDiv = document.createElement('div');
+            linksDiv.className = 'social-media-links';
+            
+            section.links.forEach(link => {
+                const anchor = document.createElement('a');
+                anchor.href = link.url;
+                anchor.className = `social-icon ${link.icon}`;
+                anchor.target = "_blank";
+                anchor.innerHTML = `<i class="fab fa-${link.icon}"></i>`;
+                anchor.title = link.name;
+                linksDiv.appendChild(anchor);
+            });
+            
+            sectionDiv.appendChild(linksDiv);
+            container.appendChild(sectionDiv);
+        });
+
+        elements.locationSocialLinks.appendChild(container);
+        updateShareButtons();
     }
-    
-    // Initialize the app
-    initializeApp();
-    
-    // Expose state for debugging
-    window.AppState = AppState;
+
+    function updateShareButtons() {
+        const shareUrl = encodeURIComponent(elements.referralLink.value);
+        const shareText = translations[currentLanguage]?.shareMessage || translations.en.shareMessage;
+        const encodedShareText = encodeURIComponent(shareText);
+        
+        elements.shareWhatsapp.onclick = () => {
+            window.open(`https://wa.me/?text=${encodedShareText}${shareUrl}`, '_blank');
+        };
+        
+        elements.shareLine.onclick = () => {
+            window.open(`https://social-plugins.line.me/lineit/share?url=${encodedShareText}${shareUrl}`, '_blank');
+        };
+        
+        elements.shareFacebook.onclick = () => {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank');
+        };
+    }
+
+    function copyToClipboard() {
+        elements.referralLink.select();
+        document.execCommand('copy');
+        
+        const originalText = elements.copyBtn.innerHTML;
+        elements.copyBtn.innerHTML = `<i class="fas fa-check"></i> ${translations[currentLanguage]?.copiedText || 'Copied!'}`;
+        setTimeout(() => {
+            elements.copyBtn.innerHTML = originalText;
+        }, 2000);
+    }
+
+    function showStep2() {
+        if (generateReferral()) {
+            elements.step1.style.display = 'none';
+            elements.step2.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+    }
+
+    function showStep1() {
+        elements.step2.style.display = 'none';
+        elements.step1.style.display = 'block';
+    }
+
+    function setupEventListeners() {
+        elements.pageLangSelect.addEventListener('change', changeLanguage);
+        
+        elements.fullName.addEventListener('input', validateForm);
+        elements.phoneNumber.addEventListener('input', validateForm);
+        elements.email.addEventListener('input', validateForm);
+        
+        elements.jobLangSelect.addEventListener('change', function() {
+            updateLocationsByLanguage();
+            validateForm();
+        });
+        
+        elements.locationSelect.addEventListener('change', validateForm);
+        elements.consentCheckbox.addEventListener('change', validateForm);
+        
+        elements.nextBtn.addEventListener('click', showStep2);
+        elements.backBtn.addEventListener('click', showStep1);
+        
+        elements.copyBtn.addEventListener('click', copyToClipboard);
+        
+        const termsModal = new bootstrap.Modal(elements.termsModal);
+        document.querySelector('[data-bs-target="#termsModal"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            termsModal.show();
+        });
+    }
+
+    init();
 });
